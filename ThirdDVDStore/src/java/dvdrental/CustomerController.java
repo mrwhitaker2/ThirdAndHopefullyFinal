@@ -48,22 +48,14 @@ public class CustomerController extends HttpServlet {
         String search = request.getParameter("search");
 
         if (action.equalsIgnoreCase("custlogin")) {
-           // int product_id = Integer.parseInt(request.getParameter("product_id"));
-           // dao.deleteProduct(product_id);
             forward = CUST_LOGIN;
-            //request.setAttribute("products", dao.getAllProducts());
         } else if (action.equalsIgnoreCase("welcome")) {
             forward = WELCOME;
-           // int product_id = Integer.parseInt(request.getParameter("product_id"));
-            //Product product = dao.getProductById(product_id);
-            //request.setAttribute("product", product);
         } else if (action.equalsIgnoreCase("browse")) {
-            forward = BROWSE;
-           // request.setAttribute("products", dao.getAllProducts());
+            forward = BROWSE;           
       }
          else if (action.equalsIgnoreCase("emplogin")) {
             forward = EMP_LOGIN;
-           // request.setAttribute("products", dao.getSearchProducts(request.getParameter("order_num")));
       } 
         else {
             forward = CREATE_CUSTOMER;
