@@ -27,6 +27,6 @@
             <input
                            type="submit" value="Submit" />
             
-            <p><a href="CustomerController?action=response">Create an Account</a></p>
+            <p><a href="CustomerController?action=custcreate">Create an Account</a></p>
     </body>
 </html>

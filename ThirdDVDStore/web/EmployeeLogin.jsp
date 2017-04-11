@@ -4,7 +4,9 @@
     Author     : mrwhi
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +14,19 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello Employees!</h1>
+        
+        <h1> Employee Login! </h1>
+        
+         <form method="POST" action='CustomerController' name="frmCustomer"> 
+            Username : <input
+                type="text" required  name="Username"
+                value="<c:out value="${employee.username}" />" /> <br /> 
+            Password : <input
+                type="text" required  name="Password"
+                value="<c:out value="${employee.password}" />" /> <br /> 
+            <input
+                           type="submit" value="Submit" />
+            
+            <p><a href="EmployeeController?action=empcreate">Create an Employee Account</a></p>
     </body>
 </html>
