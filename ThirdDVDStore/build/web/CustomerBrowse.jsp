@@ -14,6 +14,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1 text="Hello <c:out value="${customer.Username}"/>
+        <h1> Hello <%=request.getParameter("Username")%></h1> 
+        
+        
+            
+            
     </body>
 </html>
