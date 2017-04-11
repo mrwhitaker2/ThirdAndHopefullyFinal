@@ -14,7 +14,15 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1> Search for your movie  </h1> 
+        <h1> Search your movie:  </h1> 
+        
+        <form method="post" action="SearchController?action=search">
+        Search Category (Genre, Actor Last Name, Store): 
+            <input type="text" name="criteria" /><br/>
+        Search Field: <input type="text" name="field" /><br/>
+        <input type="submit" value="Search" />
+        </form>
+
         
    
         

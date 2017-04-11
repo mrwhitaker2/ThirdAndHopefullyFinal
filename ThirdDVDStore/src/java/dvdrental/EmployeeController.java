@@ -72,8 +72,6 @@ public class EmployeeController extends HttpServlet {
         else {
             forward = MENU;
         }
-        
-        
 
         //fowards it to the specific page
         RequestDispatcher view = request.getRequestDispatcher(forward);
