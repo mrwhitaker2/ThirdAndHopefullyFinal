@@ -64,6 +64,22 @@ public class CustomerController extends HttpServlet {
             forward = EMP_LOGIN;
            
       } 
+         else if(action.equalsIgnoreCase("custverify")){
+              String Username = (request.getParameter("Username"));
+              String Password = (request.getParameter("Password"));
+              Customer customer = dao.verifyCustomer(Username, Password);
+              
+              if (customer == null){
+                  forward = CUST_LOGIN;
+              }
+              else{ 
+                  //Customer customer = dao.getCustomer(Username);
+                  request.setAttribute("customer", customer);
+                  forward = BROWSE;
+              }
+              
+         }
+         
         else {
             forward = CREATE_CUSTOMER;
         }

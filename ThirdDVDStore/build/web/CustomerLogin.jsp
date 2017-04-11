@@ -24,8 +24,8 @@
             Password : <input
                 type="text" required  name="Password"
                 value="<c:out value="${customer.Password}" />" /> <br /> 
-            <input
-                           type="submit" value="Submit" />
+            
+            <input href="CustomerController?action=custverify"  type="submit" value="Submit" />
             
             <p><a href="CustomerController?action=custcreate">Create an Account</a></p>
     </body>

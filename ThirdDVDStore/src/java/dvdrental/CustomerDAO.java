@@ -7,7 +7,9 @@ package dvdrental;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -40,5 +42,60 @@ public class CustomerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public Customer verifyCustomer (String Username, String Password){
+        
+        Boolean isVerified = false;
+        Customer customer = new Customer();
+        
+          try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select * from CustomerNoBS where Username=? and Password=?");
+            
+            preparedStatement.setString(1, Username);
+            preparedStatement.setString(2, Password);
+
+           int updateCheck = preparedStatement.executeUpdate();     
+           if(updateCheck != 0){  
+               
+               isVerified = true;
+               Statement stm;
+               stm = connection.createStatement();
+               String sql = "select * from CustomerNoBS where username =" + Username;
+               ResultSet rst;
+               rst = stm.executeQuery(sql);
+               while(rst.next())
+               {
+                   customer.setCustomer_Id(rst.getInt("Customer_Id"));
+                   customer.setUsername(rst.getString("Username"));
+                   customer.setPassword(rst.getString("Password"));
+                   customer.setCustomer_Pref(rst.getString("Customer_Pref"));
+                   customer.setPayment(rst.getString("Payment"));
+                   customer.setEmail(rst.getString("Email"));
+               }
+           }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+          
+          
+          return customer;
+        
+    }
+    
+    public Customer getCustomer (String Username){
+        
+        Customer customer = new Customer();
+        
+        //customer.setCustomer_Id();
+        customer.setUsername(Username);
+       // customer.setPassword()
+        
+        
+        
+        return customer;
+        
     }
 }
