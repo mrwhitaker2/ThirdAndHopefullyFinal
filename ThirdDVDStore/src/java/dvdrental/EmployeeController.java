@@ -28,6 +28,7 @@ public class EmployeeController extends HttpServlet {
     private static String EMP_LOGIN = "/EmployeeLogin.jsp";
     private static String BROWSE = "/CustomerBrowse.jsp";
     private static String CREATE_EMP = "/EmployeeCreate.jsp";
+    private static String MENU = "/EmployeeMenu.jsp";
    
     private EmployeeDAO dao;
 
@@ -59,7 +60,7 @@ public class EmployeeController extends HttpServlet {
             forward = CREATE_EMP;
       } 
         else {
-            forward = CREATE_CUSTOMER;
+            forward = MENU;
         }
         
         
@@ -74,14 +75,10 @@ public class EmployeeController extends HttpServlet {
         Employee employee = new Employee();
         employee.setFirst_name(request.getParameter("first_name"));
         employee.setLast_name(request.getParameter("last_name"));
-        employee.setAddress_id(request.getParameter("address_id"));
         employee.setEmail(request.getParameter("email"));
-        employee.setStore_id(request.getParameter("store_id"));
-        employee.setActive(true);
         employee.setUsername(request.getParameter("username"));
         employee.setPassword(request.getParameter("password"));
-        employee.setLast_update("04/15/2017");
-        employee.setPicture("null");
+
 
        
         dao.addEmployee(employee);

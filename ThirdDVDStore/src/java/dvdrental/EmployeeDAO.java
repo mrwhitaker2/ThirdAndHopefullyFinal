@@ -24,18 +24,14 @@ public class EmployeeDAO {
     public void addEmployee(Employee employee) {
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("insert into staff(first_name,last_name,address_id,email,store_id,active,username,password,last_update,picture) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+                    .prepareStatement("insert into StaffNoBS(Username,Password,first_name,last_name,email) values ( ?, ?, ?, ?, ? )");
           
-            preparedStatement.setString(1, employee.getFirst_name());
-            preparedStatement.setString(2, employee.getLast_name());
-            preparedStatement.setString(3, employee.getAddress_id());
-            preparedStatement.setString(4, employee.getEmail());
-            preparedStatement.setString(5, employee.getStore_id());
-            preparedStatement.setBoolean(6, employee.getActive());
-            preparedStatement.setString(7, employee.getUsername());
-            preparedStatement.setString(8, employee.getPassword());
-            preparedStatement.setString(9, employee.getLast_update());
-            preparedStatement.setString(10, employee.getPicture());
+            preparedStatement.setString(1, employee.getUsername());
+            preparedStatement.setString(2, employee.getPassword());
+            preparedStatement.setString(3, employee.getFirst_name());
+            preparedStatement.setString(4, employee.getLast_name());
+            preparedStatement.setString(5, employee.getEmail());
+     
             
 
             preparedStatement.executeUpdate();
