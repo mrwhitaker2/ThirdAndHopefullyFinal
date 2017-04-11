@@ -30,7 +30,9 @@ public class CustomerController extends HttpServlet {
     private static String CUST_LOGIN = "/CustomerLogin.jsp";
     private static String EMP_LOGIN = "/EmployeeLogin.jsp";
     private static String BROWSE = "/CustomerBrowse.jsp";
+    private static String VIEW_CUST = "/CustomerProfile.jsp";
 
+    
     private CustomerDAO dao;
 
     public CustomerController() {
@@ -58,6 +60,8 @@ public class CustomerController extends HttpServlet {
 
         } else if (action.equalsIgnoreCase("emplogin")) {
             forward = EMP_LOGIN;
+        } else if (action.equalsIgnoreCase("viewcustomers")){
+            forward = VIEW_CUST;
         }
 
 //        } else if (action.equalsIgnoreCase("custverify")) {
