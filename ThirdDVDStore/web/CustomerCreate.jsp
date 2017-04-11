@@ -12,27 +12,27 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Create Customer Page</title>
     </head>
     <body>
         <h1>Welcome! </h1>
         
           <form method="POST" action='CustomerController' name="frmAddCustomer"> 
             Username : <input
-                type="text" required  name="Username"
-                value="<c:out value="${customer.Username}" />" /> <br /> 
+                type="text" required  name="Username" 
+                value="<c:out value="${customer.Username}" />" /> <br />
             Password : <input
-                type="text" required  name="Password"
+                type="password" required  name="Password"  minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                 value="<c:out value="${customer.Password}" />" /> <br /> 
             Customer Movie Preference : <input
-                type="text" required  name="Customer_Pref"
+                type="text" required  name="Customer_Pref" 
                 value="<c:out value="${customer.Customer_Pref}" />" /> <br /> 
             Payment Method : <input
-                type="text" required  name="Payment"
+                type="text" required  name="Payment" 
                 value="<c:out value="${customer.Payment}" />" /> <br /> 
             Email : <input
-                type="text" required  name="Email"
-                value="<c:out value="${customer.Email}" />" /> <br /> 
+                type="email" required  name="Email" 
+                value="<c:out value="${customer.Email}" />" /> <br />
             <br /> <input
                            type="submit" value="Submit" />
         </form>
