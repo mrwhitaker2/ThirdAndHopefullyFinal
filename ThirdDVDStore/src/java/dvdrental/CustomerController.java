@@ -1,3 +1,5 @@
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -26,11 +28,10 @@ public class CustomerController extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
     private static String WELCOME = "/welcome.jsp";
-    private static String CUST_LOGIN = "/CustomerLogin.jsp";
     private static String CREATE_CUSTOMER = "/CustomerCreate.jsp";
-    private static String BROWSE = "/CustomerBrowse.jsp";
+    private static String CUST_LOGIN = "/CustomerLogin.jsp";
     private static String EMP_LOGIN = "/EmployeeLogin.jsp";
-    
+    private static String BROWSE = "/CustomerBrowse.jsp";
    
     private CustomerDAO dao;
 
@@ -46,23 +47,22 @@ public class CustomerController extends HttpServlet {
 
         String action = request.getParameter("action");
         
-        if(action.equalsIgnoreCase("welcome")){
-             forward = WELCOME;
-        }
-        else if (action.equalsIgnoreCase("custlogin")) {
+        String search = request.getParameter("search");
+
+        if (action.equalsIgnoreCase("custlogin")) {
+           
             forward = CUST_LOGIN;
-        } else if (action.equalsIgnoreCase("emplogin")) {
             
-            forward = EMP_LOGIN;
-        } else if(action.equalsIgnoreCase("custcreate")){
-            
-            forward = CREATE_CUSTOMER;
-        }
-        else if (action.equalsIgnoreCase("browse")) {
-            forward = BROWSE;           
+        } else if (action.equalsIgnoreCase("welcome")) {
+            forward = WELCOME;
+          
+        } else if (action.equalsIgnoreCase("browse")) {
+            forward = BROWSE;
+          
       }
          else if (action.equalsIgnoreCase("emplogin")) {
             forward = EMP_LOGIN;
+           
       } 
         else {
             forward = CREATE_CUSTOMER;
@@ -97,3 +97,4 @@ public class CustomerController extends HttpServlet {
  
 
 }
+
