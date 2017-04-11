@@ -7,9 +7,6 @@ package dvdrental;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,23 +18,23 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author mrwhi
  */
-@WebServlet(name = "CustomerController", urlPatterns = {"/CustomerController"})
-public class CustomerController extends HttpServlet {
-    
-    private static final long serialVersionUID = 1L;
+@WebServlet(name = "EmployeeController", urlPatterns = {"/EmployeeController"})
+public class EmployeeController extends HttpServlet {
+
+     private static final long serialVersionUID = 1L;
     private static String WELCOME = "/welcome.jsp";
-    private static String CUST_LOGIN = "/CustomerLogin.jsp";
     private static String CREATE_CUSTOMER = "/CustomerCreate.jsp";
-    private static String BROWSE = "/CustomerBrowse.jsp";
+    private static String CUST_LOGIN = "/CustomerLogin.jsp";
     private static String EMP_LOGIN = "/EmployeeLogin.jsp";
-    
+    private static String BROWSE = "/CustomerBrowse.jsp";
+    private static String CREATE_EMP = "/EmployeeCreate.jsp";
    
-    private CustomerDAO dao;
+    private EmployeeDAO dao;
 
    
-    public CustomerController() {
+    public EmployeeController() {
         super();
-        dao = new CustomerDAO();
+        dao = new EmployeeDAO();
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,23 +43,20 @@ public class CustomerController extends HttpServlet {
 
         String action = request.getParameter("action");
         
-        if(action.equalsIgnoreCase("welcome")){
-             forward = WELCOME;
-        }
-        else if (action.equalsIgnoreCase("custlogin")) {
+        String search = request.getParameter("search");
+
+        if (action.equalsIgnoreCase("custlogin")) {
             forward = CUST_LOGIN;
-        } else if (action.equalsIgnoreCase("emplogin")) {
-            
-            forward = EMP_LOGIN;
-        } else if(action.equalsIgnoreCase("custcreate")){
-            
-            forward = CREATE_CUSTOMER;
-        }
-        else if (action.equalsIgnoreCase("browse")) {
+        } else if (action.equalsIgnoreCase("welcome")) {
+            forward = WELCOME;
+        } else if (action.equalsIgnoreCase("browse")) {
             forward = BROWSE;           
       }
          else if (action.equalsIgnoreCase("emplogin")) {
             forward = EMP_LOGIN;
+      } 
+          else if (action.equalsIgnoreCase("empcreate")) {
+            forward = CREATE_EMP;
       } 
         else {
             forward = CREATE_CUSTOMER;
@@ -77,23 +71,25 @@ public class CustomerController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Customer customer = new Customer();
-        customer.setUsername(request.getParameter("Username"));
-        customer.setPassword(request.getParameter("Password"));
-        customer.setCustomer_Pref(request.getParameter("Customer_Pref"));
-        customer.setPayment(request.getParameter("Payment"));
-        customer.setEmail(request.getParameter("Email"));
-        
+        Employee employee = new Employee();
+        employee.setFirst_name(request.getParameter("first_name"));
+        employee.setLast_name(request.getParameter("last_name"));
+        employee.setAddress_id(request.getParameter("address_id"));
+        employee.setEmail(request.getParameter("email"));
+        employee.setStore_id(request.getParameter("store_id"));
+        employee.setActive(true);
+        employee.setUsername(request.getParameter("username"));
+        employee.setPassword(request.getParameter("password"));
+        employee.setLast_update("04/15/2017");
+        employee.setPicture("null");
+
        
-            dao.addCustomer(customer);
+        dao.addEmployee(employee);
         
-       
- 
         RequestDispatcher view = request.getRequestDispatcher(BROWSE);
        // request.setAttribute("products", dao.getAllProducts());
         view.forward(request, response);
     }
     
- 
 
 }
