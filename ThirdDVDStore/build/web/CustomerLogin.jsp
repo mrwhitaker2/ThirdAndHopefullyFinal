@@ -18,8 +18,8 @@
         <h1> Login! </h1>
         
         <form method="post" action="CustLoginController?action=login">
-        Username:<input type="text" name="Username" /><br/>
-        Password:<input type="text" name="Password" /><br/>
+        Username:<input type="text" value="<c:out value="${customer.Username}" />" name="Username" /><br/>
+        Password:<input type="text" value="<c:out value="${customer.Password}" />"name="Password" /><br/>
         <input type="submit" value="login" />
         </form>
 

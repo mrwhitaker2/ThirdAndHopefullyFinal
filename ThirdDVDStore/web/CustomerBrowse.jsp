@@ -14,7 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1> Hello <c:out value="${customer.Username}" /></h1> 
+        <h1> Hello  </h1> 
         
    
         

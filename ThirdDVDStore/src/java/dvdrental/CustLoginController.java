@@ -33,7 +33,7 @@ public class CustLoginController extends HttpServlet {
         String Password = request.getParameter("Password");
         
         if(ValidateLogin.checkUser(Username, Password))
-        {
+        { 
             RequestDispatcher rs = request.getRequestDispatcher(BROWSE);
             rs.forward(request, response);
         }
