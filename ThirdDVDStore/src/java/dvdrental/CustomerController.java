@@ -25,8 +25,10 @@ import javax.servlet.http.HttpServletResponse;
 public class CustomerController extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
+    private static String WELCOME = "/welcome.jsp";
     private static String CREATE_CUSTOMER = "/CustomerCreate.jsp";
-    private static String LOGIN = "/CustomerLogin.jsp";
+    private static String CUST_LOGIN = "/CustomerLogin.jsp";
+    private static String EMP_LOGIN = "/EmployeeLogin.jsp";
     private static String BROWSE = "/CustomerBrowse.jsp";
    
     private CustomerDAO dao;
@@ -45,13 +47,13 @@ public class CustomerController extends HttpServlet {
         
         String search = request.getParameter("search");
 
-        if (action.equalsIgnoreCase("login")) {
+        if (action.equalsIgnoreCase("custlogin")) {
            // int product_id = Integer.parseInt(request.getParameter("product_id"));
            // dao.deleteProduct(product_id);
-            forward = LOGIN;
+            forward = CUST_LOGIN;
             //request.setAttribute("products", dao.getAllProducts());
-        } else if (action.equalsIgnoreCase("edit")) {
-            forward = CREATE_CUSTOMER;
+        } else if (action.equalsIgnoreCase("welcome")) {
+            forward = WELCOME;
            // int product_id = Integer.parseInt(request.getParameter("product_id"));
             //Product product = dao.getProductById(product_id);
             //request.setAttribute("product", product);
@@ -59,8 +61,8 @@ public class CustomerController extends HttpServlet {
             forward = BROWSE;
            // request.setAttribute("products", dao.getAllProducts());
       }
-         else if (action.equalsIgnoreCase("search")) {
-            forward = BROWSE;
+         else if (action.equalsIgnoreCase("emplogin")) {
+            forward = EMP_LOGIN;
            // request.setAttribute("products", dao.getSearchProducts(request.getParameter("order_num")));
       } 
         else {
