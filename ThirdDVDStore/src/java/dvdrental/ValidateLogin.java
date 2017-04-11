@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  */
 public class ValidateLogin {
 
-    public static boolean checkUser(String Username, String Password) {
+    public static boolean checkCustomer(String Username, String Password) {
         boolean st = false;
         try {
 
@@ -26,6 +26,27 @@ public class ValidateLogin {
             //creating connection with the database 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
             PreparedStatement ps = con.prepareStatement("select * from customernobs where Username=? and Password=?");
+            ps.setString(1, Username);
+            ps.setString(2, Password);
+            ResultSet rs = ps.executeQuery();
+            st = rs.next();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return st;
+    }
+    
+    public static boolean checkEmployee(String Username, String Password) {
+        boolean st = false;
+        try {
+
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement("select * from staffnobs where Username=? and Password=?");
             ps.setString(1, Username);
             ps.setString(2, Password);
             ResultSet rs = ps.executeQuery();

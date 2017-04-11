@@ -17,15 +17,11 @@
         
         <h1> Employee Login! </h1>
         
-         <form method="POST" action='CustomerController' name="frmCustomer"> 
-            Username : <input
-                type="text" required  name="Username"
-                value="<c:out value="${employee.username}" />" /> <br /> 
-            Password : <input
-                type="text" required  name="Password"
-                value="<c:out value="${employee.password}" />" /> <br /> 
-            <input
-                           type="submit" value="Submit" />
+        <form method="post" action="EmpLoginController?action=login">
+        Username:<input type="text" value="<c:out value="${employee.Username}" />" name="Username" /><br/>
+        Password:<input type="text" value="<c:out value="${employee.Password}" />"name="Password" /><br/>
+        <input type="submit" value="login" />
+        </form>
             
             <p><a href="EmployeeController?action=empcreate">Create an Employee Account</a></p>
     </body>

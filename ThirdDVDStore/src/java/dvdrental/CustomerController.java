@@ -58,6 +58,7 @@ public class CustomerController extends HttpServlet {
 
         } else if (action.equalsIgnoreCase("emplogin")) {
             forward = EMP_LOGIN;
+        }
 
 //        } else if (action.equalsIgnoreCase("custverify")) {
 //            String Username = (request.getParameter("Username"));
@@ -74,9 +75,9 @@ public class CustomerController extends HttpServlet {
 //            }
 //
 //        } else {
-            forward = CREATE_CUSTOMER;
-        }
-
+            //forward = CREATE_CUSTOMER;
+       // }
+        
         //fowards it to the specific page
         RequestDispatcher view = request.getRequestDispatcher(forward);
 
