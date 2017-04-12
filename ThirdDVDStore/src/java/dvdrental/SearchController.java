@@ -38,14 +38,10 @@ public class SearchController extends HttpServlet {
         if (criteria.equalsIgnoreCase("Genre")) {
             
             FilmDAO.searchGenre(field);
-            request.setAttribute("films", FilmDAO.searchGenre(field));
+            request.setAttribute("films", FilmDAO.getSearchResults());
             RequestDispatcher rs = request.getRequestDispatcher(RESULTS);
-            rs.forward(request, response);
-           
-                // RequestDispatcher rs = request.getRequestDispatcher(BROWSE);
-                 //rs.forward(request, response);
+            rs.forward(request, response); 
         
-
         } else if (criteria.equalsIgnoreCase("Actor")) {
 
             FilmDAO.searchActor(field);

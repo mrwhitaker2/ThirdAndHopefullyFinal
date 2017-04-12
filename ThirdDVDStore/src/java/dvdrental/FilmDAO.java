@@ -19,11 +19,11 @@ import java.util.List;
 public class FilmDAO {
     
     private static boolean st = false;
+    private static ResultSet rs;
+    private static List<Film> films = new ArrayList<Film>();
    
-    public static List<Film> searchGenre(String field) {
-       
-        List<Film> films = new ArrayList<Film>();
-        
+    public static void searchGenre(String field) {
+         
         try {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
@@ -39,9 +39,9 @@ public class FilmDAO {
                             + " ON F.film_id = FC.film_id"
                             + " JOIN category as C"
                             + " ON FC.category_id = C.category_id"
-                            + " where C.name = '?'");       
+                            + " where C.name =?");       
             ps.setString(1, field);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
              while (rs.next()) {
                 Film film = new Film();
                 film.setFilm_id(rs.getInt("film_id"));
@@ -49,12 +49,17 @@ public class FilmDAO {
                 film.setDescription(rs.getString("description"));
                 films.add(film);
             }
-            //st = rs.next();
 
         } catch (Exception e) {
             e.printStackTrace();
         } 
-        return films;
+        
+    }
+    
+    public static List<Film> getSearchResults (){
+        
+         return films;
+    
     }
     
     

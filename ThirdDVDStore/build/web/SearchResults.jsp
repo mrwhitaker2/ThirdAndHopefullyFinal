@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody >
-                <c:forEach items="${films}" var="product">
+                <c:forEach items="${films}" var="film">
                     <tr>
                         <td><c:out value="${film.title}" /></td>
                         <td><c:out value="${film.description}" /></td>
