@@ -7,14 +7,13 @@ package dvdrental;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -26,16 +25,21 @@ public class CustLoginController extends HttpServlet {
     private static String BROWSE = "/CustomerBrowse.jsp";
     private static String CUST_LOGIN = "/CustomerLogin.jsp";
     
+    
+    
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
+       HttpSession ses = request.getSession(true);
+        
         Customer customer = new Customer(); //this is the current customer that will be making transactions 
-
+        
+        
         String Username = request.getParameter("Username");
-        String Password = request.getParameter("Password");
+         String Password = request.getParameter("Password");
         customer.setUsername(Username);
         customer.setPassword(Password);
         
@@ -52,7 +56,9 @@ public class CustLoginController extends HttpServlet {
             customer.setPayment(customer1.getPayment());
             customer.setEmail(customer1.getEmail());
             
-            //request.setAttribute("customer", customer);
+           
+            
+            ses.setAttribute("Username", Username);
             RequestDispatcher rs = request.getRequestDispatcher(BROWSE);
             rs.forward(request, response);
             
