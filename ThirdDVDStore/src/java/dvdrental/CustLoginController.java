@@ -7,6 +7,8 @@ package dvdrental;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,29 +22,37 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "CustLoginController", urlPatterns = {"/CustLoginController"})
 public class CustLoginController extends HttpServlet {
-    
+
     private static String BROWSE = "/CustomerBrowse.jsp";
     private static String CUST_LOGIN = "/CustomerLogin.jsp";
+    private int customer_id;
+    Customer customer = new Customer();
 
-   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+
         String Username = request.getParameter("Username");
         String Password = request.getParameter("Password");
         
-        if(ValidateLogin.checkCustomer(Username, Password))
-        { 
+        
+        if(ValidateLogin.checkCustomer(Username, Password)){
+            
+            customer = ValidateLogin.searchCustomer(Username, Password);
+            
+           // request.setAttribute("customer", customer);
             RequestDispatcher rs = request.getRequestDispatcher(BROWSE);
             rs.forward(request, response);
+            
         }
-        else
-        {
-           out.println("Username or Password incorrect");
-           RequestDispatcher rs = request.getRequestDispatcher(CUST_LOGIN);
-           rs.include(request, response);
-        }
-    }  
+            else {
+            out.println("Username or Password incorrect");
+            RequestDispatcher rs = request.getRequestDispatcher(CUST_LOGIN);
+            rs.include(request, response);
+            }
+    }
+
 
 }
+
