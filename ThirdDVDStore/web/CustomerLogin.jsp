@@ -17,16 +17,12 @@
         
         <h1> Login! </h1>
         
-         <form method="POST" action='CustomerController' name="frmCustomer"> 
-            Username : <input
-                type="text" required  name="Username"
-                value="<c:out value="${customer.Username}" />" /> <br /> 
-            Password : <input
-                type="text" required  name="Password"
-                value="<c:out value="${customer.Password}" />" /> <br /> 
-            <input
-                           type="submit" value="Submit" />
-            
+        <form method="post" action="CustLoginController?action=login">
+        Username:<input type="text" value="<c:out value="${customer.Username}" />" name="Username" /><br/>
+        Password:<input type="password" value="<c:out value="${customer.Password}" />"name="Password" /><br/>
+        <input type="submit" value="login" />
+        </form>
+
             <p><a href="CustomerController?action=custcreate">Create an Account</a></p>
     </body>
 </html>
