@@ -15,7 +15,7 @@
     </head>
     <body>
         
-        <h1> Hello <c:out value="${customer.Username}" /> </h1>
+        <h1> Hello <c:out value="${customer.Username}" />  </h1>
         
         <h2> Search your movie:  </h2> 
         
