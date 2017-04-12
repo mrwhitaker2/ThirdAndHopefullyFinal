@@ -25,23 +25,34 @@ public class CustLoginController extends HttpServlet {
 
     private static String BROWSE = "/CustomerBrowse.jsp";
     private static String CUST_LOGIN = "/CustomerLogin.jsp";
-    private int customer_id;
-    Customer customer = new Customer();
+    
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
+        Customer customer = new Customer(); //this is the current customer that will be making transactions 
 
         String Username = request.getParameter("Username");
         String Password = request.getParameter("Password");
+        customer.setUsername(Username);
+        customer.setPassword(Password);
         
         
         if(ValidateLogin.checkCustomer(Username, Password)){
             
-            customer = ValidateLogin.searchCustomer(Username, Password);
+            Customer customer1 = new Customer();
+            customer1 = ValidateLogin.searchCustomer(Username, Password);
             
-           // request.setAttribute("customer", customer);
+            customer.setCustomer_Id(customer1.getCustomer_Id());
+            customer.setUsername(customer1.getUsername());
+            customer.setPassword(customer1.getPassword());
+            customer.setCustomer_Pref(customer1.getCustomer_Pref());
+            customer.setPayment(customer1.getPayment());
+            customer.setEmail(customer1.getEmail());
+            
+            //request.setAttribute("customer", customer);
             RequestDispatcher rs = request.getRequestDispatcher(BROWSE);
             rs.forward(request, response);
             
