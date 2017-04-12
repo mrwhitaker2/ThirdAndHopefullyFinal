@@ -31,7 +31,7 @@ public class FilmDAO {
             //creating connection with the database 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
             PreparedStatement ps = con.prepareStatement(
-                    " SELECT * "
+                    " SELECT DISTINCT F.film_id, F.title, F.description, F.rental_duration, F.rental_rate, F.rating"
                             + " FROM inventory as I"
                             + " JOIN film as F"
                             + " ON I.film_id = F.film_id"
@@ -68,7 +68,7 @@ public class FilmDAO {
             //creating connection with the database 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
             PreparedStatement ps = con.prepareStatement(
-                    " SELECT *"
+                    " SELECT DISTINCT F.film_id, F.title, F.description, F.rental_duration, F.rental_rate, F.rating"
                             + " FROM inventory as I"
                             + " JOIN film as F"
                             + " ON I.film_id = F.film_id"
@@ -106,7 +106,7 @@ public class FilmDAO {
             //creating connection with the database 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
             PreparedStatement ps = con.prepareStatement(
-                    " SELECT *"
+                    " SELECT DISTINCT F.film_id, F.title, F.description, F.rental_duration, F.rental_rate, F.rating"
                             + " FROM film as F"
                             + " JOIN inventory as I"
                             + " ON F.film_id = I.film_id"
