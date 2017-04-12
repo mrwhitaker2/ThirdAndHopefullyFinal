@@ -29,7 +29,7 @@
                         <td><c:out value="${film.title}" /></td>
                         <td><c:out value="${film.description}" /></td>
                         
-                        <td><a href="CustomerController?action=addcart&film_id=<c:out value="${film.film_id}"/>">Add to Cart</a></td>
+                        <td><a href="CustomerController?actionaddcart=&film_id=<c:out value="${film.film_id}"/>">Add to Cart</a></td>
                         <td><a href="CustomerController?action=addwishlist&film_id=<c:out value="${film.film_id}"/>">Add to Wishlist</a></td>
                         <td><a href="CustomerController?action=viewcart">View Cart</a></td>
                     </tr>
