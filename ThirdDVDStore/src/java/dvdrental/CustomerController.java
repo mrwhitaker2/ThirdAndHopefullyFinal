@@ -31,6 +31,7 @@ public class CustomerController extends HttpServlet {
     private static String EMP_LOGIN = "/EmployeeLogin.jsp";
     private static String BROWSE = "/CustomerBrowse.jsp";
     private static String VIEW_CUST = "/CustomerProfile.jsp";
+    private static String VIEW_CART = "/ShoppingCart.jsp";
 
     
     private CustomerDAO dao;
@@ -62,6 +63,10 @@ public class CustomerController extends HttpServlet {
             forward = EMP_LOGIN;
         } else if (action.equalsIgnoreCase("viewcustomers")){
             forward = VIEW_CUST;
+        }
+        else if (action.equalsIgnoreCase("viewcart")){
+            
+            forward = VIEW_CART; 
         }
 
 //        } else if (action.equalsIgnoreCase("custverify")) {
