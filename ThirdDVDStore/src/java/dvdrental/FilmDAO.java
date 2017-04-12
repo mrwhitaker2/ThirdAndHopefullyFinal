@@ -31,7 +31,7 @@ public class FilmDAO {
             //creating connection with the database 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
             PreparedStatement ps = con.prepareStatement(
-                    " SELECT F.film_id, F.title, F.description"
+                    " SELECT * "
                             + " FROM inventory as I"
                             + " JOIN film as F"
                             + " ON I.film_id = F.film_id"
@@ -47,6 +47,9 @@ public class FilmDAO {
                 film.setFilm_id(rs.getInt("film_id"));
                 film.setTitle(rs.getString("title"));
                 film.setDescription(rs.getString("description"));
+                film.setRental_duration(rs.getString("rental_duration"));
+                film.setRental_rate(rs.getString("rental_rate"));
+                film.setRating(rs.getString("rating"));
                 films.add(film);
             }
 
@@ -55,20 +58,46 @@ public class FilmDAO {
         } 
         
     }
-    
-    public static List<Film> getSearchResults (){
-        
-         return films;
-    
-    }
-    
-    
-    
-    
-    
-     public static List<Film> searchActor(String field) {
+      
+     public static void searchActor(String field) {
          
-         List<Film> films = new ArrayList<Film>();
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    " SELECT *"
+                            + " FROM inventory as I"
+                            + " JOIN film as F"
+                            + " ON I.film_id = F.film_id"
+                            + " JOIN film_actor as FA"
+                            + " ON F.film_id = FA.film_id"
+                            + " JOIN actor as A"
+                            + " ON FA.actor_id = A.actor_id"
+                            + " where A.last_name = ?");       
+            ps.setString(1, field);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Film film = new Film();
+                film.setFilm_id(rs.getInt("film_id"));
+                film.setTitle(rs.getString("title"));
+                film.setDescription(rs.getString("description"));
+                film.setRental_duration(rs.getString("rental_duration"));
+                film.setRental_rate(rs.getString("rental_rate"));
+                film.setRating(rs.getString("rating"));
+                films.add(film);
+            }
+            st = rs.next();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+     
+     public static boolean searchStore(String field) {
        
         try {
             //loading drivers for mysql
@@ -77,58 +106,37 @@ public class FilmDAO {
             //creating connection with the database 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
             PreparedStatement ps = con.prepareStatement(
-                    " SELECT F.film_id, F.title, F.description"
-                            + " FROM inventory as I"
-                            + " JOIN film as F"
-                            + " ON I.film_id = F.film_id"
-                            + " JOIN film_actor as FA"
-                            + " ON F.film_id = FA.film_id"
-                            + " JOIN actor as A"
-                            + " ON FA.actor_id = A.actor_id"
-                            + " where A.last_name = '?'");       
+                    " SELECT *"
+                            + " FROM film as F"
+                            + " JOIN inventory as I"
+                            + " ON F.film_id = I.film_id"
+                            + " JOIN store as S"
+                            + " ON I.store_id = S.store_id"
+                            + " where S.store_id = ?");       
             ps.setString(1, field);
             ResultSet rs = ps.executeQuery();
+            st = rs.next();
              while (rs.next()) {
                 Film film = new Film();
                 film.setFilm_id(rs.getInt("film_id"));
                 film.setTitle(rs.getString("title"));
                 film.setDescription(rs.getString("description"));
+                film.setRental_duration(rs.getString("rental_duration"));
+                film.setRental_rate(rs.getString("rental_rate"));
+                film.setRating(rs.getString("rating"));
                 films.add(film);
             }
-            st = rs.next();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return films;
+        return st;
     }
-     
-//     public static boolean searchStore(String field) {
-//       
-//        try {
-//            //loading drivers for mysql
-//            Class.forName("com.mysql.jdbc.Driver");
-//
-//            //creating connection with the database 
-//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
-//            PreparedStatement ps = con.prepareStatement(
-//                    " SELECT F.title, F.description, C.'name'"
-//                            + " FROM film as F"
-//                            + " JOIN film_category as FC"
-//                            + " ON F.film_id = FC.film_id"
-//                            + " JOIN category as C"
-//                            + " ON FC.category_id = C.category_id"
-//                            + " where C.name = '?'");       
-//            ps.setString(1, field);
-//            ResultSet rs = ps.executeQuery();
-//            st = rs.next();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return st;
-//    }
 
-
+ public static List<Film> getSearchResults (){
+        
+         return films;
+    
+    }
 
 }

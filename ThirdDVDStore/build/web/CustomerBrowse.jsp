@@ -17,7 +17,7 @@
         <h1> Search your movie:  </h1> 
         
         <form method="post" action="SearchController?action=search">
-        Search Category (Genre, Actor Last Name, Store): 
+        Search Category (Genre, Actor, Store): 
             <input type="text" name="criteria" /><br/>
         Search Field: <input type="text" name="field" /><br/>
         <input type="submit" value="Search" />

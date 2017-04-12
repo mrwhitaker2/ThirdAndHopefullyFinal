@@ -20,7 +20,7 @@
                 <tr>
                     <th>Title</th>
                     <th>Description</th>
-                    <th colspan=2>Action</th>
+                    <th colspan=3>Action</th>
                 </tr>
             </thead>
             <tbody >
@@ -29,6 +29,9 @@
                         <td><c:out value="${film.title}" /></td>
                         <td><c:out value="${film.description}" /></td>
                         
+                        <td><a href="CustomerController?action=addcart&film_id=<c:out value="${film.film_id}"/>">Add to Cart</a></td>
+                        <td><a href="CustomerController?action=addwishlist&film_id=<c:out value="${film.film_id}"/>">Add to Wishlist</a></td>
+                        <td><a href="CustomerController?action=viewcart">View Cart</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
