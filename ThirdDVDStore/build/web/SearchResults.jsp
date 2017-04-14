@@ -15,12 +15,17 @@
         <title>JSP Page</title>
     </head>
     <body>
-         <table border=1 id="tableID">
+         
+        <p><a href="CustomerController?action=browse">Back to search</a></p>
+      
+        <table border=1 id="tableID">
             <thead>
                 <tr>
                     <th>Title</th>
                     <th>Description</th>
-                    <th colspan=3>Action</th>
+                    <th>Rental Rate</th>
+                    <th>Rating</th>
+                    <th colspan=4>Action</th>
                 </tr>
             </thead>
             <tbody >
@@ -28,10 +33,13 @@
                     <tr>
                         <td><c:out value="${film.title}" /></td>
                         <td><c:out value="${film.description}" /></td>
+                        <td><c:out value="${film.rental_rate}" /></td>
+                        <td><c:out value="${film.rating}" /></td>
                         
-                        <td><a href="CustomerController?actionaddcart=&film_id=<c:out value="${film.film_id}"/>">Add to Cart</a></td>
+                        <td><a href="CustomerController?action=addcart=&film_id=<c:out value="${film.film_id}"/>">Add to Cart</a></td>
                         <td><a href="CustomerController?action=addwishlist&film_id=<c:out value="${film.film_id}"/>">Add to Wishlist</a></td>
                         <td><a href="CustomerController?action=viewcart">View Cart</a></td>
+                        <td><a href="CustomerController?action=viewdetails&film_id=<c:out value="${film.film_id}"/>">View Movie Details</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

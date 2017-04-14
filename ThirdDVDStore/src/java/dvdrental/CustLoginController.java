@@ -39,7 +39,7 @@ public class CustLoginController extends HttpServlet {
         
         
         String Username = request.getParameter("Username");
-         String Password = request.getParameter("Password");
+        String Password = request.getParameter("Password");
         customer.setUsername(Username);
         customer.setPassword(Password);
         

@@ -16,10 +16,7 @@
     <body>
 
          <h1>Hello, <%=session.getAttribute("Username")%></h1>
-            
-        
-            
-  
+
              <form method="post" action="SearchController?action=search">
             <h2>Search your movie:</h2>  
                
