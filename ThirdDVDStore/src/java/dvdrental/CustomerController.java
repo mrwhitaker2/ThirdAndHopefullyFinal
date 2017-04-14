@@ -32,9 +32,11 @@ public class CustomerController extends HttpServlet {
     private static String BROWSE = "/CustomerBrowse.jsp";
     private static String VIEW_CUST = "/CustomerProfile.jsp";
     private static String VIEW_CART = "/ShoppingCart.jsp";
+    private static String MOVIE_DETAILS = "/MovieDetails.jsp";
 
     
     private CustomerDAO dao;
+     private FilmDAO FilmDao;
 
     public CustomerController() {
         super();
@@ -48,6 +50,7 @@ public class CustomerController extends HttpServlet {
         String action = request.getParameter("action");
 
         String search = request.getParameter("search");
+        
 
         if (action.equalsIgnoreCase("custlogin")) {
 
@@ -64,29 +67,20 @@ public class CustomerController extends HttpServlet {
         } else if (action.equalsIgnoreCase("viewcustomers")){
             forward = VIEW_CUST;
         }
+        else if (action.equalsIgnoreCase("viewdetails")){
+  
+            String film_id = request.getParameter("film_id");
+            FilmDao.getDetails(film_id);
+            forward = MOVIE_DETAILS;
+            request.setAttribute("filmdetails", FilmDao.getFilmDetails());
+            
+        }
         else if (action.equalsIgnoreCase("viewcart")){
             
             forward = VIEW_CART; 
         }
 
-//        } else if (action.equalsIgnoreCase("custverify")) {
-//            String Username = (request.getParameter("Username"));
-//            String Password = (request.getParameter("Password"));
-//          //  Customer customer = dao.verifyCustomer(Username, Password);
-//
-//            if (customer == null) {
-//                forward = CUST_LOGIN;
-//                System.out.print(customer.getUsername());
-//            } else {
-//                //Customer customer = dao.getCustomer(Username);
-//                request.setAttribute("customer", customer);
-//                forward = BROWSE;
-//            }
-//
-//        } else {
-            //forward = CREATE_CUSTOMER;
-       // }
-        
+//       
         //fowards it to the specific page
         RequestDispatcher view = request.getRequestDispatcher(forward);
 
