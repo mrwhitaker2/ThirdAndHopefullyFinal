@@ -57,7 +57,6 @@ public class FilmDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public static void searchActor(String field) {
