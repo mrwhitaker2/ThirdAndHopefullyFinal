@@ -26,7 +26,7 @@
                 <input type="submit" value="Search" />
             
                 
-                Madeline was here
+                Madeline was here and so was Taylor 
         </form>
                 
 
