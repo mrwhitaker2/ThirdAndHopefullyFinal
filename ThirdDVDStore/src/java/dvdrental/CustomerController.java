@@ -33,6 +33,7 @@ public class CustomerController extends HttpServlet {
     private static String VIEW_CUST = "/CustomerProfile.jsp";
     private static String VIEW_CART = "/ShoppingCart.jsp";
     private static String MOVIE_DETAILS = "/MovieDetails.jsp";
+    
 
     
     private CustomerDAO dao;
@@ -67,6 +68,10 @@ public class CustomerController extends HttpServlet {
         } else if (action.equalsIgnoreCase("viewcustomers")){
             forward = VIEW_CUST;
         }
+        else if (action.equalsIgnoreCase("custcreate")) {
+            forward = CREATE_CUSTOMER;
+        }
+
         else if (action.equalsIgnoreCase("viewdetails")){
   
             String film_id = request.getParameter("film_id");
@@ -108,7 +113,7 @@ public class CustomerController extends HttpServlet {
             dao.addCustomer(customer);
 
             RequestDispatcher view = request.getRequestDispatcher(BROWSE);
-            // request.setAttribute("products", dao.getAllProducts());
+            request.setAttribute("Username", Username);
             view.forward(request, response);
         }
         else{
