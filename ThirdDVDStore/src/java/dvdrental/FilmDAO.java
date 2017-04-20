@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +20,15 @@ import java.util.List;
 public class FilmDAO {
 
     private static boolean st = false;
+    private static Connection connection;
     private static ResultSet rs;
     private static List<Film> films = new ArrayList<Film>();
-      private static List<Film> filmdetails = new ArrayList<Film>();
+    private static List<Film> filmdetails = new ArrayList<Film>();
+    private static List<Film> cartfilms = new ArrayList<Film>();
+
+    public FilmDAO() {
+        connection = DBConnectionUtil.getConnection();
+    }
 
     public static void searchGenre(String field) {
 
@@ -138,10 +145,16 @@ public class FilmDAO {
         return films;
 
     }
-    
+
     public static List<Film> getFilmDetails() {
 
         return filmdetails;
+
+    }
+
+    public static List<Film> getCartDetails() {
+
+        return cartfilms;
 
     }
 
@@ -169,6 +182,56 @@ public class FilmDAO {
                 film.setRating(rs.getString("rating"));
                 film.setSpecial_features(rs.getString("special_features"));
                 filmdetails.add(film);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void addCart(int customer_id, int film_id) {
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    " INSERT INTO shoppingcart(Customer_Id,Film_id) VALUES (?, ?)");
+
+            ps.setInt(1, customer_id);
+            ps.setInt(2, film_id);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void viewCart(int customer_id) {
+
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    " SELECT SC.Customer_Id, F.title, F.rental_rate"
+                            + " FROM shoppingcart as SC"
+                            + " JOIN film as F"
+                            + " ON SC.Film_Id = F.film_id"
+                            + " where SC.Customer_Id=?");
+            ps.setInt(1, customer_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Film film = new Film();
+                film.setTitle(rs.getString("title"));
+                film.setRental_rate(rs.getString("rental_rate"));
+                cartfilms.add(film);
             }
 
         } catch (Exception e) {
