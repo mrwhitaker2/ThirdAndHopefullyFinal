@@ -33,10 +33,10 @@ public class SearchController extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         String criteria = request.getParameter("criteria");
-        String field = request.getParameter("field");
 
         if (criteria.equalsIgnoreCase("Genre")) {
             
+            String field = request.getParameter("genrefield");
             FilmDAO.searchGenre(field);
             request.setAttribute("films", FilmDAO.getSearchResults());
             RequestDispatcher rs = request.getRequestDispatcher(RESULTS);
@@ -44,6 +44,7 @@ public class SearchController extends HttpServlet {
         
         } else if (criteria.equalsIgnoreCase("Actor")) {
 
+            String field = request.getParameter("actorfield");
             FilmDAO.searchActor(field);
             request.setAttribute("films", FilmDAO.getSearchResults());
             RequestDispatcher rs = request.getRequestDispatcher(RESULTS);
@@ -51,6 +52,7 @@ public class SearchController extends HttpServlet {
             
         } else if (criteria.equalsIgnoreCase("Store")) {
             
+            String field = request.getParameter("storefield");
             FilmDAO.searchStore(field);
             request.setAttribute("films", FilmDAO.getSearchResults());
             RequestDispatcher rs = request.getRequestDispatcher(RESULTS);
