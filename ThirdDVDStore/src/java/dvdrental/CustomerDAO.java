@@ -6,16 +6,21 @@
 package dvdrental;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author mrwhi
  */
 public class CustomerDAO {
+     private static ResultSet rs;
+     private static List<Customer> customers = new ArrayList<Customer>();
     
      private Connection connection;
 
@@ -42,8 +47,39 @@ public class CustomerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
     }
-    
+    public static void getCustomerList() {
+
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT * FROM CustomerNoBS");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Customer customer = new Customer();
+                customer.setCustomer_Id(rs.getInt("Customer_Id"));
+                customer.setUsername(rs.getString("Username"));
+                customer.setPassword(rs.getString("Password"));
+                customer.setCustomer_Pref(rs.getString("Customer_Pref"));
+                customer.setPayment(rs.getString("Payment"));
+                customer.setEmail(rs.getString("Email"));
+                customers.add(customer);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static List<Customer> getCustomers() {
+
+        return customers;
+
+    }
 //    public Customer verifyCustomer (String Username, String Password){
 //        
 //        Boolean isVerified = false;

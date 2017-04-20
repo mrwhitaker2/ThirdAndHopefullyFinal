@@ -18,7 +18,6 @@
         <p><a href="CustomerController?action=browse">Back to search</a></p>
       
         <table border=1 id="tableID">
->>>>>>> refs/remotes/origin/master
             <thead>
                 <tr>
                     <th>Title</th>
@@ -44,8 +43,5 @@
                 </c:forEach>
             </tbody>
         </table>
-        
-        
->>>>>>> refs/remotes/origin/master
     </body>
 </html>
