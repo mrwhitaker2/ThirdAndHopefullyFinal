@@ -14,27 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <table border="1" cellpadding="1">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-
-=======
-         <table border=1 id="tableID">
-=======
-         
+    <body>        
         <p><a href="CustomerController?action=browse">Back to search</a></p>
       
         <table border=1 id="tableID">
