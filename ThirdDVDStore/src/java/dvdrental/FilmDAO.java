@@ -226,20 +226,23 @@ public class FilmDAO {
                 film.setRental_rate(rs.getString("rental_rate"));
                 film.setRating(rs.getString("rating"));
                 film.setLast_update(rs.getDate("last_update").toString());
-                for (int i = 0; i < films.size(); i++) {
-                    if(film.getFilm_id() == films.get(i).getFilm_id()) {
-                        film.setInStock(false);
-                    }
-                    else{
-                        film.setInStock(true);
-                    }
-                }
-
+                film.setInStock(true);
                 inventory.add(film);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        for(int i = 0;i<inventory.size();i++)
+        {
+            for(int x = 0;x<films.size();x++)
+            {
+               if(inventory.get(i).getFilm_id() == films.get(x).getFilm_id())
+               {
+                   inventory.get(i).setInStock(false);
+               }
+            }
+            
         }
         return inventory;
     }
