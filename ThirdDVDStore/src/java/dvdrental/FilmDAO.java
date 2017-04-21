@@ -21,7 +21,8 @@ public class FilmDAO {
     private static boolean st = false;
     private static ResultSet rs;
     private static List<Film> films = new ArrayList<Film>();
-      private static List<Film> filmdetails = new ArrayList<Film>();
+    private static ArrayList<Film> filmdetails = new ArrayList<Film>();
+    private static ArrayList<Film> inventory = new ArrayList<Film>();
 
     public static void searchGenre(String field) {
 
@@ -138,7 +139,7 @@ public class FilmDAO {
         return films;
 
     }
-    
+
     public static List<Film> getFilmDetails() {
 
         return filmdetails;
@@ -175,6 +176,72 @@ public class FilmDAO {
             e.printStackTrace();
         }
 
+    }
+
+    public static void getRentalNoBS() {
+        films.clear();
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT DISTINCT F.Film_id, F.title, FT.description, F.rental_rate, F.rating, F.last_update FROM Film AS F JOIN film_text as FT ON FT.film_id=F.film_id JOIN RentalNOBS as R ON R.Film_Id=F.film_id");
+            ResultSet rs = ps.executeQuery();
+            st = rs.next();
+            while (rs.next()) {
+                Film film = new Film();
+                film.setFilm_id(rs.getInt("film_id"));
+                film.setTitle(rs.getString("title"));
+                film.setDescription(rs.getString("description"));
+                film.setRental_rate(rs.getString("rental_rate"));
+                film.setRating(rs.getString("rating"));
+                film.setInStock(false);
+                films.add(film);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<Film> getInventory() {
+        inventory.clear();
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    " SELECT DISTINCT F.Film_id, F.title, FT.description, F.rental_rate, F.rating, F.last_update FROM Film AS F JOIN film_text as FT ON FT.film_id=F.film_id");
+            ResultSet rs = ps.executeQuery();
+            st = rs.next();
+            while (rs.next()) {
+                Film film = new Film();
+                film.setFilm_id(rs.getInt("film_id"));
+                film.setTitle(rs.getString("title"));
+                film.setDescription(rs.getString("description"));
+                film.setRental_rate(rs.getString("rental_rate"));
+                film.setRating(rs.getString("rating"));
+                film.setLast_update(rs.getDate("last_update").toString());
+                for (int i = 0; i < films.size(); i++) {
+                    if(film.getFilm_id() == films.get(i).getFilm_id()) {
+                        film.setInStock(false);
+                    }
+                    else{
+                        film.setInStock(true);
+                    }
+                }
+
+                inventory.add(film);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return inventory;
     }
 
 }
