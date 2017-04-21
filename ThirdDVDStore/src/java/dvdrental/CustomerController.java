@@ -37,7 +37,7 @@ public class CustomerController extends HttpServlet {
 
     
     private CustomerDAO dao;
-     private FilmDAO FilmDao;
+    private FilmDAO FilmDao;
 
     public CustomerController() {
         super();
