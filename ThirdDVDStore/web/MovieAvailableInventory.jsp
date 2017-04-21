@@ -17,6 +17,28 @@
         
         <form method="POST" action='EmployeeController' name="frmEmployee"> 
             <p><a href="EmployeeController?action=menu">Employee Menu</a></p>
+              <table border=1 id="tableID">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Rental Rate</th>
+                    <th>Rating</th>
+                    <th>In Stock</th>
+                </tr>
+            </thead>
+            <tbody >
+                <c:forEach items="${films}" var="film">
+                    <tr>
+                        <td><c:out value="${film.title}" /></td>
+                        <td><c:out value="${film.description}" /></td>
+                        <td><c:out value="${film.rental_rate}" /></td>
+                        <td><c:out value="${film.rating}" /></td>
+                        <td><c:out value="${film.inStock}"/></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
         </form>
     </body>
 </html>

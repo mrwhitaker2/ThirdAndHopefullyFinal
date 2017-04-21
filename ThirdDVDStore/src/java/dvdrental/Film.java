@@ -10,7 +10,7 @@ package dvdrental;
  * @author mrwhi
  */
 public class Film {
-    
+
     private int film_id;
     private String title;
     private String description;
@@ -24,6 +24,15 @@ public class Film {
     private String rating;
     private String special_features;
     private String last_update;
+    private boolean inStock;
+
+    public boolean getInStock() {
+        return inStock;
+    }
+
+    public void setInStock(boolean inStock) {
+        this.inStock = inStock;
+    }
 
     /**
      * @return the film_id
@@ -206,8 +215,7 @@ public class Film {
     public void setLast_update(String last_update) {
         this.last_update = last_update;
     }
+
    
-    
-            
-    
+
 }
