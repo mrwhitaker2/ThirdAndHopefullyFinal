@@ -91,7 +91,7 @@ public class EmployeeController extends HttpServlet {
        
         dao.addEmployee(employee);
         
-        RequestDispatcher view = request.getRequestDispatcher(BROWSE);
+        RequestDispatcher view = request.getRequestDispatcher(EMP_LOGIN);
        // request.setAttribute("products", dao.getAllProducts());
         view.forward(request, response);
     }
