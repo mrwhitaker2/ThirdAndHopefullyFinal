@@ -14,7 +14,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+<<<<<<< HEAD
+=======
     <body>        
+>>>>>>> refs/remotes/origin/MadelinesBranch
         <p><a href="CustomerController?action=browse">Back to search</a></p>
 
         <table border=1 id="tableID">
