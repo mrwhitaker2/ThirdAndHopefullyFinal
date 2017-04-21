@@ -243,13 +243,7 @@ public class FilmDAO {
  public static void getRentalNoBS() {
         films.clear();
         try {
-<<<<<<< HEAD
-
             //loading drivers for mysql
-
-=======
-            //loading drivers for mysql
->>>>>>> refs/remotes/origin/master
             Class.forName("com.mysql.jdbc.Driver");
 
             //creating connection with the database 
@@ -275,30 +269,16 @@ public class FilmDAO {
 
     }
 
-<<<<<<< HEAD
-
 
     public static List<Film> getInventory() {
         inventory.clear();
-
-=======
-
-    public static List<Film> getInventory() {
-        inventory.clear();
->>>>>>> refs/remotes/origin/master
         try {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
             //creating connection with the database 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
-<<<<<<< HEAD
-            PreparedStatement ps = con.prepareStatement(
-
-                    " SELECT DISTINCT F.Film_id, F.title, FT.description, F.rental_rate, F.rating, F.last_update FROM Film AS F JOIN film_text as FT ON FT.film_id=F.film_id");
-=======
             PreparedStatement ps = con.prepareStatement(" SELECT DISTINCT F.Film_id, F.title, FT.description, F.rental_rate, F.rating, F.last_update FROM Film AS F JOIN film_text as FT ON FT.film_id=F.film_id");
->>>>>>> refs/remotes/origin/master
             ResultSet rs = ps.executeQuery();
             st = rs.next();
             while (rs.next()) {
@@ -311,20 +291,11 @@ public class FilmDAO {
                 film.setLast_update(rs.getDate("last_update").toString());
                 film.setInStock(true);
                 inventory.add(film);
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/master
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-<<<<<<< HEAD
-
-
-=======
->>>>>>> refs/remotes/origin/master
         for(int i = 0;i<inventory.size();i++)
         {
             for(int x = 0;x<films.size();x++)
@@ -337,9 +308,5 @@ public class FilmDAO {
             
         }
         return inventory;
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/master
     }
 }
