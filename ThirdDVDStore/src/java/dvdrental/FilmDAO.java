@@ -25,7 +25,7 @@ public class FilmDAO {
     private static List<Film> films = new ArrayList<Film>();
     private static ArrayList<Film> filmdetails = new ArrayList<Film>();
     private static ArrayList<Film> inventory = new ArrayList<Film>();
-    private static List<Film> cartfilms = new ArrayList<Film>();
+    private static ArrayList<Film> cartfilms = new ArrayList<Film>();
 
     public FilmDAO() {
         connection = DBConnectionUtil.getConnection();
@@ -266,7 +266,9 @@ public class FilmDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
+
 
     public static List<Film> getInventory() {
         inventory.clear();
@@ -276,8 +278,7 @@ public class FilmDAO {
 
             //creating connection with the database 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
-            PreparedStatement ps = con.prepareStatement(
-                    " SELECT DISTINCT F.Film_id, F.title, FT.description, F.rental_rate, F.rating, F.last_update FROM Film AS F JOIN film_text as FT ON FT.film_id=F.film_id");
+            PreparedStatement ps = con.prepareStatement(" SELECT DISTINCT F.Film_id, F.title, FT.description, F.rental_rate, F.rating, F.last_update FROM Film AS F JOIN film_text as FT ON FT.film_id=F.film_id");
             ResultSet rs = ps.executeQuery();
             st = rs.next();
             while (rs.next()) {
