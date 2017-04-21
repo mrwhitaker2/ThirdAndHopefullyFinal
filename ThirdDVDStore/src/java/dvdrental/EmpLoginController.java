@@ -23,6 +23,7 @@ public class EmpLoginController extends HttpServlet {
 
     private static String EMP_LOGIN = "/EmployeeLogin.jsp";
     private static String MENU = "/EmployeeMenu.jsp";
+    private static String CREATE_CUSTOMER = "/EmployeeCreate.jsp";
 
    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

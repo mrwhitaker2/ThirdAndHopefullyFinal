@@ -66,7 +66,9 @@ public class CustomerController extends HttpServlet {
         } else if (action.equalsIgnoreCase("emplogin")) {
             forward = EMP_LOGIN;
         } else if (action.equalsIgnoreCase("viewcustomers")){
+            dao.getCustomerList();
             forward = VIEW_CUST;
+            request.setAttribute("customers", dao.getCustomers());
         }
         else if (action.equalsIgnoreCase("custcreate")) {
             forward = CREATE_CUSTOMER;
