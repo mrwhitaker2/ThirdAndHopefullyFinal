@@ -33,43 +33,43 @@ public class EmployeeController extends HttpServlet {
     private static String AVAILABLE_MOVIE_INVENTORY = "/MovieAvailableInventory.jsp";
     private static String BEST_AND_WORST_SELLERS = "MovieBestAndWorstSellers.jsp";
     private static String NOT_SOLD = "MovieNotSold.jsp";
-   
+
     private EmployeeDAO dao;
-   
+    private FilmDAO filmDAO;
+
     public EmployeeController() {
         super();
         dao = new EmployeeDAO();
+        filmDAO = new FilmDAO();
     }
-    
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String forward = "";
 
         String action = request.getParameter("action");
-        
 
         if (action.equalsIgnoreCase("custlogin")) {
             forward = CUST_LOGIN;
         } else if (action.equalsIgnoreCase("welcome")) {
             forward = WELCOME;
         } else if (action.equalsIgnoreCase("browse")) {
-            forward = BROWSE;           
-      }
-         else if (action.equalsIgnoreCase("emplogin")) {
+            forward = BROWSE;
+        } else if (action.equalsIgnoreCase("emplogin")) {
             forward = EMP_LOGIN;
-      } 
-          else if (action.equalsIgnoreCase("empcreate")) {
+        } else if (action.equalsIgnoreCase("empcreate")) {
             forward = CREATE_EMP;
-      } else if (action.equalsIgnoreCase("movieinventoryinfo")) {
+        } else if (action.equalsIgnoreCase("movieinventoryinfo")) {
             forward = MOVIE_INVENTORY_INFO;
         } else if (action.equalsIgnoreCase("avlinventory")) {
+            filmDAO.getRentalNoBS();
             forward = AVAILABLE_MOVIE_INVENTORY;
-        }else if (action.equalsIgnoreCase("bestandworstsellers")) {
+            request.setAttribute("films", filmDAO.getInventory());
+        } else if (action.equalsIgnoreCase("bestandworstsellers")) {
             forward = BEST_AND_WORST_SELLERS;
-        }else if (action.equalsIgnoreCase("movienotsold")) {
+        } else if (action.equalsIgnoreCase("movienotsold")) {
             forward = NOT_SOLD;
-        }
-        else {
+        } else {
             forward = MENU;
         }
 
@@ -87,14 +87,11 @@ public class EmployeeController extends HttpServlet {
         employee.setUsername(request.getParameter("username"));
         employee.setPassword(request.getParameter("password"));
 
-
-       
         dao.addEmployee(employee);
-        
+
         RequestDispatcher view = request.getRequestDispatcher(EMP_LOGIN);
-       // request.setAttribute("products", dao.getAllProducts());
+        // request.setAttribute("products", dao.getAllProducts());
         view.forward(request, response);
     }
-    
 
 }
