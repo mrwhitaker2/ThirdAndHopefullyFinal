@@ -14,9 +14,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+<<<<<<< HEAD
+=======
     <body>        
+>>>>>>> refs/remotes/origin/MadelinesBranch
         <p><a href="CustomerController?action=browse">Back to search</a></p>
-      
+
         <table border=1 id="tableID">
             <thead>
                 <tr>
@@ -35,7 +38,7 @@
                         <td><c:out value="${film.rental_rate}" /></td>
                         <td><c:out value="${film.rating}" /></td>
                         
-                        <td><a href="CustomerController?action=addcart&film_id=<c:out value="${film.film_id}"/>">Add to Cart</a></td>
+                        <td><a href="CustLoginController?action=addcart&film_id=<c:out value="${film.film_id}"/>">Add to Cart</a></td>
                         <td><a href="CustomerController?action=addwishlist&film_id=<c:out value="${film.film_id}"/>">Add to Wishlist</a></td>
                         <td><a href="CustomerController?action=viewcart">View Cart</a></td>
                         <td><a href="CustomerController?action=viewdetails&film_id=<c:out value="${film.film_id}"/>">View Movie Details</a></td>
