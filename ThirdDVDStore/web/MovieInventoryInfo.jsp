@@ -13,6 +13,7 @@
     </head>
     <body>
         <h1>Move Inventory Info</h1>
+        
         <form method="POST" action='EmployeeController' name="frmEmployee"> 
             <p><a href="EmployeeController?action=menu">Employee Menu</a></p>
         </form>

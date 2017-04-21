@@ -17,7 +17,7 @@ public class EmployeeDAO {
     
      private Connection connection;
 
-    public EmployeeDAO() {
+    public EmployeeDAO() {        
         connection = DBConnectionUtil.getConnection();
     }
 
@@ -42,5 +42,5 @@ public class EmployeeDAO {
             e.printStackTrace();
         }
     }
-    
+
 }
