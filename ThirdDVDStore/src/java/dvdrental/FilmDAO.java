@@ -25,7 +25,15 @@ public class FilmDAO {
     private static List<Film> films = new ArrayList<Film>();
     private static ArrayList<Film> filmdetails = new ArrayList<Film>();
     private static ArrayList<Film> inventory = new ArrayList<Film>();
+<<<<<<< HEAD
     private static ArrayList<Film> cartfilms = new ArrayList<Film>();
+=======
+    private static List<Film> cartfilms = new ArrayList<Film>();
+
+    public FilmDAO() {
+        connection = DBConnectionUtil.getConnection();
+    }
+>>>>>>> refs/remotes/origin/TaylorsBranch
 
     public static void searchGenre(String field) {
 
@@ -188,6 +196,8 @@ public class FilmDAO {
     }
 
     public static void addCart(int customer_id, int film_id) {
+<<<<<<< HEAD
+=======
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -213,6 +223,7 @@ public class FilmDAO {
         try {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
+>>>>>>> refs/remotes/origin/TaylorsBranch
 
             //creating connection with the database 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
@@ -236,5 +247,111 @@ public class FilmDAO {
         }
 
     }
+ public static void getRentalNoBS() {
+        films.clear();
+        try {
+<<<<<<< HEAD
+=======
+            //loading drivers for mysql
+>>>>>>> refs/remotes/origin/TaylorsBranch
+            Class.forName("com.mysql.jdbc.Driver");
 
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+<<<<<<< HEAD
+                    " INSERT INTO shoppingcart(Customer_Id,Film_id) VALUES (?, ?)");
+
+            ps.setInt(1, customer_id);
+            ps.setInt(2, film_id);
+
+            ps.executeUpdate();
+=======
+                    "SELECT DISTINCT F.Film_id, F.title, FT.description, F.rental_rate, F.rating, F.last_update FROM Film AS F JOIN film_text as FT ON FT.film_id=F.film_id JOIN RentalNOBS as R ON R.Film_Id=F.film_id");
+            ResultSet rs = ps.executeQuery();
+            st = rs.next();
+            while (rs.next()) {
+                Film film = new Film();
+                film.setFilm_id(rs.getInt("film_id"));
+                film.setTitle(rs.getString("title"));
+                film.setDescription(rs.getString("description"));
+                film.setRental_rate(rs.getString("rental_rate"));
+                film.setRating(rs.getString("rating"));
+                film.setInStock(false);
+                films.add(film);
+            }
+>>>>>>> refs/remotes/origin/TaylorsBranch
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+<<<<<<< HEAD
+
+    }
+
+    public static void viewCart(int customer_id) {
+
+=======
+    }
+
+    public static List<Film> getInventory() {
+        inventory.clear();
+>>>>>>> refs/remotes/origin/TaylorsBranch
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+<<<<<<< HEAD
+                    " SELECT SC.Customer_Id, F.title, F.rental_rate"
+                            + " FROM shoppingcart as SC"
+                            + " JOIN film as F"
+                            + " ON SC.Film_Id = F.film_id"
+                            + " where SC.Customer_Id=?");
+            ps.setInt(1, customer_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Film film = new Film();
+                film.setTitle(rs.getString("title"));
+                film.setRental_rate(rs.getString("rental_rate"));
+                cartfilms.add(film);
+=======
+                    " SELECT DISTINCT F.Film_id, F.title, FT.description, F.rental_rate, F.rating, F.last_update FROM Film AS F JOIN film_text as FT ON FT.film_id=F.film_id");
+            ResultSet rs = ps.executeQuery();
+            st = rs.next();
+            while (rs.next()) {
+                Film film = new Film();
+                film.setFilm_id(rs.getInt("film_id"));
+                film.setTitle(rs.getString("title"));
+                film.setDescription(rs.getString("description"));
+                film.setRental_rate(rs.getString("rental_rate"));
+                film.setRating(rs.getString("rating"));
+                film.setLast_update(rs.getDate("last_update").toString());
+                film.setInStock(true);
+                inventory.add(film);
+>>>>>>> refs/remotes/origin/TaylorsBranch
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+<<<<<<< HEAD
+
+=======
+        for(int i = 0;i<inventory.size();i++)
+        {
+            for(int x = 0;x<films.size();x++)
+            {
+               if(inventory.get(i).getFilm_id() == films.get(x).getFilm_id())
+               {
+                   inventory.get(i).setInStock(false);
+               }
+            }
+            
+        }
+        return inventory;
+>>>>>>> refs/remotes/origin/TaylorsBranch
+    }
 }
