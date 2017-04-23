@@ -39,12 +39,9 @@
 
     <body>
 
-<<<<<<< HEAD
-         <h1>Hello, <%=request.getParameter("Username")%></h1>
-=======
+
         <h1>Hello, <%=session.getAttribute("Username")%> </h1>
         <h1>Your Customer ID is: <%=session.getAttribute("Customer_Id")%> </h1>
->>>>>>> refs/remotes/origin/master
 
         <form method="post" action="SearchController?action=search">
             <h2>Search your movie:</h2>  
