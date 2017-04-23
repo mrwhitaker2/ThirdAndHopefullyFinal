@@ -16,6 +16,7 @@
     </head>
 
         <p><a href="CustomerController?action=browse">Back to search</a></p>
+        <p><a href="CustLoginController?action=viewcart">View Shopping Cart</a></p>
 
         <table border=1 id="tableID">
             <thead>
@@ -24,7 +25,7 @@
                     <th>Description</th>
                     <th>Rental Rate</th>
                     <th>Rating</th>
-                    <th colspan=4>Action</th>
+                    <th colspan=3>Action</th>
                 </tr>
             </thead>
             <tbody >
@@ -37,7 +38,6 @@
                         
                         <td><a href="CustLoginController?action=addcart&film_id=<c:out value="${film.film_id}"/>">Add to Cart</a></td>
                         <td><a href="CustomerController?action=addwishlist&film_id=<c:out value="${film.film_id}"/>">Add to Wishlist</a></td>
-                        <td><a href="CustomerController?action=viewcart">View Cart</a></td>
                         <td><a href="CustomerController?action=viewdetails&film_id=<c:out value="${film.film_id}"/>">View Movie Details</a></td>
                     </tr>
                 </c:forEach>
