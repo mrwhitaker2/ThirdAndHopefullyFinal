@@ -22,14 +22,16 @@
                 </tr>
             </thead>
             <tbody >
-            <c:forEach items="${cartfilms}" var="film">
-                <tr>
-                <td><c:out value="${film.title}" /></td>
-                <td><c:out value="${film.rental_rate}" /></td>
+                <c:forEach items="${cartfilms}" var="film">
+                    <tr>
+                        <td><c:out value="${film.title}" /></td>
+                        <td><c:out value="${film.rental_rate}" /></td>
 
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-</body>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+
+        <p><a href="CheckoutController?action=checkoutdetails">Checkout</a></p>
+    </body>
 </html>

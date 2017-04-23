@@ -192,7 +192,8 @@ public class FilmDAO {
     }
 
     public static void addCart(int customer_id, int film_id) {
-
+        
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -214,6 +215,7 @@ public class FilmDAO {
 
     public static void viewCart(int customer_id) {
 
+        cartfilms.clear();
         try {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
