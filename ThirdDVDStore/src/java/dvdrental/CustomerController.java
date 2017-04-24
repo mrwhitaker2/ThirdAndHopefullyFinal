@@ -21,8 +21,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author mrwhi
  */
-@WebServlet(name = "CustomerController", urlPatterns = {"/CustomerController"})
-public class CustomerController extends HttpServlet {
+@WebServlet(name = "CustomerController", urlPatterns =
+{
+    "/CustomerController"
+})
+public class CustomerController extends HttpServlet
+{
 
     private static final long serialVersionUID = 1L;
     private static String WELCOME = "/welcome.jsp";
@@ -33,58 +37,61 @@ public class CustomerController extends HttpServlet {
     private static String VIEW_CUST = "/CustomerProfile.jsp";
     private static String VIEW_CART = "/ShoppingCart.jsp";
     private static String MOVIE_DETAILS = "/MovieDetails.jsp";
-    
 
-    
     private CustomerDAO dao;
     private FilmDAO FilmDao;
 
-    public CustomerController() {
+    public CustomerController()
+    {
         super();
         dao = new CustomerDAO();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
 
         String forward = "";
 
         String action = request.getParameter("action");
 
         String search = request.getParameter("search");
-        
 
-        if (action.equalsIgnoreCase("custlogin")) {
+        if (action.equalsIgnoreCase("custlogin"))
+        {
 
             forward = CUST_LOGIN;
 
-        } else if (action.equalsIgnoreCase("welcome")) {
+        } else if (action.equalsIgnoreCase("welcome"))
+        {
             forward = WELCOME;
 
-        } else if (action.equalsIgnoreCase("browse")) {
+        } else if (action.equalsIgnoreCase("browse"))
+        {
             forward = BROWSE;
 
-        } else if (action.equalsIgnoreCase("emplogin")) {
+        } else if (action.equalsIgnoreCase("emplogin"))
+        {
             forward = EMP_LOGIN;
-        } else if (action.equalsIgnoreCase("viewcustomers")){
+        } else if (action.equalsIgnoreCase("viewcustomers"))
+        {
             dao.getCustomerList();
             forward = VIEW_CUST;
             request.setAttribute("customers", dao.getCustomers());
-        }
-        else if (action.equalsIgnoreCase("custcreate")) {
+        } else if (action.equalsIgnoreCase("custcreate"))
+        {
             forward = CREATE_CUSTOMER;
-        }
+        } else if (action.equalsIgnoreCase("viewdetails"))
+        {
 
-        else if (action.equalsIgnoreCase("viewdetails")){
-  
             String film_id = request.getParameter("film_id");
             FilmDao.getDetails(film_id);
             forward = MOVIE_DETAILS;
             request.setAttribute("filmdetails", FilmDao.getFilmDetails());
-            
-        }
-        else if (action.equalsIgnoreCase("viewcart")){
-            
-            forward = VIEW_CART; 
+
+        } else if (action.equalsIgnoreCase("viewcart"))
+        {
+
+            forward = VIEW_CART;
         }
 
 //       
@@ -94,7 +101,8 @@ public class CustomerController extends HttpServlet {
         view.forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         Customer customer = new Customer();
 
         String Username = request.getParameter("Username");
@@ -110,24 +118,24 @@ public class CustomerController extends HttpServlet {
         customer.setEmail(Email);
 
         if (Username != null && Password != null && Customer_Pref != null
-                && Payment != null && Email != null) {
+                && Payment != null && Email != null)
+        {
 
             dao.addCustomer(customer);
 
             RequestDispatcher view = request.getRequestDispatcher(BROWSE);
             request.setAttribute("Username", Username);
             view.forward(request, response);
-        }
-        else{
-            
+        } else
+        {
             RequestDispatcher view = request.getRequestDispatcher(CREATE_CUSTOMER);
             view.forward(request, response);
-            
         }
 
     }
-    
-     protected void login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         Customer customer = new Customer();
 
         String Username = request.getParameter("Username");
@@ -136,19 +144,19 @@ public class CustomerController extends HttpServlet {
         customer.setUsername(Username);
         customer.setPassword(Password);
 
-        if (Username != null && Password != null) {
+        if (Username != null && Password != null)
+        {
 
             //dao.verifyCustomer(Username, Password);
-
             RequestDispatcher view = request.getRequestDispatcher(BROWSE);
             // request.setAttribute("products", dao.getAllProducts());
             view.forward(request, response);
-        }
-        else{
-            
+        } else
+        {
+
             RequestDispatcher view = request.getRequestDispatcher(CUST_LOGIN);
             view.forward(request, response);
-            
+
         }
 
     }

@@ -61,9 +61,19 @@ public final class CustomerLogin_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("    <head>\r\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
       out.write("        <title>Customer Login</title>\r\n");
+      out.write("        <script>\r\n");
+      out.write("            ");
+
+                String login_msg = (String) request.getAttribute("error");
+                if (login_msg != null)
+                {
+                    out.println("<font color=red size=4px>" + login_msg + "</font>");
+                }
+            
+      out.write("\r\n");
+      out.write("        </script>\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
-      out.write("\r\n");
       out.write("        <h1> Login! </h1>\r\n");
       out.write("\r\n");
       out.write("        <form method=\"post\" action=\"CustLoginController?action=login\">\r\n");

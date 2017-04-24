@@ -64,7 +64,7 @@ public class CustLoginController extends HttpServlet {
             rs.forward(request, response);
 
         } else {
-            out.println("Username or Password incorrect");
+            out.println("USERNAME OR PASSWORD INCORRECT");
             RequestDispatcher rs = request.getRequestDispatcher(CUST_LOGIN);
             rs.include(request, response);
         }

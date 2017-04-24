@@ -12,6 +12,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Login</title>
+        <script>
+            <%
+                String login_msg = (String) request.getAttribute("error");
+                if (login_msg != null)
+                {
+                    out.println("<font color=red size=4px>" + login_msg + "</font>");
+                }
+            %>
+        </script>
     </head>
     <body>
         <h1> Login! </h1>
