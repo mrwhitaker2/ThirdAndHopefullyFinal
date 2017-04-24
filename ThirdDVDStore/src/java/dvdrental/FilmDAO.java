@@ -27,6 +27,7 @@ public class FilmDAO {
     private static ArrayList<Film> inventory = new ArrayList<Film>();
     private static ArrayList<Film> cartfilms = new ArrayList<Film>();
 
+
     public FilmDAO() {
         connection = DBConnectionUtil.getConnection();
     }
@@ -311,4 +312,40 @@ public class FilmDAO {
         }
         return inventory;
     }
+    
+    
+    public static double calculateTotal(int customer_id) {
+        
+        double Total = 0.0;
+        double listValue = 0.0;
+        
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT f.rental_rate "
+                            + " FROM shoppingcart AS S"
+                            + " JOIN film as F"
+                            + " ON S.film_id=F.film_id"
+                            + " WHERE S.Customer_Id=?");
+            ps.setInt(1, customer_id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                
+                listValue = Double.parseDouble(rs.getString("rental_rate"));
+                Total+=listValue;
+                
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return Total;
+    }
 }
+
+

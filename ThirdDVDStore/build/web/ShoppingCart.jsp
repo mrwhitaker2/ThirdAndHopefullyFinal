@@ -32,6 +32,6 @@
             </tbody>
         </table>
 
-        <p><a href="CheckoutController?action=checkoutdetails">Checkout</a></p>
+        <p><a href="CustLoginController?action=checkoutdetails">Checkout</a></p>
     </body>
 </html>

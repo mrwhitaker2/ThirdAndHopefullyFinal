@@ -7,6 +7,7 @@ package dvdrental;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +27,9 @@ public class CustLoginController extends HttpServlet {
     private static String CUST_LOGIN = "/CustomerLogin.jsp";
     private static String SHOPPING_CART = "/ShoppingCart.jsp";
     private static String RESULTS = "/SearchResults.jsp";
+    private static String CHECKOUT_DETAILS = "/CheckoutDetails.jsp";
 
+    private static ArrayList<Customer> checkoutdetails = new ArrayList<Customer>();
     private FilmDAO FilmDao;
 
     Customer customer = new Customer(); //this is the current customer that will be making transactions 
@@ -95,6 +98,19 @@ public class CustLoginController extends HttpServlet {
             FilmDao.viewCart(customer_id);
             request.setAttribute("cartfilms", FilmDao.getCartDetails());
             forward = SHOPPING_CART;
+
+        } else if (action.equalsIgnoreCase("checkoutdetails")) {
+
+            Customer customer3 = new Customer();
+            int customer_id = customer.getCustomer_Id();
+            double Total = FilmDao.calculateTotal(customer_id);
+            customer3.setUsername(customer.getUsername());
+            customer3.setCustomer_Id(customer.getCustomer_Id());
+            customer3.setTotal(Total);
+            checkoutdetails.add(customer3);
+
+            request.setAttribute("checkoutdetails", checkoutdetails);
+            forward = CHECKOUT_DETAILS;
 
         } else {
             forward = CUST_LOGIN;
