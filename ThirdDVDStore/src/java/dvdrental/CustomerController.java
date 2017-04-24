@@ -23,52 +23,71 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "CustomerController", urlPatterns = {"/CustomerController"})
 public class CustomerController extends HttpServlet {
-    
-    private static final long serialVersionUID = 1L;
-    private static String CREATE_CUSTOMER = "/CustomerCreate.jsp";
-    private static String LOGIN = "/CustomerLogin.jsp";
-    private static String BROWSE = "/CustomerBrowse.jsp";
-   
-    private CustomerDAO dao;
 
-   
+    private static final long serialVersionUID = 1L;
+    private static String WELCOME = "/welcome.jsp";
+    private static String CREATE_CUSTOMER = "/CustomerCreate.jsp";
+    private static String CUST_LOGIN = "/CustomerLogin.jsp";
+    private static String EMP_LOGIN = "/EmployeeLogin.jsp";
+    private static String BROWSE = "/CustomerBrowse.jsp";
+    private static String VIEW_CUST = "/CustomerProfile.jsp";
+    private static String VIEW_CART = "/ShoppingCart.jsp";
+    private static String MOVIE_DETAILS = "/MovieDetails.jsp";
+    
+
+    
+    private CustomerDAO dao;
+    private FilmDAO FilmDao;
+
     public CustomerController() {
         super();
         dao = new CustomerDAO();
     }
-    
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String forward = "";
 
         String action = request.getParameter("action");
-        
-        String search = request.getParameter("search");
 
-        if (action.equalsIgnoreCase("login")) {
-           // int product_id = Integer.parseInt(request.getParameter("product_id"));
-           // dao.deleteProduct(product_id);
-            forward = LOGIN;
-            //request.setAttribute("products", dao.getAllProducts());
-        } else if (action.equalsIgnoreCase("edit")) {
-            forward = CREATE_CUSTOMER;
-           // int product_id = Integer.parseInt(request.getParameter("product_id"));
-            //Product product = dao.getProductById(product_id);
-            //request.setAttribute("product", product);
+        String search = request.getParameter("search");
+        
+
+        if (action.equalsIgnoreCase("custlogin")) {
+
+            forward = CUST_LOGIN;
+
+        } else if (action.equalsIgnoreCase("welcome")) {
+            forward = WELCOME;
+
         } else if (action.equalsIgnoreCase("browse")) {
             forward = BROWSE;
-           // request.setAttribute("products", dao.getAllProducts());
-      }
-         else if (action.equalsIgnoreCase("search")) {
-            forward = BROWSE;
-           // request.setAttribute("products", dao.getSearchProducts(request.getParameter("order_num")));
-      } 
-        else {
+
+        } else if (action.equalsIgnoreCase("emplogin")) {
+            forward = EMP_LOGIN;
+        } else if (action.equalsIgnoreCase("viewcustomers")){
+            dao.getCustomerList();
+            forward = VIEW_CUST;
+            request.setAttribute("customers", dao.getCustomers());
+        }
+        else if (action.equalsIgnoreCase("custcreate")) {
             forward = CREATE_CUSTOMER;
         }
-        
-        
 
+        else if (action.equalsIgnoreCase("viewdetails")){
+  
+            String film_id = request.getParameter("film_id");
+            FilmDao.getDetails(film_id);
+            forward = MOVIE_DETAILS;
+            request.setAttribute("filmdetails", FilmDao.getFilmDetails());
+            
+        }
+        else if (action.equalsIgnoreCase("viewcart")){
+            
+            forward = VIEW_CART; 
+        }
+
+//       
         //fowards it to the specific page
         RequestDispatcher view = request.getRequestDispatcher(forward);
 
@@ -77,22 +96,61 @@ public class CustomerController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Customer customer = new Customer();
-        customer.setUsername(request.getParameter("Username"));
-        customer.setPassword(request.getParameter("Password"));
-        customer.setCustomer_Pref(request.getParameter("Customer_Pref"));
-        customer.setPayment(request.getParameter("Payment"));
-        customer.setEmail(request.getParameter("Email"));
-        
-       
+
+        String Username = request.getParameter("Username");
+        String Password = request.getParameter("Password");
+        String Customer_Pref = request.getParameter("Customer_Pref");
+        String Payment = request.getParameter("Payment");
+        String Email = request.getParameter("Email");
+
+        customer.setUsername(Username);
+        customer.setPassword(Password);
+        customer.setCustomer_Pref(Customer_Pref);
+        customer.setPayment(Payment);
+        customer.setEmail(Email);
+
+        if (Username != null && Password != null && Customer_Pref != null
+                && Payment != null && Email != null) {
+
             dao.addCustomer(customer);
-        
-       
- 
-        RequestDispatcher view = request.getRequestDispatcher(BROWSE);
-       // request.setAttribute("products", dao.getAllProducts());
-        view.forward(request, response);
+
+            RequestDispatcher view = request.getRequestDispatcher(BROWSE);
+            request.setAttribute("Username", Username);
+            view.forward(request, response);
+        }
+        else{
+            
+            RequestDispatcher view = request.getRequestDispatcher(CREATE_CUSTOMER);
+            view.forward(request, response);
+            
+        }
+
     }
     
- 
+     protected void login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Customer customer = new Customer();
+
+        String Username = request.getParameter("Username");
+        String Password = request.getParameter("Password");
+
+        customer.setUsername(Username);
+        customer.setPassword(Password);
+
+        if (Username != null && Password != null) {
+
+            //dao.verifyCustomer(Username, Password);
+
+            RequestDispatcher view = request.getRequestDispatcher(BROWSE);
+            // request.setAttribute("products", dao.getAllProducts());
+            view.forward(request, response);
+        }
+        else{
+            
+            RequestDispatcher view = request.getRequestDispatcher(CUST_LOGIN);
+            view.forward(request, response);
+            
+        }
+
+    }
 
 }

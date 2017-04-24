@@ -1,6 +1,6 @@
-<%-- 
-    Document   : CustomerLogin
-    Created on : Apr 10, 2017, 8:04:24 PM
+ <%-- 
+    Document   : EmployeeLogin
+    Created on : Apr 10, 2017, 8:33:21 PM
     Author     : mrwhi
 --%>
 
@@ -15,14 +15,14 @@
     </head>
     <body>
         
-        <h1> Login! </h1>
+        <h1> Employee Login! </h1>
         
-        <form method="post" action="CustLoginController?action=login">
-        Username:<input type="text" value="<c:out value="${customer.Username}" />" name="Username" /><br/>
-        Password:<input type="password" value="<c:out value="${customer.Password}" />"name="Password" /><br/>
+        <form method="post" action="EmpLoginController?action=login">
+        Username:<input type="text" value="<c:out value="${employee.Username}" />" name="Username" /><br/>
+        Password:<input type="text" value="<c:out value="${employee.Password}" />"name="Password" /><br/>
         <input type="submit" value="login" />
         </form>
-
-            <p><a href="CustomerController?action=custcreate">Create an Account</a></p>
+            
+            <p><a href="EmployeeController?action=empcreate">Create an Employee Account</a></p>
     </body>
 </html>
