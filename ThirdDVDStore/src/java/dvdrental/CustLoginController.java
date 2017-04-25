@@ -7,6 +7,8 @@ package dvdrental;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,37 +41,48 @@ public class CustLoginController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
+        String action = request.getParameter("action");
         HttpSession ses = request.getSession(true);
 
-        String Username = request.getParameter("Username");
-        String Password = request.getParameter("Password");
-        customer.setUsername(Username);
-        customer.setPassword(Password);
-        int customer_id = 0;
+        if (action.equalsIgnoreCase("login")) {
 
-        if (ValidateLogin.checkCustomer(Username, Password)) {
+            String Username = request.getParameter("Username");
+            String Password = request.getParameter("Password");
+            customer.setUsername(Username);
+            customer.setPassword(Password);
+            int customer_id = 0;
 
-            Customer customer1 = new Customer();
-            customer1 = ValidateLogin.searchCustomer(Username, Password);
+            if (ValidateLogin.checkCustomer(Username, Password)) {
 
-            customer_id = customer1.getCustomer_Id();
+                Customer customer1 = new Customer();
+                customer1 = ValidateLogin.searchCustomer(Username, Password);
 
-            customer.setCustomer_Id(customer_id);
-            customer.setUsername(customer1.getUsername());
-            customer.setPassword(customer1.getPassword());
-            customer.setCustomer_Pref(customer1.getCustomer_Pref());
-            customer.setPayment(customer1.getPayment());
-            customer.setEmail(customer1.getEmail());
+                customer_id = customer1.getCustomer_Id();
 
-            ses.setAttribute("Username", Username);
-            ses.setAttribute("Customer_Id", customer_id);
-            RequestDispatcher rs = request.getRequestDispatcher(BROWSE);
-            rs.forward(request, response);
+                customer.setCustomer_Id(customer_id);
+                customer.setUsername(customer1.getUsername());
+                customer.setPassword(customer1.getPassword());
+                customer.setCustomer_Pref(customer1.getCustomer_Pref());
+                customer.setPayment(customer1.getPayment());
+                customer.setEmail(customer1.getEmail());
 
-        } else {
-            out.println("Username or Password incorrect");
-            RequestDispatcher rs = request.getRequestDispatcher(CUST_LOGIN);
-            rs.include(request, response);
+                ses.setAttribute("Username", Username);
+                ses.setAttribute("Customer_Id", customer_id);
+                RequestDispatcher rs = request.getRequestDispatcher(BROWSE);
+                rs.forward(request, response);
+
+            } else {
+                out.println("Username or Password incorrect");
+                RequestDispatcher rs = request.getRequestDispatcher(CUST_LOGIN);
+                rs.include(request, response);
+            }
+        } else if (action.equalsIgnoreCase("checkout")) {
+
+            String Payment = request.getParameter("payment");
+            String Payment_Amount = request.getParameter("Payment_Amount");
+            int customer_id = customer.getCustomer_Id();
+            String Username = customer.getUsername();
+            double Total = customer.getTotal();
         }
     }
 
@@ -97,20 +110,35 @@ public class CustLoginController extends HttpServlet {
             int customer_id = customer.getCustomer_Id();
             FilmDao.viewCart(customer_id);
             request.setAttribute("cartfilms", FilmDao.getCartDetails());
-            forward = SHOPPING_CART;
-
-        } else if (action.equalsIgnoreCase("checkoutdetails")) {
 
             Customer customer3 = new Customer();
-            int customer_id = customer.getCustomer_Id();
             double Total = FilmDao.calculateTotal(customer_id);
+            BigDecimal bd = new BigDecimal(Total).setScale(2, RoundingMode.HALF_EVEN);
+            Total = bd.doubleValue();
             customer3.setUsername(customer.getUsername());
             customer3.setCustomer_Id(customer.getCustomer_Id());
             customer3.setTotal(Total);
             checkoutdetails.add(customer3);
 
             request.setAttribute("checkoutdetails", checkoutdetails);
-            forward = CHECKOUT_DETAILS;
+
+            forward = SHOPPING_CART;
+
+        } else if (action.equalsIgnoreCase("deletecart")) {
+            int film_id = Integer.parseInt(request.getParameter("film_id"));
+            int customer_id = customer.getCustomer_Id();
+            FilmDao.deleteFilm(customer_id, film_id);
+            FilmDao.viewCart(customer_id);
+            request.setAttribute("cartfilms", FilmDao.getCartDetails());
+
+            Customer customer3 = new Customer();
+            double Total = FilmDao.calculateTotal(customer_id);
+            BigDecimal bd = new BigDecimal(Total).setScale(2, RoundingMode.HALF_EVEN);
+            Total = bd.doubleValue();
+            customer3.setTotal(Total);
+            checkoutdetails.add(customer3);
+            request.setAttribute("checkoutdetails", checkoutdetails);
+            forward = SHOPPING_CART;
 
         } else {
             forward = CUST_LOGIN;
