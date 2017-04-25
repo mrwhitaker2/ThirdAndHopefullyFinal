@@ -20,15 +20,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "CheckoutController", urlPatterns = {"/CheckoutController"})
 public class CheckoutController extends HttpServlet {
-    
-    
+
     private static String CHECKOUT_DETAILS = "/CheckoutDetails.jsp";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String forward = "";
 
-        String action = request.getParameter("action");     
+        String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("checkoutdetails")) {
 
@@ -41,5 +40,7 @@ public class CheckoutController extends HttpServlet {
 
         view.forward(request, response);
     }
+
+  
 
 }

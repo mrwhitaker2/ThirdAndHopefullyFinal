@@ -14,24 +14,45 @@
         <title>JSP Page</title>
     </head>
     <body>
+       
         <table border=1 id="tableID">
             <thead>
                 <tr>
+                    <th>Film ID</th>
                     <th>Title</th>
                     <th>Rental Rate</th>
+                    <th colspan=1>Action</th>
                 </tr>
             </thead>
             <tbody >
                 <c:forEach items="${cartfilms}" var="film">
                     <tr>
+                        <td><c:out value="${film.film_id}" /></td>
                         <td><c:out value="${film.title}" /></td>
                         <td><c:out value="${film.rental_rate}" /></td>
-
+                        <td><a href="CustLoginController?action=deletecart&film_id=<c:out value="${film.film_id}"/>">Remove</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
-        </table>
 
-        <p><a href="CustLoginController?action=checkoutdetails">Checkout</a></p>
+        </table>
+        <table border=0 id="tableID">
+            <thead>
+                <tr>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody >
+                <c:forEach items="${checkoutdetails}" var="customer">
+                    <tr>
+                        <td><c:out value="${customer.getTotal()}" /></td>
+
+                    </tr>
+                </tbody>
+            </c:forEach>
+
+            <p><a href="CustLoginController?action=checkoutdetails">Checkout</a></p>
+            
+         
     </body>
 </html>

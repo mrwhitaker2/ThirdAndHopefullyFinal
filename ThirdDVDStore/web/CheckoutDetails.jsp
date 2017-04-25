@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <form method="post" action="CheckoutController?action=checkout"> 
+    <form method="post" action="CustLoginController?action=checkout"> 
         <body>
             <table border=1 id="tableID">
                 <thead>
@@ -21,6 +21,7 @@
                         <th>Username</th>
                         <th>Customer ID</th>
                         <th>Total</th>
+                        
                     </tr>
                 </thead>
                 <tbody >

@@ -224,7 +224,7 @@ public class FilmDAO {
             //creating connection with the database 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
             PreparedStatement ps = con.prepareStatement(
-                    " SELECT SC.Customer_Id, F.title, F.rental_rate"
+                    " SELECT SC.Customer_Id, F.film_id, F.title, F.rental_rate"
                             + " FROM shoppingcart as SC"
                             + " JOIN film as F"
                             + " ON SC.Film_Id = F.film_id"
@@ -233,6 +233,7 @@ public class FilmDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Film film = new Film();
+                film.setFilm_id(rs.getInt("film_id"));
                 film.setTitle(rs.getString("title"));
                 film.setRental_rate(rs.getString("rental_rate"));
                 cartfilms.add(film);
@@ -345,6 +346,29 @@ public class FilmDAO {
         }
         
         return Total;
+    }
+    
+    public static void deleteFilm(int customer_id , int film_id) {
+       
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    " DELETE FROM shoppingcart WHERE customer_id="
+                            + customer_id
+                            + " and film_id="
+                            + film_id);
+
+           // ps.setInt(1, customer_id);
+            //ps.setInt(2, film_id);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
