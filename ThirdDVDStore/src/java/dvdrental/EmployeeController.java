@@ -61,6 +61,7 @@ public class EmployeeController extends HttpServlet {
             forward = CREATE_EMP;
         } else if (action.equalsIgnoreCase("movieinventoryinfo")) {
             forward = MOVIE_INVENTORY_INFO;
+            request.setAttribute("salesObjs", filmDAO.getMovieCheckoutsReport());
         } else if (action.equalsIgnoreCase("avlinventory")) {
             filmDAO.getRentalNoBS();
             forward = AVAILABLE_MOVIE_INVENTORY;
