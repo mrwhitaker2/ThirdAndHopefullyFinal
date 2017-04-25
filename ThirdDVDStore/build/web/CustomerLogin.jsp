@@ -11,14 +11,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="CustomerLogin.css">
+        <link rel="stylesheet" type="text/css" href="Styling/CustomerLogin.css">
         <title>Customer Login</title>
-
     </head>
     <body>
-        <form method="post" action="CustLoginController?action=login">
-            <h1>Customer Login!</h1>
-            <input type="text" value="<c:out value="${customer.Username}" />" name="Username" placeholder="Username"/><br/>
+        <form  method="post" action="CustLoginController?action=login">
+            <h1>Customer Login!</h1><br/>
+            <input 
+                type="text" 
+                value="<c:out value="${customer.Username}" />" 
+                name="Username" 
+                placeholder="Username"/><br/>
             <input 
                 type="password" 
                 placeholder="Password"

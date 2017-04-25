@@ -11,21 +11,28 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="Styling/EmployeeLogin.css">
         <title>Employee Login</title>
     </head>
     <body>
-
-        <h1> Employee Login! </h1>
-
         <form method="post" action="EmpLoginController?action=login">
-            Username:<input type="text" value="<c:out value="${employee.Username}" />" name="Username" /><br/>
-            Password:<input 
-                type="password" value="<c:out value="${employee.Password}" />" name="Password"
+            <h1> Employee Login! </h1><br/>
+            <input
+                placeholder="Username"
+                type="text" 
+                value="<c:out value="${employee.Username}" />" 
+                name="Username" /><br/>
+            <input 
+                type="password"
+                placeholder="Password"
+                value="<c:out value="${employee.Password}" />" 
+                name="Password"
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/><br/>
-            <input type="submit" value="login" />
+            <input type="submit" value="login" /><br/>
+            <p><a href="EmployeeController?action=empcreate">Create an Employee Account</a></p>
         </form>
 
-        <p><a href="EmployeeController?action=empcreate">Create an Employee Account</a></p>
+        
     </body>
 </html>

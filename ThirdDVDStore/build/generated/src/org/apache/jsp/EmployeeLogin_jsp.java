@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class CustomerLogin_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class EmployeeLogin_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -60,35 +60,35 @@ public final class CustomerLogin_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("<html>\r\n");
       out.write("    <head>\r\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
-      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"Styling/CustomerLogin.css\">\r\n");
-      out.write("        <title>Customer Login</title>\r\n");
+      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"Styling/EmployeeLogin.css\">\r\n");
+      out.write("        <title>Employee Login</title>\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
-      out.write("        <form  method=\"post\" action=\"CustLoginController?action=login\">\r\n");
-      out.write("            <h1>Customer Login!</h1><br/>\r\n");
-      out.write("            <input \r\n");
+      out.write("        <form method=\"post\" action=\"EmpLoginController?action=login\">\r\n");
+      out.write("            <h1> Employee Login! </h1><br/>\r\n");
+      out.write("            <input\r\n");
+      out.write("                placeholder=\"Username\"\r\n");
       out.write("                type=\"text\" \r\n");
       out.write("                value=\"");
       if (_jspx_meth_c_out_0(_jspx_page_context))
         return;
       out.write("\" \r\n");
-      out.write("                name=\"Username\" \r\n");
-      out.write("                placeholder=\"Username\"/><br/>\r\n");
+      out.write("                name=\"Username\" /><br/>\r\n");
       out.write("            <input \r\n");
-      out.write("                type=\"password\" \r\n");
+      out.write("                type=\"password\"\r\n");
       out.write("                placeholder=\"Password\"\r\n");
       out.write("                value=\"");
       if (_jspx_meth_c_out_1(_jspx_page_context))
         return;
-      out.write("\"\r\n");
+      out.write("\" \r\n");
       out.write("                name=\"Password\"\r\n");
       out.write("                pattern=\"(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" \r\n");
       out.write("                title=\"Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters\"/><br/>\r\n");
-      out.write("            <input type=\"submit\" value=\"login\" /><br>\r\n");
-      out.write("            <p><a href=\"CustomerController?action=custcreate\">Create an Account</a></p>\r\n");
+      out.write("            <input type=\"submit\" value=\"login\" /><br/>\r\n");
+      out.write("            <p><a href=\"EmployeeController?action=empcreate\">Create an Employee Account</a></p>\r\n");
       out.write("        </form>\r\n");
       out.write("\r\n");
-      out.write("\r\n");
+      out.write("        \r\n");
       out.write("    </body>\r\n");
       out.write("</html>\r\n");
     } catch (Throwable t) {
@@ -112,7 +112,7 @@ public final class CustomerLogin_jsp extends org.apache.jasper.runtime.HttpJspBa
     org.apache.taglibs.standard.tag.rt.core.OutTag _jspx_th_c_out_0 = (org.apache.taglibs.standard.tag.rt.core.OutTag) _jspx_tagPool_c_out_value_nobody.get(org.apache.taglibs.standard.tag.rt.core.OutTag.class);
     _jspx_th_c_out_0.setPageContext(_jspx_page_context);
     _jspx_th_c_out_0.setParent(null);
-    _jspx_th_c_out_0.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${customer.Username}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_out_0.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${employee.Username}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
     int _jspx_eval_c_out_0 = _jspx_th_c_out_0.doStartTag();
     if (_jspx_th_c_out_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
       _jspx_tagPool_c_out_value_nobody.reuse(_jspx_th_c_out_0);
@@ -130,7 +130,7 @@ public final class CustomerLogin_jsp extends org.apache.jasper.runtime.HttpJspBa
     org.apache.taglibs.standard.tag.rt.core.OutTag _jspx_th_c_out_1 = (org.apache.taglibs.standard.tag.rt.core.OutTag) _jspx_tagPool_c_out_value_nobody.get(org.apache.taglibs.standard.tag.rt.core.OutTag.class);
     _jspx_th_c_out_1.setPageContext(_jspx_page_context);
     _jspx_th_c_out_1.setParent(null);
-    _jspx_th_c_out_1.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${customer.Password}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_out_1.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${employee.Password}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
     int _jspx_eval_c_out_1 = _jspx_th_c_out_1.doStartTag();
     if (_jspx_th_c_out_1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
       _jspx_tagPool_c_out_value_nobody.reuse(_jspx_th_c_out_1);

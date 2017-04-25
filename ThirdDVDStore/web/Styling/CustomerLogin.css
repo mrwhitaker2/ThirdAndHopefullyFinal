@@ -23,9 +23,10 @@ body {
 
 form {
     position:relative;
+    opacity: .8;
     width:20%;
-    height:45%;
-    margin:50px auto;
+    height:35%;
+    margin:10% auto;
     text-align:center;
     background:#ecf0f1;
     padding:40px;
@@ -38,6 +39,10 @@ form {
     box-shadow: 20px 20px 20px;
 }
 
+form:hover
+        {  
+            opacity: 1.0;           
+        }
 p,h1 {
     font-family: 'Source Sans Pro', sans-serif;
     font-size:2em;
@@ -89,9 +94,9 @@ a, a:visited {
 .button {
     position:relative;
     float:left;
-    width:145;
+    width:145px;
     margin-top:10px;
-    background:#3498db;
+    background:red;
     color:#fff;
     font-weight:400;
     text-shadow:1px 1px 0px #2d7baf;
