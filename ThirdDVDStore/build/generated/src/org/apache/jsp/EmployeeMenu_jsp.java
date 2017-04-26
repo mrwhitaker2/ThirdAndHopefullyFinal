@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class welcome_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class EmployeeMenu_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -47,17 +47,22 @@ public final class welcome_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<!DOCTYPE html>\r\n");
       out.write("<html>\r\n");
       out.write("    <head>\r\n");
-      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"Styling/Welcome.css\">\r\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
-      out.write("        <title>Welcome Page</title>\r\n");
+      out.write("        <title>Employee Menu</title>\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
-      out.write("        \r\n");
-      out.write("        <div class=\"container\">\r\n");
-      out.write("            <h1>Welcome to Crimson Video Store!</h1><br/>\r\n");
-      out.write("            <p><a class=\"customerLink\" href=\"CustomerController?action=custlogin\">Customers Click Here!</a></p>\r\n");
-      out.write("            <p><a class=\"employeeLink\" href=\"CustomerController?action=emplogin\">Employees Click Here!</a></p>\r\n");
-      out.write("        </div>\r\n");
+      out.write("        <h1>Employee Menu</h1>\r\n");
+      out.write("\r\n");
+      out.write("        <form method=\"POST\" action='CustomerController' name=\"frmCustomer\"> \r\n");
+      out.write("            <p><a href=\"CustomerController?action=viewcustomers\">Customer Profiles</a></p>\r\n");
+      out.write("        </form>\r\n");
+      out.write("\r\n");
+      out.write("        <form method=\"POST\" action='EmployeeController' name=\"frmEmployee\"> \r\n");
+      out.write("            <p><a href=\"EmployeeController?action=movieinventoryinfo\">Movie Checkouts and associated sales and revenue</a></p>\r\n");
+      out.write("            <p><a href=\"EmployeeController?action=avlinventory\">Available Inventory</a></p>            \r\n");
+      out.write("            <p><a href=\"EmployeeController?action=bestandworstsellers\">Best and worst sellers</a></p>\r\n");
+      out.write("            <p><a href=\"EmployeeController?action=movienotsold\">Not sold last year</a></p>\r\n");
+      out.write("        </form>\r\n");
       out.write("    </body>\r\n");
       out.write("</html>\r\n");
     } catch (Throwable t) {
