@@ -258,6 +258,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             BigDecimal bd = new BigDecimal(result).setScale(2, RoundingMode.HALF_EVEN);
             result = bd.doubleValue();
             ses.setAttribute("result", result);
+            
+            FilmDao.getFilmsBought(customer_id);
+            ses.setAttribute("filmsbought", FilmDao.getFilmsBought());
+            
+            FilmDao.deleteCartInfo(customer_id);
 
             RequestDispatcher rs = request.getRequestDispatcher(CHECKOUT_RESULT);
             rs.forward(request, response);
