@@ -17,7 +17,41 @@ public class Customer {
     private String Customer_Pref;
     private String Payment;
     private String Email; 
+    private String Payment_Amount;
+    private double Total;
 
+    /**
+     * @return the Payment_Amount
+     */
+    public String getPayment_Amount() {
+        return Payment_Amount;
+    }
+
+    /**
+     * @param Payment_Amount the Payment_Amount to set
+     */
+    public void setPayment_Amount(String Payment_Amount) {
+        this.Payment_Amount = Payment_Amount;
+    }
+    
+     /**
+     * @return the Total
+     */
+    public double getTotal() {
+        return Total;
+    }
+
+    /**
+     * @param Total the Total to set
+     */
+    public void setTotal (double Total) {
+        this.Total = Total;
+    }
+    
+    
+    
+    
+    
     /**
      * @return the Customer_Id
      */
