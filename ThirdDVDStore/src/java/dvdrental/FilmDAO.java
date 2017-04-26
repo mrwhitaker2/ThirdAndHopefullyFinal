@@ -29,6 +29,7 @@ public class FilmDAO {
     private static ArrayList<Film> filmdetails = new ArrayList<Film>();
     private static ArrayList<Film> inventory = new ArrayList<Film>();
     private static ArrayList<Film> cartfilms = new ArrayList<Film>();
+    private static ArrayList<SalesObj> salesObjs = new ArrayList<SalesObj>();
     private static ArrayList<Film> wishlistfilms = new ArrayList<Film>();
     private static ArrayList<Film> filmsbought = new ArrayList<Film>();
     private static ArrayList<Film> rentedfilms = new ArrayList<Film>();
@@ -317,7 +318,90 @@ public class FilmDAO {
         return inventory;
     }
 
-    public static double calculateTotal(int customer_id) {
+    public static List<SalesObj> getMovieCheckoutsReport() {
+        salesObjs.clear();
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT F.title, F.rental_rate, COUNT( F.title) as 'Times Rented', SUM(R.Amount) as 'Sales', F.replacement_cost FROM RentalNoBS as R Join film as F on F.Film_Id=R.Film_Id GROUP BY F.Title");
+            ResultSet rs = ps.executeQuery();
+            st = rs.next();
+            while (rs.next()) {
+                SalesObj salesObj = new SalesObj();
+                salesObj.setTitle(rs.getString("title"));
+                salesObj.setRental_rate(rs.getDouble("rental_rate"));
+                salesObj.setTimes_rented(rs.getInt("Times Rented"));
+                salesObj.setSales(rs.getDouble("Sales"));
+                salesObj.setReplacement_cost(rs.getDouble("replacement_cost"));
+                salesObj.setRevenue(Math.round(salesObj.calcRevenue() * 100.0) / 100.0);
+                salesObjs.add(salesObj);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return salesObjs;
+    }
+
+    public static List<SalesObj> getBestSellers() {
+        salesObjs.clear();
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT T.Film_Id,F.title, SUM(T.amount) AS 'Sales' FROM Transactions as T JOIN Film as F ON F.Film_Id=T.Film_Id GROUP BY Film_Id ORDER BY Sales Desc");
+            ResultSet rs = ps.executeQuery();
+            st = rs.next();
+            while (rs.next()) {
+                SalesObj salesObj = new SalesObj();
+                salesObj.setTitle(rs.getString("title"));
+                salesObj.setSales(rs.getDouble("Sales"));
+                salesObjs.add(salesObj);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return salesObjs;
+    }
+
+    public static List<SalesObj> getNonSellers() {
+        salesObjs.clear();
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT F.title, T.Date_Rented FROM Transactions as T JOIN Film as F On F.film_id=T.Film_Id");
+            ResultSet rs = ps.executeQuery();
+            st = rs.next();
+            while (rs.next()) {
+                SalesObj salesObj = new SalesObj();
+                salesObj.setTitle(rs.getString("title"));
+                salesObj.setRental_date(rs.getString("Date_Rented"));
+                if (salesObj.getDateAndCompare(salesObj.getRental_date()) == true) {
+                    salesObjs.add(salesObj);
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return salesObjs;
+    }
+
+
+public static double calculateTotal(int customer_id) {
 
         double Total = 0.0;
         double listValue = 0.0;
@@ -787,7 +871,7 @@ public class FilmDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return filmCheck;
 
     }
