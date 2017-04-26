@@ -17,7 +17,7 @@
     <body>
         <h1>Welcome! </h1>
         
-          <form method="POST" action='CustomerController' name="frmAddCustomer"> 
+          <form method="POST" action='CustomerController?action=createCust' name="frmAddCustomer"> 
             Username : <input
                 type="text" required  name="Username"
                 value="<c:out value="${customer.Username}" />" /> <br /> 

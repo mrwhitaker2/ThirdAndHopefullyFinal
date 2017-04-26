@@ -14,22 +14,30 @@
         <title>JSP Page</title>
     </head>
     <body>
+       
         <table border=1 id="tableID">
             <thead>
                 <tr>
+                    <th>Film ID</th>
                     <th>Title</th>
                     <th>Rental Rate</th>
+                    <th colspan=1>Action</th>
                 </tr>
             </thead>
             <tbody >
-            <c:forEach items="${cartfilms}" var="film">
-                <tr>
-                <td><c:out value="${film.title}" /></td>
-                <td><c:out value="${film.rental_rate}" /></td>
+                <c:forEach items="${cartfilms}" var="film">
+                    <tr>
+                        <td><c:out value="${film.film_id}" /></td>
+                        <td><c:out value="${film.title}" /></td>
+                        <td><c:out value="${film.rental_rate}" /></td>
+                        <td><a href="CustomerController?action=deletecart&film_id=<c:out value="${film.film_id}"/>">Remove</a></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
 
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-</body>
+        </table>
+        
+            <p><a href="CustomerController?action=checkout">Checkout</a></p>
+                     
+    </body>
 </html>
