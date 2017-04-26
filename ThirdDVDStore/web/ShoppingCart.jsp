@@ -14,6 +14,8 @@
         <title>JSP Page</title>
     </head>
     <body>
+        
+        <%=session.getAttribute("message")%> 
        
         <table border=1 id="tableID">
             <thead>
