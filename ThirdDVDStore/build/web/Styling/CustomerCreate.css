@@ -15,7 +15,7 @@ and open the template in the editor.
 }
 
 body {
-    background:url("Photos/Kiffin.jpg") no-repeat center center fixed; 
+    background:url("Photos/HoldingBack.jpg") no-repeat center center fixed; 
     background-size:     cover;                      /* <------ */
     background-repeat:   no-repeat;
     background-position: center center;
@@ -54,7 +54,7 @@ p,h1 {
     text-align:center;
 }
 
-input {
+input,select {
     display:block;
     width:90%;
     padding:14px;

@@ -8,13 +8,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="Welcome.css">
+        <link rel="stylesheet" type="text/css" href="Styling/Welcome.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome Page</title>
     </head>
     <body>
-        <h1>Welcome to Crimson Video Store!</h1>
+        
         <div class="container">
+            <h1>Welcome to Crimson Video Store!</h1><br/>
             <p><a class="customerLink" href="CustomerController?action=custlogin">Customers Click Here!</a></p>
             <p><a class="employeeLink" href="CustomerController?action=emplogin">Employees Click Here!</a></p>
         </div>

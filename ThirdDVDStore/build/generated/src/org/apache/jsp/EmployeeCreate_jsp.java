@@ -61,15 +61,14 @@ public final class EmployeeCreate_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("<html>\r\n");
       out.write("    <head>\r\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
+      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"Styling/EmployeeCreate.css\">\r\n");
       out.write("        <title>Employee Create</title>\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
       out.write("        <form method=\"POST\" action='EmployeeController' name=\"frmAddEmployee\"> \r\n");
       out.write("            <h1>Welcome New Hire! </h1>\r\n");
       out.write("            <input\r\n");
-      out.write("                placeholde=\"First Name\"\r\n");
+      out.write("                placeholder=\"First Name\"\r\n");
       out.write("                type=\"text\" required  name=\"first_name\"\r\n");
       out.write("                value=\"");
       if (_jspx_meth_c_out_0(_jspx_page_context))

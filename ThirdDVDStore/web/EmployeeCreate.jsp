@@ -16,8 +16,6 @@
         <title>Employee Create</title>
     </head>
     <body>
-
-
         <form method="POST" action='EmployeeController' name="frmAddEmployee"> 
             <h1>Welcome New Hire! </h1>
             <input
