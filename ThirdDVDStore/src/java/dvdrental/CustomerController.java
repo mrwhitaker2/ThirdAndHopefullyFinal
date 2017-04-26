@@ -90,8 +90,13 @@ public class CustomerController extends HttpServlet {
 
             int customer_id = customer.getCustomer_Id();
             int film_id = Integer.parseInt(request.getParameter("film_id"));
-            FilmDao.addCart(customer_id, film_id);
-            FilmDao.viewCart(customer_id);
+            ArrayList<Film> filmCheck = new ArrayList<Film>();
+           // filmCheck = FilmDao.checkMax5(customer_id);
+//            if (filmCheck.length() <= 5) {
+//
+//                FilmDao.addCart(customer_id, film_id);
+//                FilmDao.viewCart(customer_id);
+//            }
 
             request.setAttribute("cartfilms", FilmDao.getCartDetails());
             forward = SHOPPING_CART;
@@ -109,12 +114,12 @@ public class CustomerController extends HttpServlet {
             FilmDao.deleteFilm(customer_id, film_id);
             FilmDao.viewCart(customer_id);
             request.setAttribute("cartfilms", FilmDao.getCartDetails());
-            forward = SHOPPING_CART;       
-        } else if(action.equalsIgnoreCase("checkout")){
-            
+            forward = SHOPPING_CART;
+        } else if (action.equalsIgnoreCase("checkout")) {
+
             int customer_id = customer.getCustomer_Id();
             String Payment = customer.getPayment();
-            
+
             FilmDao.getBoughtFromTable(customer_id);
             ArrayList<Film> filmsbought = new ArrayList<Film>();
             filmsbought = FilmDao.getFilmsBought();
@@ -129,10 +134,9 @@ public class CustomerController extends HttpServlet {
             LocalDate parseDate = LocalDate.parse(formatDate, formatter);
 
             FilmDao.addToRentalTable(filmsbought, customer_id, formatDate, Payment);
-            
+
             forward = CHECKOUT_RESULT;
-        }
-        else if (action.equalsIgnoreCase("addwishlist")) {
+        } else if (action.equalsIgnoreCase("addwishlist")) {
 
             int customer_id = customer.getCustomer_Id();
             int film_id = Integer.parseInt(request.getParameter("film_id"));
@@ -162,15 +166,14 @@ public class CustomerController extends HttpServlet {
             ses.setAttribute("wishlistfilms", FilmDao.getWishlistDetails());
             forward = WISHLIST;
 
-        } else if(action.equalsIgnoreCase("viewwishlist")){
-            
+        } else if (action.equalsIgnoreCase("viewwishlist")) {
+
             int customer_id = customer.getCustomer_Id();
             FilmDao.viewWishlist(customer_id);
             request.setAttribute("wishlistfilms", FilmDao.getWishlistDetails());
             forward = WISHLIST;
-            
-        }
-        else if (action.equalsIgnoreCase("makeareturn")) {
+
+        } else if (action.equalsIgnoreCase("makeareturn")) {
 
             int customer_id = customer.getCustomer_Id();
 
@@ -179,7 +182,7 @@ public class CustomerController extends HttpServlet {
             FilmDao.getRentedFilms(customer_id);
             ses.setAttribute("rentedfilms", FilmDao.getRentedFilms());
             forward = RETURN;
-            
+
         } else if (action.equalsIgnoreCase("return")) {
 
             int film_id = Integer.parseInt(request.getParameter("film_id")); //getting ID of film to return
@@ -194,24 +197,24 @@ public class CustomerController extends HttpServlet {
             returnFilm2.setTitle(returnFilm.getTitle());
             returnFilm2.setRental_duration(returnFilm.getRental_duration());
             returnFilm2.setRental_rate(returnFilm.getRental_rate());
-            
+
             String dateRented = returnFilm2.getRental_date();
             double rental_rate = Double.parseDouble(returnFilm2.getRental_rate());
             double amountPaid = 0.0;
             String filmTitle = returnFilm2.getTitle();
-                        
-            amountPaid = FilmDao.compareDueDate(dateRented, customer_id, rental_rate ); 
+
+            amountPaid = FilmDao.compareDueDate(dateRented, customer_id, rental_rate);
             //update transaction table
             FilmDao.addToTransactions(dateRented, film_id, customer_id, amountPaid);
             //delete rented movie from rental where customer and film id = ?
             FilmDao.deleteFromRental(customer_id, film_id);
-            
+
             FilmDao.getReturnedFilms(customer_id, film_id);
-            
+
             ses.setAttribute("Username", Username);
             ses.setAttribute("returnedfilms", FilmDao.getReturnedFilmsList());
             forward = RETURN_RESULTS;
-            
+
         } else {
             forward = CUST_LOGIN;
         }
@@ -248,7 +251,7 @@ public class CustomerController extends HttpServlet {
                 customer.setCustomer_Pref(customer1.getCustomer_Pref());
                 customer.setPayment(customer1.getPayment());
                 customer.setEmail(customer1.getEmail());
-                
+
                 String Payment = customer.getPayment();
 
                 ses.setAttribute("Username", Username);
@@ -278,7 +281,6 @@ public class CustomerController extends HttpServlet {
             customer.setCustomer_Pref(Customer_Pref);
             customer.setPayment(Payment);
             customer.setEmail(Email);
-            
 
             if (Username != null && Password != null && Customer_Pref != null
                     && Payment != null && Email != null) {

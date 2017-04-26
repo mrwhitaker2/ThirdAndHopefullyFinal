@@ -33,6 +33,7 @@ public class FilmDAO {
     private static ArrayList<Film> filmsbought = new ArrayList<Film>();
     private static ArrayList<Film> rentedfilms = new ArrayList<Film>();
     private static ArrayList<Transaction> returnedfilms = new ArrayList<Transaction>();
+    private static ArrayList<Film> filmCheck = new ArrayList<Film>();
 
     public FilmDAO() {
         connection = DBConnectionUtil.getConnection();
@@ -757,6 +758,37 @@ public class FilmDAO {
     public static ArrayList<Transaction> getReturnedFilmsList() {
 
         return returnedfilms;
+
+    }
+
+    public static ArrayList<Film> checkMax5(int customer_id) {
+        filmCheck.clear();
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT * "
+                    + " FROM shoppingcart"
+                    + " WHERE Customer_Id ="
+                    + customer_id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Film film = new Film();
+                film.setFilm_id(rs.getInt("Film_Id"));
+
+                filmCheck.add(film);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return filmCheck;
 
     }
 
