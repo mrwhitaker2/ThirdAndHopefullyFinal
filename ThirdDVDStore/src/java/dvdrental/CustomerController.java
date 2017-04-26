@@ -91,21 +91,32 @@ public class CustomerController extends HttpServlet {
             int customer_id = customer.getCustomer_Id();
             int film_id = Integer.parseInt(request.getParameter("film_id"));
             ArrayList<Film> filmCheck = new ArrayList<Film>();
-           // filmCheck = FilmDao.checkMax5(customer_id);
-//            if (filmCheck.length() <= 5) {
-//
-//                FilmDao.addCart(customer_id, film_id);
-//                FilmDao.viewCart(customer_id);
-//            }
+            filmCheck = FilmDao.checkMax5(customer_id);
+            if (filmCheck.size() <= 4) {
 
-            request.setAttribute("cartfilms", FilmDao.getCartDetails());
+                String message = "Enjoy your selections!";
+                FilmDao.addCart(customer_id, film_id);
+                FilmDao.viewCart(customer_id);
+                request.setAttribute("cartfilms", FilmDao.getCartDetails());
+                ses.setAttribute("message", message);
+            } else if (filmCheck.size() > 4) {
+
+                String message = "You can only checkout 5 movies at a time";
+                FilmDao.viewCart(customer_id);
+                request.setAttribute("cartfilms", FilmDao.getCartDetails());
+                ses.setAttribute("message", message);
+            }
+
             forward = SHOPPING_CART;
 
         } else if (action.equalsIgnoreCase("viewcart")) {
 
+            String message = "Enjoy your selections!";
+            
             int customer_id = customer.getCustomer_Id();
             FilmDao.viewCart(customer_id);
             request.setAttribute("cartfilms", FilmDao.getCartDetails());
+            ses.setAttribute("message", message);
             forward = SHOPPING_CART;
 
         } else if (action.equalsIgnoreCase("deletecart")) {
@@ -113,7 +124,9 @@ public class CustomerController extends HttpServlet {
             int customer_id = customer.getCustomer_Id();
             FilmDao.deleteFilm(customer_id, film_id);
             FilmDao.viewCart(customer_id);
+            String message = "Enjoy your selections!";
             request.setAttribute("cartfilms", FilmDao.getCartDetails());
+            ses.setAttribute("message", message);
             forward = SHOPPING_CART;
         } else if (action.equalsIgnoreCase("checkout")) {
 
@@ -257,6 +270,7 @@ public class CustomerController extends HttpServlet {
                 ses.setAttribute("Username", Username);
                 ses.setAttribute("Customer_Id", customer_id);
                 ses.setAttribute("Payment", Payment);
+                FilmDao.deleteFromCartAtStart(customer_id);
                 RequestDispatcher rs = request.getRequestDispatcher(BROWSE);
                 rs.forward(request, response);
 

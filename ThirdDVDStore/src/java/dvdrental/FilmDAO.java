@@ -400,8 +400,7 @@ public class FilmDAO {
         return salesObjs;
     }
 
-
-public static double calculateTotal(int customer_id) {
+    public static double calculateTotal(int customer_id) {
 
         double Total = 0.0;
         double listValue = 0.0;
@@ -874,6 +873,24 @@ public static double calculateTotal(int customer_id) {
 
         return filmCheck;
 
+    }
+
+    public static void deleteFromCartAtStart(int customer_id) {
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    " DELETE FROM shoppingcart WHERE customer_id="
+                    + customer_id);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
