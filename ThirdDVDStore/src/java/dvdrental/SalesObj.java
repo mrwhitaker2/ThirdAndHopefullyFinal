@@ -5,6 +5,12 @@
  */
 package dvdrental;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author Taylor
@@ -17,6 +23,15 @@ public class SalesObj {
     private double sales;
     private double replacement_cost;
     private double revenue;
+    private String rental_date;
+
+    public String getRental_date() {
+        return rental_date;
+    }
+
+    public void setRental_date(String Rental_date) {
+        this.rental_date = Rental_date;
+    }
 
     public String getTitle() {
         return title;
@@ -66,18 +81,42 @@ public class SalesObj {
         this.replacement_cost = replacement_cost;
     }
 
-    public double calcRevenue()
-    {
+    public double calcRevenue() {
         double rev;
-        if(sales < replacement_cost)
-        {
+        if (sales < replacement_cost) {
             rev = replacement_cost - sales;
-        }
-        else{
+        } else {
             rev = sales - replacement_cost;
         }
-        
+
         return rev;
     }
-    
+
+    public boolean getDateAndCompare(String date) {
+
+        LocalDate localDate = LocalDate.now();//For reference
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formatDate = localDate.format(formatter);
+        LocalDate parseDate = LocalDate.parse(formatDate, formatter);
+        List<String> todayList = Arrays.asList(formatDate.split("-"));
+        List<String> dateList = Arrays.asList(date.split("-"));
+        if(Integer.parseInt(todayList.get(0)) == Integer.parseInt(dateList.get(0)))
+        {
+           return false;
+        }
+        else{
+                if(Integer.parseInt(todayList.get(1)) < Integer.parseInt(dateList.get(1)))
+                {
+                    return false;
+                }
+                else if(Integer.parseInt(todayList.get(1)) == Integer.parseInt(dateList.get(1)))
+                {
+                    if(Integer.parseInt(todayList.get(2)) < Integer.parseInt(dateList.get(2)))
+                    {
+                       return false; 
+                    }
+                }
+            }
+        return true;
+    }
 }

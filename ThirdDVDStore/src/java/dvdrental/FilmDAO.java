@@ -363,4 +363,32 @@ public class FilmDAO {
         }
         return salesObjs;
     }
+     public static List<SalesObj> getNonSellers() {
+        salesObjs.clear();
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT F.title, T.Date_Rented FROM Transactions as T JOIN Film as F On F.film_id=T.Film_Id");
+            ResultSet rs = ps.executeQuery();
+            st = rs.next();
+            while (rs.next()) {
+                SalesObj salesObj = new SalesObj();
+                salesObj.setTitle(rs.getString("title"));
+                salesObj.setRental_date(rs.getString("Date_Rented"));
+                if(salesObj.getDateAndCompare(salesObj.getRental_date()) == true)
+                {
+                    salesObjs.add(salesObj);
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return salesObjs;
+    }
 }
