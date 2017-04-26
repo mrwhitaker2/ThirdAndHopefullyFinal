@@ -36,23 +36,8 @@
             </tbody>
 
         </table>
-        <table border=0 id="tableID">
-            <thead>
-                <tr>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody >
-                <c:forEach items="${checkoutdetails}" var="customer">
-                    <tr>
-                        <td><c:out value="${customer.getTotal()}" /></td>
-
-                    </tr>
-                </tbody>
-            </c:forEach>
-
-            <p><a href="CustomerController?action=checkoutdetails">Checkout</a></p>
-            
-         
+        
+            <p><a href="CustomerController?action=checkout">Checkout</a></p>
+                     
     </body>
 </html>

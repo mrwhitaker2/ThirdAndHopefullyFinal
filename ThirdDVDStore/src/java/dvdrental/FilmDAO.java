@@ -10,7 +10,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class FilmDAO {
     private static ArrayList<Film> wishlistfilms = new ArrayList<Film>();
     private static ArrayList<Film> filmsbought = new ArrayList<Film>();
     private static ArrayList<Film> rentedfilms = new ArrayList<Film>();
+    private static ArrayList<Transaction> returnedfilms = new ArrayList<Transaction>();
 
     public FilmDAO() {
         connection = DBConnectionUtil.getConnection();
@@ -507,7 +510,7 @@ public class FilmDAO {
         }
     }
 
-    public static void addToRentalTable(ArrayList<Film> filmsbought, int customer_id,  String formatDate, String Payment) {
+    public static void addToRentalTable(ArrayList<Film> filmsbought, int customer_id, String formatDate, String Payment) {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -518,14 +521,14 @@ public class FilmDAO {
                     " INSERT INTO RentalNoBS(Customer_Id,Rental_Date,Film_Id,Amount,Payment_Type) VALUES (?, ?, ?, ?, ?)");
             ps.setInt(1, customer_id);
             ps.setString(2, formatDate);
-            
+
             Iterator<Film> it = filmsbought.iterator();
             while (it.hasNext()) {
                 Film f = it.next();
                 ps.setInt(3, f.getFilm_id());
                 ps.setString(4, f.getRental_rate());
             }
-            
+
             ps.setString(5, Payment);
 
             ps.executeUpdate();
@@ -613,7 +616,7 @@ public class FilmDAO {
     public static Film getFilmDateRented(int film_id, int customer_id) {
 
         Film rentedFilm = new Film();
-        
+
         try {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
@@ -635,7 +638,126 @@ public class FilmDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return rentedFilm;
-}
+    }
+
+    public static double compareDueDate(String dateRented, int rental_duration, double rental_rate) {
+        LocalDate localDate = LocalDate.now();//For reference
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formatDate = localDate.format(formatter);
+        LocalDate parseDate = LocalDate.parse(formatDate, formatter);
+        List<String> todayList = Arrays.asList(formatDate.split("-"));
+        List<String> dateList = Arrays.asList(dateRented.split("-"));
+        int x;
+        if (Integer.parseInt(todayList.get(1)) > Integer.parseInt(dateList.get(1)) && Integer.parseInt(todayList.get(2)) > Integer.parseInt(dateList.get(2))) {
+            x = Integer.parseInt(dateList.get(2)) + 30 + Integer.parseInt(todayList.get(2)) - rental_duration;
+            rental_rate = x * (.20) * rental_rate;
+            return rental_rate;
+        }
+        if (Integer.parseInt(dateList.get(1)) < Integer.parseInt(todayList.get(1)) && Integer.parseInt(dateList.get(2)) > Integer.parseInt(todayList.get(2))) {
+            x = Integer.parseInt(dateList.get(2)) + 30 - rental_duration;
+            rental_rate = x * (.20) * rental_rate;
+            return rental_rate;
+        }
+        if (Integer.parseInt(dateList.get(1)) == Integer.parseInt(todayList.get(1))) {
+            x = Integer.parseInt(dateList.get(2)) + rental_duration;
+            if (x < Integer.parseInt(todayList.get(2))) {
+                x = Integer.parseInt(todayList.get(2)) - x;
+                rental_rate = x * (.20) * rental_rate;
+                return rental_rate;
+            } else {
+                return rental_rate;
+            }
+        }
+
+        return rental_rate;
+
+    }
+
+    public static void addToTransactions(String dateRented, int film_id, int customer_id, double amountPaid) {
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    " INSERT INTO Transactions(Date_Rented,Film_Id,Customer_Id,Amount) VALUES (?, ?, ?, ?)");
+            ps.setString(1, dateRented);
+            ps.setInt(2, film_id);
+            ps.setInt(3, customer_id);
+            ps.setDouble(4, amountPaid);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void deleteFromRental(int customer_id, int film_id) {
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    " DELETE FROM rentalnobs WHERE customer_id="
+                    + customer_id
+                    + " and film_id="
+                    + film_id);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void getReturnedFilms(int customer_id, int film_id) {
+        returnedfilms.clear();
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT T.Date_Rented, T.Film_Id, T.Customer_Id, T.Amount, F.title "
+                    + " FROM transactions AS T"
+                    + " JOIN film AS F"
+                    + " ON T.Film_Id = F.film_id"
+                    + " WHERE T.Customer_Id ="
+                    + customer_id
+                    + " and T.Film_Id="
+                    + film_id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Transaction t = new Transaction();
+                t.setDate_Rented(rs.getString("Date_Rented"));
+                t.setFilm_Id(rs.getInt("Film_Id"));
+                t.setCustomer_Id(rs.getInt("Customer_Id"));
+                t.setAmount(rs.getDouble("Amount"));
+                t.setTitle(rs.getString("title"));
+
+                returnedfilms.add(t);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static ArrayList<Transaction> getReturnedFilmsList() {
+
+        return returnedfilms;
+
+    }
+
 }

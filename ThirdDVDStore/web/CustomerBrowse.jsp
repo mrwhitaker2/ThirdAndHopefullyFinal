@@ -41,10 +41,13 @@
 
 
         <h1>Hello, <%=session.getAttribute("Username")%> </h1>
-        <h1>Your Customer ID is: <%=session.getAttribute("Customer_Id")%> </h1>
+        <h2>Your Customer ID is: <%=session.getAttribute("Customer_Id")%> </h2>
+        <h2>Your Payment Method is: <%=session.getAttribute("Payment")%> </h2>
+        <p><a href="CustomerController?action=viewcart">View Shopping Cart</a></p>
+        <p><a href="CustomerController?action=makeareturn">Return a Movie</a></p>
 
         <form method="post" action="SearchController?action=search">
-            <h2>Search your movie:</h2>  
+            <h3>Search your movie:</h3>  
 
             Search Category (Genre, Actor, Store):
             <select name="criteria" id="criteria">

@@ -14,29 +14,32 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
-        <h2>The films you have checked out are listed below: </h2>
+
+        <h1>Hello, <%=session.getAttribute("Username")%> </h1>
+        <h2>The films you have returned are listed below: </h2>
 
         <table border=1 id="tableID">
             <thead>
                 <tr>
+                    <th>Date Rented</th>
                     <th>Film ID</th>
                     <th>Title</th>
-                    <th>Rental Rate</th>
-                    <th>Rental Duration</th>
+                    <th>Amount Charged to card on file</th>
+                    
                 </tr>
             </thead>
             <tbody >
-                <c:forEach items="${filmsbought}" var="film">
-                    <tr>
-                        <td><c:out value="${film.film_id}" /></td>
-                        <td><c:out value="${film.title}" /></td>
-                        <td><c:out value="${film.rental_rate}" /></td>
-                        <td><c:out value="${film.rental_duration}" /></td>
-                    </tr>
-                </c:forEach>
-            </tbody>
+            <c:forEach items="${returnedfilms}" var="transaction">
+                <tr>
+                <td><c:out value="${transaction.getDate_Rented()}" /></td>
+                <td><c:out value="${transaction.getFilm_Id()}" /></td>
+                <td><c:out value="${transaction.getTitle()}" /></td>
+                <td><c:out value="${transaction.getAmount()}" /></td>
+                </tr>
+            </c:forEach>
+        </tbody>
 
 
 
 </html>
+

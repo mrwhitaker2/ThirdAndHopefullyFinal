@@ -24,6 +24,7 @@ public class Film {
     private String rating;
     private String special_features;
     private String last_update;
+    private String rental_date;
     private boolean inStock;
 
     public boolean getInStock() {
@@ -32,6 +33,14 @@ public class Film {
 
     public void setInStock(boolean inStock) {
         this.inStock = inStock;
+    }
+
+    public String getRental_date() {
+        return rental_date;
+    }
+
+    public void setRental_date(String rental_date) {
+        this.rental_date = rental_date;
     }
 
     /**
@@ -215,7 +224,5 @@ public class Film {
     public void setLast_update(String last_update) {
         this.last_update = last_update;
     }
-
-   
 
 }

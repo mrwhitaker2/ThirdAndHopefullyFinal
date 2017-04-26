@@ -14,8 +14,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Your change: <%=session.getAttribute("result")%> </h1>
-        <h2>The films you bought are listed below: </h2>
+        
+        <h2>The films you have checked out are listed below: </h2>
 
         <table border=1 id="tableID">
             <thead>
