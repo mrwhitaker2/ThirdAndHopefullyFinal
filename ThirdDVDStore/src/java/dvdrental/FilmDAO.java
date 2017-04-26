@@ -339,4 +339,28 @@ public class FilmDAO {
         }
         return salesObjs;
     }
+    public static List<SalesObj> getBestSellers() {
+        salesObjs.clear();
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT T.Film_Id,F.title, SUM(T.amount) AS 'Sales' FROM Transactions as T JOIN Film as F ON F.Film_Id=T.Film_Id GROUP BY Film_Id ORDER BY Sales Desc");
+            ResultSet rs = ps.executeQuery();
+            st = rs.next();
+            while (rs.next()) {
+                SalesObj salesObj = new SalesObj();
+                salesObj.setTitle(rs.getString("title"));
+                salesObj.setSales(rs.getDouble("Sales"));
+                salesObjs.add(salesObj);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return salesObjs;
+    }
 }

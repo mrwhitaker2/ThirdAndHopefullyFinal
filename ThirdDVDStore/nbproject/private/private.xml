@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Taylor/Documents/GitHub/ThirdAndHopefullyFinal/ThirdDVDStore/web/ShoppingCart.jsp</file>
             <file>file:/C:/Users/Taylor/Documents/GitHub/ThirdAndHopefullyFinal/ThirdDVDStore/src/java/dvdrental/EmployeeController.java</file>
             <file>file:/C:/Users/Taylor/Documents/GitHub/ThirdAndHopefullyFinal/ThirdDVDStore/web/MovieInventoryInfo.jsp</file>
             <file>file:/C:/Users/Taylor/Documents/GitHub/ThirdAndHopefullyFinal/ThirdDVDStore/src/java/dvdrental/FilmDAO.java</file>
-            <file>file:/C:/Users/Taylor/Documents/GitHub/ThirdAndHopefullyFinal/ThirdDVDStore/web/SearchResults.jsp</file>
+            <file>file:/C:/Users/Taylor/Documents/GitHub/ThirdAndHopefullyFinal/ThirdDVDStore/src/java/dvdrental/SalesObj.java</file>
         </group>
     </open-files>
 </project-private>

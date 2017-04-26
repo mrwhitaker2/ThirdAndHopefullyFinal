@@ -50,7 +50,7 @@ public class CustomerDAO {
         
     }
     public static void getCustomerList() {
-
+        customers.clear();
         try {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");

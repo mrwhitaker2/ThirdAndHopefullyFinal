@@ -66,8 +66,9 @@ public class EmployeeController extends HttpServlet {
             filmDAO.getRentalNoBS();
             forward = AVAILABLE_MOVIE_INVENTORY;
             request.setAttribute("films", filmDAO.getInventory());
-        } else if (action.equalsIgnoreCase("bestandworstsellers")) {
+        } else if (action.equalsIgnoreCase("bestandworstsellers")) {            
             forward = BEST_AND_WORST_SELLERS;
+            request.setAttribute("salesObjs",filmDAO.getBestSellers());
         } else if (action.equalsIgnoreCase("movienotsold")) {
             forward = NOT_SOLD;
         } else {
