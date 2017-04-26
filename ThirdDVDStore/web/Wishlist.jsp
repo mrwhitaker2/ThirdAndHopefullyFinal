@@ -21,7 +21,7 @@
                     <th>Film ID</th>
                     <th>Title</th>
                     <th>Rental Rate</th>
-                    <th colspan=1>Action</th>
+                    <th colspan=2>Action</th>
                 </tr>
             </thead>
             <tbody >
@@ -31,6 +31,7 @@
                         <td><c:out value="${film.title}" /></td>
                         <td><c:out value="${film.rental_rate}" /></td>
                         <td><a href="CustomerController?action=deletewishlist&film_id=<c:out value="${film.film_id}"/>">Remove</a></td>
+                        <td><a href="CustomerController?action=addcart&film_id=<c:out value="${film.film_id}"/>">Add to Cart</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

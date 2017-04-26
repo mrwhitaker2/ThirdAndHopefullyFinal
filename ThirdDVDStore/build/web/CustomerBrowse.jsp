@@ -45,6 +45,8 @@
         <h2>Your Payment Method is: <%=session.getAttribute("Payment")%> </h2>
         <p><a href="CustomerController?action=viewcart">View Shopping Cart</a></p>
         <p><a href="CustomerController?action=makeareturn">Return a Movie</a></p>
+        <p><a href="CustomerController?action=viewwishlist">View Wishlist</a></p>
+        
 
         <form method="post" action="SearchController?action=search">
             <h3>Search your movie:</h3>  

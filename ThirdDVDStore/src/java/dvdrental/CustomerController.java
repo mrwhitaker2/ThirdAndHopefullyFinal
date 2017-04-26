@@ -162,7 +162,15 @@ public class CustomerController extends HttpServlet {
             ses.setAttribute("wishlistfilms", FilmDao.getWishlistDetails());
             forward = WISHLIST;
 
-        } else if (action.equalsIgnoreCase("makeareturn")) {
+        } else if(action.equalsIgnoreCase("viewwishlist")){
+            
+            int customer_id = customer.getCustomer_Id();
+            FilmDao.viewWishlist(customer_id);
+            request.setAttribute("wishlistfilms", FilmDao.getWishlistDetails());
+            forward = WISHLIST;
+            
+        }
+        else if (action.equalsIgnoreCase("makeareturn")) {
 
             int customer_id = customer.getCustomer_Id();
 
