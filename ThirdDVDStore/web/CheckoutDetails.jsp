@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <form method="post" action="CustLoginController?action=checkout"> 
+    <form method="post" action="CustomerController?action=checkout"> 
         <body>
             <table border=1 id="tableID">
                 <thead>
@@ -34,8 +34,6 @@
                         </tr>
                     </tbody>
                 </c:forEach>
-
-
 
                 Payment type:
                 <select name="payment" id="payment">

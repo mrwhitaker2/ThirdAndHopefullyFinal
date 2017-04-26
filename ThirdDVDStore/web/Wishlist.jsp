@@ -25,33 +25,18 @@
                 </tr>
             </thead>
             <tbody >
-                <c:forEach items="${cartfilms}" var="film">
+                <c:forEach items="${wishlistfilms}" var="film">
                     <tr>
                         <td><c:out value="${film.film_id}" /></td>
                         <td><c:out value="${film.title}" /></td>
                         <td><c:out value="${film.rental_rate}" /></td>
-                        <td><a href="CustomerController?action=deletecart&film_id=<c:out value="${film.film_id}"/>">Remove</a></td>
+                        <td><a href="CustomerController?action=deletewishlist&film_id=<c:out value="${film.film_id}"/>">Remove</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
 
         </table>
-        <table border=0 id="tableID">
-            <thead>
-                <tr>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody >
-                <c:forEach items="${checkoutdetails}" var="customer">
-                    <tr>
-                        <td><c:out value="${customer.getTotal()}" /></td>
-
-                    </tr>
-                </tbody>
-            </c:forEach>
-
-            <p><a href="CustomerController?action=checkoutdetails">Checkout</a></p>
+       
             
          
     </body>

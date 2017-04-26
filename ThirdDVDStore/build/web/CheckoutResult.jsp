@@ -1,6 +1,6 @@
 <%-- 
-    Document   : ShoppingCart
-    Created on : Apr 11, 2017, 8:05:39 PM
+    Document   : CheckoutResult
+    Created on : Apr 25, 2017, 1:51:03 PM
     Author     : mrwhi
 --%>
 
@@ -14,45 +14,29 @@
         <title>JSP Page</title>
     </head>
     <body>
-       
+        <h1>Your change: <%=session.getAttribute("result")%> </h1>
+        <h2>The films you bought are listed below: </h2>
+
         <table border=1 id="tableID">
             <thead>
                 <tr>
                     <th>Film ID</th>
                     <th>Title</th>
                     <th>Rental Rate</th>
-                    <th colspan=1>Action</th>
+                    <th>Rental Duration</th>
                 </tr>
             </thead>
             <tbody >
-                <c:forEach items="${cartfilms}" var="film">
+                <c:forEach items="${filmsbought}" var="film">
                     <tr>
                         <td><c:out value="${film.film_id}" /></td>
                         <td><c:out value="${film.title}" /></td>
                         <td><c:out value="${film.rental_rate}" /></td>
-                        <td><a href="CustomerController?action=deletecart&film_id=<c:out value="${film.film_id}"/>">Remove</a></td>
+                        <td><c:out value="${film.rental_duration}" /></td>
                     </tr>
                 </c:forEach>
             </tbody>
 
-        </table>
-        <table border=0 id="tableID">
-            <thead>
-                <tr>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody >
-                <c:forEach items="${checkoutdetails}" var="customer">
-                    <tr>
-                        <td><c:out value="${customer.getTotal()}" /></td>
 
-                    </tr>
-                </tbody>
-            </c:forEach>
 
-            <p><a href="CustomerController?action=checkoutdetails">Checkout</a></p>
-            
-         
-    </body>
 </html>

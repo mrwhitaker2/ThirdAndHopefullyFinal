@@ -30,6 +30,7 @@ public class CustLoginController extends HttpServlet {
     private static String SHOPPING_CART = "/ShoppingCart.jsp";
     private static String RESULTS = "/SearchResults.jsp";
     private static String CHECKOUT_DETAILS = "/CheckoutDetails.jsp";
+    private static String CHECKOUT_RESULT = "/CheckoutResult.jsp";
 
     private static ArrayList<Customer> checkoutdetails = new ArrayList<Customer>();
     private FilmDAO FilmDao;
@@ -80,9 +81,22 @@ public class CustLoginController extends HttpServlet {
 
             String Payment = request.getParameter("payment");
             String Payment_Amount = request.getParameter("Payment_Amount");
+            customer.setPayment(Payment);
+            customer.setPayment_Amount(Payment_Amount);
             int customer_id = customer.getCustomer_Id();
             String Username = customer.getUsername();
-            double Total = customer.getTotal();
+            double Total = FilmDao.calculateTotal(customer_id);
+            BigDecimal bd = new BigDecimal(Total).setScale(2, RoundingMode.HALF_EVEN);
+            Total = bd.doubleValue();
+            customer.setTotal(Total);
+            
+            double result = FilmDao.calculateChange(Total, Payment_Amount);
+            BigDecimal bigD = new BigDecimal(result).setScale(2, RoundingMode.HALF_EVEN);
+            result = bigD.doubleValue();
+            ses.setAttribute("result", bigD.doubleValue());
+            
+            RequestDispatcher rs = request.getRequestDispatcher(CHECKOUT_RESULT);
+            rs.forward(request, response);    
         }
     }
 
@@ -102,6 +116,18 @@ public class CustLoginController extends HttpServlet {
             int film_id = Integer.parseInt(request.getParameter("film_id"));
             FilmDao.addCart(customer_id, film_id);
             FilmDao.viewCart(customer_id);
+
+            Customer customer3 = new Customer();
+            double Total = FilmDao.calculateTotal(customer_id);
+            BigDecimal bd = new BigDecimal(Total).setScale(2, RoundingMode.HALF_EVEN);
+            Total = bd.doubleValue();
+            customer3.setUsername(customer.getUsername());
+            customer3.setCustomer_Id(customer.getCustomer_Id());
+            customer3.setTotal(Total);
+            ArrayList<Customer> checkoutdetails1 = new ArrayList<Customer>();
+            checkoutdetails1.add(customer3);
+
+            request.setAttribute("checkoutdetails", checkoutdetails1);
             request.setAttribute("cartfilms", FilmDao.getCartDetails());
             forward = SHOPPING_CART;
 
@@ -118,9 +144,10 @@ public class CustLoginController extends HttpServlet {
             customer3.setUsername(customer.getUsername());
             customer3.setCustomer_Id(customer.getCustomer_Id());
             customer3.setTotal(Total);
-            checkoutdetails.add(customer3);
+            ArrayList<Customer> checkoutdetails1 = new ArrayList<Customer>();
+            checkoutdetails1.add(customer3);
 
-            request.setAttribute("checkoutdetails", checkoutdetails);
+            request.setAttribute("checkoutdetails", checkoutdetails1);
 
             forward = SHOPPING_CART;
 
@@ -136,9 +163,31 @@ public class CustLoginController extends HttpServlet {
             BigDecimal bd = new BigDecimal(Total).setScale(2, RoundingMode.HALF_EVEN);
             Total = bd.doubleValue();
             customer3.setTotal(Total);
-            checkoutdetails.add(customer3);
-            request.setAttribute("checkoutdetails", checkoutdetails);
+            ArrayList<Customer> checkoutdetails1 = new ArrayList<Customer>();
+            checkoutdetails1.add(customer3);
+            request.setAttribute("checkoutdetails", checkoutdetails1);
             forward = SHOPPING_CART;
+
+        } else if (action.equalsIgnoreCase("checkoutdetails")) {
+
+            Customer customer3 = new Customer();
+            
+            int customer_id = customer.getCustomer_Id();
+            customer3.setCustomer_Id(customer_id);
+            
+            String Username = customer.getUsername();
+            customer3.setUsername(Username);
+            
+            double Total = FilmDao.calculateTotal(customer_id);
+            BigDecimal bd = new BigDecimal(Total).setScale(2, RoundingMode.HALF_EVEN);
+            Total = bd.doubleValue();
+            customer3.setTotal(Total);
+            
+            ArrayList<Customer> checkoutdetails2 = new ArrayList<Customer>();
+            checkoutdetails2.add(customer3);
+            request.setAttribute("checkoutdetails", checkoutdetails2);
+
+            forward = CHECKOUT_DETAILS;
 
         } else {
             forward = CUST_LOGIN;

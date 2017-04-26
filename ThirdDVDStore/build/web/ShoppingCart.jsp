@@ -30,7 +30,7 @@
                         <td><c:out value="${film.film_id}" /></td>
                         <td><c:out value="${film.title}" /></td>
                         <td><c:out value="${film.rental_rate}" /></td>
-                        <td><a href="CustLoginController?action=deletecart&film_id=<c:out value="${film.film_id}"/>">Remove</a></td>
+                        <td><a href="CustomerController?action=deletecart&film_id=<c:out value="${film.film_id}"/>">Remove</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
@@ -51,7 +51,7 @@
                 </tbody>
             </c:forEach>
 
-            <p><a href="CustLoginController?action=checkoutdetails">Checkout</a></p>
+            <p><a href="CustomerController?action=checkoutdetails">Checkout</a></p>
             
          
     </body>
