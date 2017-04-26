@@ -48,11 +48,13 @@ public final class EmployeeMenu_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("<html>\r\n");
       out.write("    <head>\r\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
+      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"Styling/Welcome.css\">\r\n");
       out.write("        <title>Employee Menu</title>\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
+      out.write("        <div>\r\n");
       out.write("        <h1>Employee Menu</h1>\r\n");
-      out.write("\r\n");
+      out.write("        \r\n");
       out.write("        <form method=\"POST\" action='CustomerController' name=\"frmCustomer\"> \r\n");
       out.write("            <p><a href=\"CustomerController?action=viewcustomers\">Customer Profiles</a></p>\r\n");
       out.write("        </form>\r\n");
@@ -63,6 +65,8 @@ public final class EmployeeMenu_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("            <p><a href=\"EmployeeController?action=bestandworstsellers\">Best and worst sellers</a></p>\r\n");
       out.write("            <p><a href=\"EmployeeController?action=movienotsold\">Not sold last year</a></p>\r\n");
       out.write("        </form>\r\n");
+      out.write("        \r\n");
+      out.write("        </div>\r\n");
       out.write("    </body>\r\n");
       out.write("</html>\r\n");
     } catch (Throwable t) {

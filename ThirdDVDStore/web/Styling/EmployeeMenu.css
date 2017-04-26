@@ -8,15 +8,6 @@ and open the template in the editor.
     Author     : willk
 */
 
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Apr 23, 2017, 4:00:04 PM
-    Author     : Taylor
-*/
 
 * {
     margin:0;
@@ -25,7 +16,7 @@ and open the template in the editor.
 }
 
 body {
-    background:url("Photos/2016Championship.jpg") no-repeat center center fixed; 
+    background:url("Photos/IngramKnees.jpg") no-repeat center center fixed; 
     background-size:     cover;                      /* <------ */
     background-repeat:   no-repeat;
     background-position: center center;
@@ -63,7 +54,10 @@ p,h1 {
     text-shadow:1px 1px 0px white;
     text-align:center;
 }
-
+h1{
+    color:black;
+    text-decoration:underline;
+}
 input,select {
     display:block;
     width:90%;
