@@ -150,8 +150,9 @@ public class CustomerController extends HttpServlet {
                 
                 f2.setTitle(f.getTitle());
                 f2.setRental_rate(f.getRental_rate());
+                String rentalRate = f.getRental_rate();
                 f2.setRental_duration(f.getRental_duration());
-                FilmDao.addToRentalTable(customer_id, formatDate, filmID, Payment);
+                FilmDao.addToRentalTable(customer_id, formatDate, filmID, rentalRate, Payment);
             }
 
             ses.setAttribute("filmsbought", filmsbought);
