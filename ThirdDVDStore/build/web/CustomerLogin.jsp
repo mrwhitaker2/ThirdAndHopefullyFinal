@@ -11,18 +11,27 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="Styling/CustomerLogin.css">
+        <title>Customer Login</title>
     </head>
-    <body>
-        
-        <h1> Login! </h1>
-        
+    <body>        
         <form method="post" action="CustomerController?action=login">
-        Username:<input type="text" value="<c:out value="${customer.Username}" />" name="Username" /><br/>
-        Password:<input type="password" value="<c:out value="${customer.Password}" />"name="Password" /><br/>
-        <input type="submit" value="login" />
+            <h1>Customer Login</h1><br/>
+            <input type="text"
+                   value="<c:out value="${customer.Username}" />" 
+                   name="Username"
+                   placeholder="Username"/><br/>
+            <input 
+                type="password" 
+                value="<c:out value="${customer.Password}" />"
+                name="Password"
+                Placeholder="Password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/><br/>
+            <input type="submit" value="login" /><br/>
+            <p><a href="CustomerController?action=custcreate">Create an Account</a></p>
         </form>
 
-            <p><a href="CustomerController?action=custcreate">Create an Account</a></p>
+        
     </body>
 </html>

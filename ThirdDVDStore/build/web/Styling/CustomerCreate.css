@@ -4,9 +4,10 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Apr 24, 2017, 8:55:02 PM
-    Author     : WKS Desktop
+    Created on : Apr 25, 2017, 3:03:04 PM
+    Author     : wsullivan16
 */
+
 * {
     margin:0;
     padding:0;
@@ -14,11 +15,10 @@ and open the template in the editor.
 }
 
 body {
-    background:url("Photos/Old.jpg") no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    background:url("Photos/HoldingBack.jpg") no-repeat center center fixed; 
+    background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
 }
 
 form {
@@ -40,9 +40,9 @@ form {
 }
 
 form:hover
-{  
-    opacity: 1.0;           
-}
+        {  
+            opacity: 1.0;           
+        }
 p,h1 {
     font-family: 'Source Sans Pro', sans-serif;
     font-size:2em;
@@ -54,7 +54,7 @@ p,h1 {
     text-align:center;
 }
 
-input {
+input,select {
     display:block;
     width:90%;
     padding:14px;
@@ -81,18 +81,6 @@ li {
     list-style:none;
 }
 
-h1 {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size:2em;
-    font-weight:300;
-    margin: auto;
-    margin-bottom:auto;
-    color:#7f8c8d;
-    text-shadow:1px 1px 0px white;
-    text-align:center;
-    color:Black;
-    text-decoration: underline;
-}
 a, a:visited {
     text-decoration:none;
     color:#7f8c8d;
@@ -117,4 +105,3 @@ a, a:visited {
     -moz-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
 }
-
