@@ -594,7 +594,7 @@ public class FilmDAO {
         }
     }
 
-    public static void addToRentalTable(ArrayList<Film> filmsbought, int customer_id, String formatDate, String Payment) {
+    public static void addToRentalTable(int customer_id, String formatDate, int filmID, String rentalRate, String Payment) {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -605,14 +605,8 @@ public class FilmDAO {
                     " INSERT INTO RentalNoBS(Customer_Id,Rental_Date,Film_Id,Amount,Payment_Type) VALUES (?, ?, ?, ?, ?)");
             ps.setInt(1, customer_id);
             ps.setString(2, formatDate);
-
-            Iterator<Film> it = filmsbought.iterator();
-            while (it.hasNext()) {
-                Film f = it.next();
-                ps.setInt(3, f.getFilm_id());
-                ps.setString(4, f.getRental_rate());
-            }
-
+            ps.setInt(3, filmID);
+            ps.setString(4, rentalRate);
             ps.setString(5, Payment);
 
             ps.executeUpdate();
