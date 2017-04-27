@@ -594,7 +594,7 @@ public class FilmDAO {
         }
     }
 
-    public static void addToRentalTable(ArrayList<Film> filmsbought, int customer_id, String formatDate, String Payment) {
+    public static void addToRentalTable(int customer_id, String formatDate, int filmID, String Payment) {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -602,18 +602,11 @@ public class FilmDAO {
             //creating connection with the database 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
             PreparedStatement ps = con.prepareStatement(
-                    " INSERT INTO RentalNoBS(Customer_Id,Rental_Date,Film_Id,Amount,Payment_Type) VALUES (?, ?, ?, ?, ?)");
+                    " INSERT INTO RentalNoBS(Customer_Id,Rental_Date,Film_Id,Payment_Type) VALUES (?, ?, ?, ?)");
             ps.setInt(1, customer_id);
             ps.setString(2, formatDate);
-
-            Iterator<Film> it = filmsbought.iterator();
-            while (it.hasNext()) {
-                Film f = it.next();
-                ps.setInt(3, f.getFilm_id());
-                ps.setString(4, f.getRental_rate());
-            }
-
-            ps.setString(5, Payment);
+            ps.setInt(3, filmID);
+            ps.setString(4, Payment);
 
             ps.executeUpdate();
 
