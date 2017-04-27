@@ -139,8 +139,6 @@ public class CustomerController extends HttpServlet {
 
             ses.setAttribute("filmsbought", filmsbought);
 
-            FilmDao.deleteCartInfo(customer_id);
-
             LocalDate localDate = LocalDate.now();//For reference
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String formatDate = localDate.format(formatter);
