@@ -50,7 +50,11 @@ public final class CustomerBrowse_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("<html>\r\n");
       out.write("    <head>\r\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
+<<<<<<< HEAD
       out.write("        <title>Customer Browse</title>\r\n");
+=======
+      out.write("        <title>JSP Page</title>\r\n");
+>>>>>>> refs/remotes/origin/master
       out.write("        <script  src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js\"></script>\r\n");
       out.write("        <script>\r\n");
       out.write("            $(document).ready(function () {\r\n");
@@ -78,6 +82,7 @@ public final class CustomerBrowse_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("\r\n");
       out.write("    <body>\r\n");
       out.write("\r\n");
+<<<<<<< HEAD
       out.write("<<<<<<< HEAD\r\n");
       out.write("         <h1>Hello, ");
       out.print(request.getParameter("Username"));
@@ -93,6 +98,20 @@ public final class CustomerBrowse_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("\r\n");
       out.write("        <form method=\"post\" action=\"SearchController?action=search\">\r\n");
       out.write("            <h2>Search your movie:</h2>  \r\n");
+=======
+      out.write("\r\n");
+      out.write("        <h1>Hello, ");
+      out.print(session.getAttribute("Username"));
+      out.write(" </h1>\r\n");
+      out.write("        <h2>Your Customer ID is: ");
+      out.print(session.getAttribute("Customer_Id"));
+      out.write(" </h2>\r\n");
+      out.write("        <p><a href=\"CustomerController?action=viewcart\">View Shopping Cart</a></p>\r\n");
+      out.write("        <p><a href=\"CustomerController?action=return\">Return a Movie</a></p>\r\n");
+      out.write("\r\n");
+      out.write("        <form method=\"post\" action=\"SearchController?action=search\">\r\n");
+      out.write("            <h3>Search your movie:</h3>  \r\n");
+>>>>>>> refs/remotes/origin/master
       out.write("\r\n");
       out.write("            Search Category (Genre, Actor, Store):\r\n");
       out.write("            <select name=\"criteria\" id=\"criteria\">\r\n");

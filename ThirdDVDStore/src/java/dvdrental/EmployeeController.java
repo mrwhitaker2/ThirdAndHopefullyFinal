@@ -61,14 +61,17 @@ public class EmployeeController extends HttpServlet {
             forward = CREATE_EMP;
         } else if (action.equalsIgnoreCase("movieinventoryinfo")) {
             forward = MOVIE_INVENTORY_INFO;
+            request.setAttribute("salesObjs", filmDAO.getMovieCheckoutsReport());
         } else if (action.equalsIgnoreCase("avlinventory")) {
             filmDAO.getRentalNoBS();
             forward = AVAILABLE_MOVIE_INVENTORY;
             request.setAttribute("films", filmDAO.getInventory());
-        } else if (action.equalsIgnoreCase("bestandworstsellers")) {
+        } else if (action.equalsIgnoreCase("bestandworstsellers")) {            
             forward = BEST_AND_WORST_SELLERS;
+            request.setAttribute("salesObjs",filmDAO.getBestSellers());
         } else if (action.equalsIgnoreCase("movienotsold")) {
             forward = NOT_SOLD;
+            request.setAttribute("salesObjs", filmDAO.getNonSellers());
         } else {
             forward = MENU;
         }

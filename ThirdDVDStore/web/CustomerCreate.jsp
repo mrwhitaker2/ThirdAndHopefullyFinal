@@ -39,6 +39,7 @@
         </script>
     </head>
     <body>
+<<<<<<< HEAD
         <form method="POST" action='CustomerController' name="frmAddCustomer">
             <h1>Customer Creation</h1><br/>
             <input
@@ -46,6 +47,13 @@
                 type="text" 
                 required  
                 name="Username"
+=======
+        <h1>Welcome! </h1>
+        
+          <form method="POST" action='CustomerController?action=createCust' name="frmAddCustomer"> 
+            Username : <input
+                type="text" required  name="Username"
+>>>>>>> refs/remotes/origin/master
                 value="<c:out value="${customer.Username}" />" /> <br /> 
             <input
                 placeholder="Password"

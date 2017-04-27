@@ -7,8 +7,13 @@ JSP
 CustomerBrowse.jsp
 *L
 5,38:44
+<<<<<<< HEAD
 43:82,3
 44:85
 45,2:86,3
 47,132:92
+=======
+43,2:82,3
+45,133:88
+>>>>>>> refs/remotes/origin/master
 *E
