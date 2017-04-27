@@ -12,6 +12,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,7 +49,7 @@ public class CustomerController extends HttpServlet {
 
     private static ArrayList<Customer> checkoutdetails = new ArrayList<Customer>();
 
-    Customer customer = new Customer(); //this is the current customer that will be making transactions 
+    Customer customerCurrent = new Customer(); //this is the current customer that will be making transactions 
 
     public CustomerController() {
         super();
@@ -88,7 +89,7 @@ public class CustomerController extends HttpServlet {
 
         } else if (action.equalsIgnoreCase("addcart")) {
 
-            int customer_id = customer.getCustomer_Id();
+            int customer_id = customerCurrent.getCustomer_Id();
             int film_id = Integer.parseInt(request.getParameter("film_id"));
             ArrayList<Film> filmCheck = new ArrayList<Film>();
             filmCheck = FilmDao.checkMax5(customer_id);
@@ -112,8 +113,8 @@ public class CustomerController extends HttpServlet {
         } else if (action.equalsIgnoreCase("viewcart")) {
 
             String message = "Enjoy your selections!";
-            
-            int customer_id = customer.getCustomer_Id();
+
+            int customer_id = customerCurrent.getCustomer_Id();
             FilmDao.viewCart(customer_id);
             request.setAttribute("cartfilms", FilmDao.getCartDetails());
             ses.setAttribute("message", message);
@@ -121,7 +122,7 @@ public class CustomerController extends HttpServlet {
 
         } else if (action.equalsIgnoreCase("deletecart")) {
             int film_id = Integer.parseInt(request.getParameter("film_id"));
-            int customer_id = customer.getCustomer_Id();
+            int customer_id = customerCurrent.getCustomer_Id();
             FilmDao.deleteFilm(customer_id, film_id);
             FilmDao.viewCart(customer_id);
             String message = "Enjoy your selections!";
@@ -130,26 +131,36 @@ public class CustomerController extends HttpServlet {
             forward = SHOPPING_CART;
         } else if (action.equalsIgnoreCase("checkout")) {
 
-            int customer_id = customer.getCustomer_Id();
-            String Payment = customer.getPayment();
-
-            FilmDao.getBoughtFromTable(customer_id);
-            ArrayList<Film> filmsbought = new ArrayList<Film>();
-            filmsbought = FilmDao.getFilmsBought();
-
-            ses.setAttribute("filmsbought", filmsbought);
+            int customer_id = customerCurrent.getCustomer_Id();
+            String Payment = customerCurrent.getPayment();
 
             LocalDate localDate = LocalDate.now();//For reference
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String formatDate = localDate.format(formatter);
             LocalDate parseDate = LocalDate.parse(formatDate, formatter);
 
-            FilmDao.addToRentalTable(filmsbought, customer_id, formatDate, Payment);
+            FilmDao.getBoughtFromTable(customer_id);
+            ArrayList<Film> filmsbought = new ArrayList<Film>();
+            filmsbought = FilmDao.getFilmsBought();
+            Film f2 = new Film();
 
+            for (Film f : filmsbought) {
+                f2.setFilm_id(f.getFilm_id());
+                int filmID = f2.getFilm_id();
+                
+                f2.setTitle(f.getTitle());
+                f2.setRental_rate(f.getRental_rate());
+                f2.setRental_duration(f.getRental_duration());
+                FilmDao.addToRentalTable(customer_id, formatDate, filmID, Payment);
+            }
+
+            ses.setAttribute("filmsbought", filmsbought);
+
+            //
             forward = CHECKOUT_RESULT;
         } else if (action.equalsIgnoreCase("addwishlist")) {
 
-            int customer_id = customer.getCustomer_Id();
+            int customer_id = customerCurrent.getCustomer_Id();
             int film_id = Integer.parseInt(request.getParameter("film_id"));
             FilmDao.addWishlist(customer_id, film_id);
             FilmDao.viewWishlist(customer_id);
@@ -158,8 +169,8 @@ public class CustomerController extends HttpServlet {
             double Total = FilmDao.calculateTotal(customer_id);
             BigDecimal bd = new BigDecimal(Total).setScale(2, RoundingMode.HALF_EVEN);
             Total = bd.doubleValue();
-            customer3.setUsername(customer.getUsername());
-            customer3.setCustomer_Id(customer.getCustomer_Id());
+            customer3.setUsername(customerCurrent.getUsername());
+            customer3.setCustomer_Id(customerCurrent.getCustomer_Id());
             customer3.setTotal(Total);
             ArrayList<Customer> checkoutdetails1 = new ArrayList<Customer>();
             checkoutdetails1.add(customer3);
@@ -171,7 +182,7 @@ public class CustomerController extends HttpServlet {
         } else if (action.equalsIgnoreCase("deletewishlist")) {
 
             int film_id = Integer.parseInt(request.getParameter("film_id"));
-            int customer_id = customer.getCustomer_Id();
+            int customer_id = customerCurrent.getCustomer_Id();
             FilmDao.deleteWish(customer_id, film_id);
             FilmDao.viewWishlist(customer_id);
             ses.setAttribute("wishlistfilms", FilmDao.getWishlistDetails());
@@ -179,16 +190,16 @@ public class CustomerController extends HttpServlet {
 
         } else if (action.equalsIgnoreCase("viewwishlist")) {
 
-            int customer_id = customer.getCustomer_Id();
+            int customer_id = customerCurrent.getCustomer_Id();
             FilmDao.viewWishlist(customer_id);
             request.setAttribute("wishlistfilms", FilmDao.getWishlistDetails());
             forward = WISHLIST;
 
         } else if (action.equalsIgnoreCase("makeareturn")) {
 
-            int customer_id = customer.getCustomer_Id();
+            int customer_id = customerCurrent.getCustomer_Id();
 
-            ses.setAttribute("Username", customer.getUsername());
+            ses.setAttribute("Username", customerCurrent.getUsername());
             ses.setAttribute("Customer_Id", customer_id);
             FilmDao.getRentedFilms(customer_id);
             ses.setAttribute("rentedfilms", FilmDao.getRentedFilms());
@@ -197,8 +208,8 @@ public class CustomerController extends HttpServlet {
         } else if (action.equalsIgnoreCase("return")) {
 
             int film_id = Integer.parseInt(request.getParameter("film_id")); //getting ID of film to return
-            int customer_id = customer.getCustomer_Id();
-            String Username = customer.getUsername();
+            int customer_id = customerCurrent.getCustomer_Id();
+            String Username = customerCurrent.getUsername();
 
             Film returnFilm = new Film();
             Film returnFilm2 = new Film();
@@ -245,8 +256,8 @@ public class CustomerController extends HttpServlet {
 
             String Username = request.getParameter("Username");
             String Password = request.getParameter("Password");
-            customer.setUsername(Username);
-            customer.setPassword(Password);
+            customerCurrent.setUsername(Username);
+            customerCurrent.setPassword(Password);
             int customer_id = 0;
 
             if (ValidateLogin.checkCustomer(Username, Password)) {
@@ -256,14 +267,14 @@ public class CustomerController extends HttpServlet {
 
                 customer_id = customer1.getCustomer_Id();
 
-                customer.setCustomer_Id(customer_id);
-                customer.setUsername(customer1.getUsername());
-                customer.setPassword(customer1.getPassword());
-                customer.setCustomer_Pref(customer1.getCustomer_Pref());
-                customer.setPayment(customer1.getPayment());
-                customer.setEmail(customer1.getEmail());
+                customerCurrent.setCustomer_Id(customer_id);
+                customerCurrent.setUsername(customer1.getUsername());
+                customerCurrent.setPassword(customer1.getPassword());
+                customerCurrent.setCustomer_Pref(customer1.getCustomer_Pref());
+                customerCurrent.setPayment(customer1.getPayment());
+                customerCurrent.setEmail(customer1.getEmail());
 
-                String Payment = customer.getPayment();
+                String Payment = customerCurrent.getPayment();
 
                 ses.setAttribute("Username", Username);
                 ses.setAttribute("Customer_Id", customer_id);
@@ -280,27 +291,26 @@ public class CustomerController extends HttpServlet {
 
         } else if (action.equalsIgnoreCase("createCust")) {
 
-            Customer customer = new Customer();
-
             String Username = request.getParameter("Username");
             String Password = request.getParameter("Password");
             String Customer_Pref = request.getParameter("Customer_Pref");
             String Payment = request.getParameter("Payment");
             String Email = request.getParameter("Email");
 
-            customer.setUsername(Username);
-            customer.setPassword(Password);
-            customer.setCustomer_Pref(Customer_Pref);
-            customer.setPayment(Payment);
-            customer.setEmail(Email);
+            customerCurrent.setUsername(Username);
+            customerCurrent.setPassword(Password);
+            customerCurrent.setCustomer_Pref(Customer_Pref);
+            customerCurrent.setPayment(Payment);
+            customerCurrent.setEmail(Email);
 
             if (Username != null && Password != null && Customer_Pref != null
                     && Payment != null && Email != null) {
 
-                dao.addCustomer(customer);
+                dao.addCustomer(customerCurrent);
                 Customer newCust = new Customer();
                 newCust = dao.getCustomerID(Username, Password);
                 int customer_id = newCust.getCustomer_Id();
+                customerCurrent.setCustomer_Id(customer_id);
                 RequestDispatcher view = request.getRequestDispatcher(BROWSE);
                 ses.setAttribute("Username", Username);
                 ses.setAttribute("Customer_Id", customer_id);
