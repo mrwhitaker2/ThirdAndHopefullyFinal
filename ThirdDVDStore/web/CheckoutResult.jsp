@@ -12,11 +12,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Checkout Result</title>
+        <script>
+            $(document).ready(function check() {
+                $('#tableID').DataTable();
+            });
+        </script>
     </head>
     <body>
-        
-        <h2>The films you have checked out are listed below: </h2>
 
+        <h2>The films you have checked out are listed below: </h2>
+        check();
         <table border=1 id="tableID">
             <thead>
                 <tr>
@@ -36,7 +41,5 @@
                     </tr>
                 </c:forEach>
             </tbody>
-
-
 
 </html>

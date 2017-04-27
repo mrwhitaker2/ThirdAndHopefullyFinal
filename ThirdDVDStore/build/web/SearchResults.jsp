@@ -12,7 +12,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Search Results</title>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"
     </head>
 
         <p><a href="CustomerController?action=browse">Back to search</a></p>
@@ -25,7 +28,7 @@
                     <th>Description</th>
                     <th>Rental Rate</th>
                     <th>Rating</th>
-                    <th colspan=3>Action</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody >
@@ -44,5 +47,15 @@
                 </c:forEach>
             </tbody>
         </table>
+        <script>
+            $(document).ready(function(){
+                $('#tableID').DataTable({
+                    "columnDefs": [
+                        { "searchable": false, "targets": 4,5,6 },
+                        { "orderable": false, "targets": 4,5,6 }
+                    ]
+                });
+            });
+        </script>
     </body>
 </html>
