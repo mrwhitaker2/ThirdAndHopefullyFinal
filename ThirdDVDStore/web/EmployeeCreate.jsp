@@ -12,33 +12,37 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="Styling/EmployeeCreate.css">
+        <title>Employee Create</title>
     </head>
     <body>
-        <h1>Welcome New Hire! </h1>
-        
-          <form method="POST" action='EmployeeController' name="frmAddEmployee"> 
-            
-             First Name: <input
+        <form method="POST" action='EmployeeController' name="frmAddEmployee"> 
+            <h1>Welcome New Hire! </h1><br/>
+            <input
+                placeholder="First Name"
                 type="text" required  name="first_name"
                 value="<c:out value="${employee.first_name}" />" /> <br />
-             Last Name : <input
+            <input
+                placeholder="Last Name"
                 type="text" required  name="last_name"
                 value="<c:out value="${employee.last_name}" />" /> <br /> 
-             Email: <input
-                type="text" required  name="email"
+            <input
+                placeholder ="Email"
+                type="email" required  name="email"
                 value="<c:out value="${employee.email}" />" /> <br />
-            Username : <input
+            <input
+                placeholder="Username"
                 type="text" required  name="username"
                 value="<c:out value="${employee.username}" />" /> <br /> 
-            Password : <input
-                type="text" required   name="password"
+            <input
+                placeholder ="Password"
+                type="password" required   name="password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                 value="<c:out value="${employee.password}" />" /> <br /> 
-           
+
             <br /> <input
-                           type="submit" value="Submit" />
+                type="submit" value="Submit" />
         </form>
-            
-            <p><a href="EmployeeController?action=menu">Employee Menu</a></p>
     </body>
 </html>
