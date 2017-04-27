@@ -28,7 +28,7 @@
                     <th>Description</th>
                     <th>Rental Rate</th>
                     <th>Rating</th>
-                    <th>Actions</th>
+                    <th colspan="3">Actions</th>
                 </tr>
             </thead>
             <tbody >
@@ -39,10 +39,12 @@
                         <td><c:out value="${film.rental_rate}" /></td>
                         <td><c:out value="${film.rating}" /></td>
                         
-                        <td><a href="CustomerController?action=addcart&film_id=<c:out value="${film.film_id}"/>">Add to Cart</a></td>
+                        <!--<td><a href="CustomerController?action=addcart&film_id=<c:out value="${film.film_id}"/>">Add to Cart</a></td>
                         <td><a href="CustomerController?action=addwishlist&film_id=<c:out value="${film.film_id}"/>">Add to Wishlist</a></td>
-                        <td><a href="CustomerController?action=viewdetails&film_id=<c:out value="${film.film_id}"/>">View Movie Details</a></td>
-                   
+                        <td><a href="CustomerController?action=viewdetails&film_id=<c:out value="${film.film_id}"/>">View Movie Details</a></td>-->
+                        <td><c:out value="${film.film_id}" /></td>
+                        <td><c:out value="${film.film_id}" /></td>
+                        <td><c:out value="${film.film_id}" /></td>
                     </tr>
                 </c:forEach>
             </tbody>
@@ -51,8 +53,20 @@
             $(document).ready(function(){
                 $('#tableID').DataTable({
                     "columnDefs": [
-                        { "searchable": false, "targets": 4,5,6 },
-                        { "orderable": false, "targets": 4,5,6 }
+                        { "searchable": false, "targets": [4,5,6] },
+                        { "orderable": false, "targets": [4,5,6] },
+                        { "render" : function (data, type, row){
+                                return  "<a href=\"CustomerController?action=addcart&film_id=" + data + "\">Add to Cart</a>";
+                            }, "targets": [4]
+                        },
+                        { "render" : function (data, type, row){
+                                return  "<a href=\"CustomerController?action=addwishlist&film_id=" + data + "\">Add to Wishlist</a>";
+                            }, "targets": [5]
+                        },
+                        { "render" : function (data, type, row){
+                                return  "<a href=\"CustomerController?action=viewdetails&film_id=" + data + "\">View Movie Details</a>";
+                            }, "targets": [6]
+                        }
                     ]
                 });
             });
