@@ -36,21 +36,51 @@
                 });
             });
         </script>
+        <style>
+            .topnav {
+                background-color: #333;
+                overflow: hidden;
+                align-content: center;
+            }
+
+            /* Style the links inside the navigation bar */
+            .topnav a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+            /* Change the color of links on hover */
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            /* Add a color to the active/current link */
+            .topnav a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+        </style>
     </head>
 
     <body>
-        <div>
+        <div class="topnav" id="myTopnav">
+            <a href="CustomerController?action=browse">Search Page</a>
+            <a href="CustomerController?action=viewcart">View Shopping Cart</a>
+            <a href="CustomerController?action=makeareturn">Return a Movie</a>
+            <a href="CustomerController?action=viewwishlist">View Wishlist</a>
+        </div>
 
+        <div>
             <form method="post" action="SearchController?action=search">
                 <h1>Hello, <%=session.getAttribute("Username")%> </h1><br/>
                 <h2>Your Customer ID is: <%=session.getAttribute("Customer_Id")%> </h2>
                 <h2>Your Payment Method is: <%=session.getAttribute("Payment")%> </h2><br/>
-                <p><a href="CustomerController?action=viewcart">View Shopping Cart</a></p>
-                <p><a href="CustomerController?action=makeareturn">Return a Movie</a></p>
-                <p><a href="CustomerController?action=viewwishlist">View Wishlist</a></p><br/>
-                <h3>Search your movie:</h3>  
-
-                Search Category (Genre, Actor, Store):<br/>
                 <select name="criteria" id="criteria">
                     <option value="selection">Search by...</option>
                     <option value="Genre">Genre</option>
