@@ -14,7 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
+
         <h2>The films you have checked out are listed below: </h2>
 
         <table border=1 id="tableID">
@@ -37,6 +37,6 @@
                 </c:forEach>
             </tbody>
 
-
+            <p><a href="CustomerController?action=browse">Back to Browse</a></p>
 
 </html>
