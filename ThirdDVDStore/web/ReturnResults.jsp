@@ -38,6 +38,8 @@
                 </tr>
             </c:forEach>
         </tbody>
+        
+        <p><a href="CustomerController?action=browse">Back to Browse</a></p>
 
 
 
