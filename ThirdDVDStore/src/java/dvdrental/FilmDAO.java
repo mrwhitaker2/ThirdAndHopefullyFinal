@@ -35,6 +35,7 @@ public class FilmDAO {
     private static ArrayList<Film> rentedfilms = new ArrayList<Film>();
     private static ArrayList<Transaction> returnedfilms = new ArrayList<Transaction>();
     private static ArrayList<Film> filmCheck = new ArrayList<Film>();
+    private static ArrayList<Transaction> rentalhistory = new ArrayList<Transaction>();
 
     public FilmDAO() {
         connection = DBConnectionUtil.getConnection();
@@ -886,5 +887,45 @@ public class FilmDAO {
             e.printStackTrace();
         }
     }
+
+    public static void getRentalHistory(int customer_id) {
+
+        rentalhistory.clear();
+        try {
+            //loading drivers for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //creating connection with the database 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
+            PreparedStatement ps = con.prepareStatement(
+                    " SELECT F.title, T.Film_Id, T.Date_Rented, T.Amount"
+                    + " FROM transactions as T"
+                    + " JOIN film as F"
+                    + " ON T.Film_Id = F.film_id"
+                    + " where T.Customer_Id=?");
+            ps.setInt(1, customer_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Transaction t = new Transaction();
+                t.setFilm_Id(rs.getInt("film_id"));
+                t.setTitle(rs.getString("title"));
+                t.setDate_Rented(rs.getString("Date_Rented"));
+                t.setAmount(rs.getDouble("Amount"));
+                rentalhistory.add(t);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static ArrayList<Transaction> getRentalHistoryList() {
+
+        return rentalhistory;
+
+    }
+    
+
 
 }

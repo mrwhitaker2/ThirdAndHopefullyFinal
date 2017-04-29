@@ -46,6 +46,7 @@
         <p><a href="CustomerController?action=viewcart">View Shopping Cart</a></p>
         <p><a href="CustomerController?action=makeareturn">Return a Movie</a></p>
         <p><a href="CustomerController?action=viewwishlist">View Wishlist</a></p>
+        <p><a href="CustomerController?action=rentalhistory">View Rental History</a></p>
         
 
         <form method="post" action="SearchController?action=search">

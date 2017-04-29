@@ -43,6 +43,7 @@ public class CustomerController extends HttpServlet {
     private static String WISHLIST = "/Wishlist.jsp";
     private static String RETURN = "/Return.jsp";
     private static String RETURN_RESULTS = "/ReturnResults.jsp";
+    private static String RENTAL_HISTORY = "/RentalHistory.jsp";
 
     private CustomerDAO dao;
     private FilmDAO FilmDao;
@@ -238,7 +239,17 @@ public class CustomerController extends HttpServlet {
             ses.setAttribute("returnedfilms", FilmDao.getReturnedFilmsList());
             forward = RETURN_RESULTS;
 
-        } else {
+        } else if(action.equalsIgnoreCase("rentalhistory")){
+            
+             int customer_id = customerCurrent.getCustomer_Id();
+             FilmDao.getRentalHistory(customer_id);
+             
+             ses.setAttribute("rentalhistory", FilmDao.getRentalHistoryList());
+             
+             forward = RENTAL_HISTORY;
+            
+        }
+        else {
             forward = CUST_LOGIN;
         }
 
