@@ -14,6 +14,7 @@
         <link rel="stylesheet" type="text/css" href="Styling/CustomerLogin.css">
         <title>Customer Login</title>
     </head>
+    
     <body>        
         <form method="post" action="CustomerController?action=login">
             <h1>Customer Login</h1><br/>

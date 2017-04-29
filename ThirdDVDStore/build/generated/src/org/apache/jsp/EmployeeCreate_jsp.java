@@ -66,7 +66,7 @@ public final class EmployeeCreate_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
       out.write("        <form method=\"POST\" action='EmployeeController' name=\"frmAddEmployee\"> \r\n");
-      out.write("            <h1>Welcome New Hire! </h1>\r\n");
+      out.write("            <h1>Welcome New Hire! </h1><br/>\r\n");
       out.write("            <input\r\n");
       out.write("                placeholder=\"First Name\"\r\n");
       out.write("                type=\"text\" required  name=\"first_name\"\r\n");
@@ -107,7 +107,6 @@ public final class EmployeeCreate_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("\r\n");
       out.write("            <br /> <input\r\n");
       out.write("                type=\"submit\" value=\"Submit\" />\r\n");
-      out.write("            <p><a href=\"EmployeeController?action=menu\">Employee Menu</a></p>\r\n");
       out.write("        </form>\r\n");
       out.write("    </body>\r\n");
       out.write("</html>\r\n");

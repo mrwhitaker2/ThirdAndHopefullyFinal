@@ -86,7 +86,7 @@
                     <option value="Genre">Genre</option>
                     <option value="Actor">Actor</option>
                     <option value="Store">Store</option>
-                </select> <br>
+                </select>
 
                 <select name="genrefield" id="genre">
                     <option value="Action">Action</option>
@@ -186,12 +186,12 @@
                     <option value="Williams">Williams</option>
                     <option value="Willis">Willis</option>
                     <option value="Winslet">Winslet</option>
-                </select><br>
+                </select>
 
                 <select name="storefield" id="store">
                     <option value="1">1 - Alberta District</option>
                     <option value="2">2 - QLD District</option>
-                </select> <br>
+                </select>
 
                 <input type="submit" value="Search" />
         </div> 

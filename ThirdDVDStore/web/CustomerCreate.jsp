@@ -65,11 +65,14 @@
         <option value="credit">Credit</option>
         <option value="bitcoin">Bitcoin</option>
     </select><br/>          
-    Email : <input
-        type="text" required  name="Email"
+    <input
+        type="email"
+        placeholder="Email"
+        required
+        name="Email"
         value="<c:out value="${customer.Email}" />" /> <br /> 
-    <br /> <input
-        type="submit" value="Submit" />
+    <br /> 
+    <input type="submit" value="Submit" />
 </form>
 
 <p><a href="CustomerController?action=browse">Browse Movies</a></p>
