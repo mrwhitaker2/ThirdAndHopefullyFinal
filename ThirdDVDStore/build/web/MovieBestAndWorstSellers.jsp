@@ -159,7 +159,7 @@
                     <c:forEach items="${salesObjs}" var="salesObj">
                         <tr>
                             <td><c:out value="${salesObj.title}" /></td>
-                            <td><c:out value="${salesObj.sales}" /></td>
+                            <td>$<c:out value="${salesObj.sales}" /></td>
                         </tr>
                     </c:forEach>
                 </tbody>
