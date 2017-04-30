@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -25,8 +26,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author mrwhi
  */
-@WebServlet(name = "CustomerController", urlPatterns = {"/CustomerController"})
-public class CustomerController extends HttpServlet {
+@WebServlet(name = "CustomerController", urlPatterns =
+{
+    "/CustomerController"
+})
+public class CustomerController extends HttpServlet
+{
 
     private static final long serialVersionUID = 1L;
     private static String WELCOME = "/welcome.jsp";
@@ -52,12 +57,14 @@ public class CustomerController extends HttpServlet {
 
     Customer customerCurrent = new Customer(); //this is the current customer that will be making transactions 
 
-    public CustomerController() {
+    public CustomerController()
+    {
         super();
         dao = new CustomerDAO();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
 
         String forward = "";
         String action = request.getParameter("action");
@@ -65,45 +72,57 @@ public class CustomerController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        if (action.equalsIgnoreCase("custlogin")) {
-            String message = "Login!";
-            ses.setAttribute("message", message);
+        if (action.equalsIgnoreCase("custlogin"))
+        {
+            String message="Customer Login";
             forward = CUST_LOGIN;
-        } else if (action.equalsIgnoreCase("welcome")) {
+            ses.setAttribute("message", message);
+        } else if (action.equalsIgnoreCase("welcome"))
+        {
             forward = WELCOME;
-        } else if (action.equalsIgnoreCase("browse")) {
+        } else if (action.equalsIgnoreCase("browse"))
+        {
             forward = BROWSE;
-        } else if (action.equalsIgnoreCase("emplogin")) {
+        } else if (action.equalsIgnoreCase("emplogin"))
+        {
+            String message = "Employee Login";
+            ses.setAttribute("message", message);
             forward = EMP_LOGIN;
-        } else if (action.equalsIgnoreCase("viewcustomers")) {
+        } else if (action.equalsIgnoreCase("viewcustomers"))
+        {
 
             dao.getCustomerList();
             forward = VIEW_CUST;
             request.setAttribute("customers", dao.getCustomers());
 
-        } else if (action.equalsIgnoreCase("custcreate")) {
+        } else if (action.equalsIgnoreCase("custcreate"))
+        {
             forward = CREATE_CUSTOMER;
-        } else if (action.equalsIgnoreCase("viewdetails")) {
+        } else if (action.equalsIgnoreCase("viewdetails"))
+        {
 
             String film_id = request.getParameter("film_id");
             FilmDao.getDetails(film_id);
             forward = MOVIE_DETAILS;
             request.setAttribute("filmdetails", FilmDao.getFilmDetails());
 
-        } else if (action.equalsIgnoreCase("addcart")) {
+        } else if (action.equalsIgnoreCase("addcart"))
+        {
 
             int customer_id = customerCurrent.getCustomer_Id();
             int film_id = Integer.parseInt(request.getParameter("film_id"));
             ArrayList<Film> filmCheck = new ArrayList<Film>();
             filmCheck = FilmDao.checkMax5(customer_id);
-            if (filmCheck.size() <= 4) {
+            if (filmCheck.size() <= 4)
+            {
 
                 String message = "Enjoy your selections!";
                 FilmDao.addCart(customer_id, film_id);
                 FilmDao.viewCart(customer_id);
                 request.setAttribute("cartfilms", FilmDao.getCartDetails());
                 ses.setAttribute("message", message);
-            } else if (filmCheck.size() > 4) {
+            } else if (filmCheck.size() > 4)
+            {
 
                 String message = "You can only checkout 5 movies at a time";
                 FilmDao.viewCart(customer_id);
@@ -113,7 +132,8 @@ public class CustomerController extends HttpServlet {
 
             forward = SHOPPING_CART;
 
-        } else if (action.equalsIgnoreCase("viewcart")) {
+        } else if (action.equalsIgnoreCase("viewcart"))
+        {
 
             String message = "Enjoy your selections!";
 
@@ -123,7 +143,8 @@ public class CustomerController extends HttpServlet {
             ses.setAttribute("message", message);
             forward = SHOPPING_CART;
 
-        } else if (action.equalsIgnoreCase("deletecart")) {
+        } else if (action.equalsIgnoreCase("deletecart"))
+        {
             int film_id = Integer.parseInt(request.getParameter("film_id"));
             int customer_id = customerCurrent.getCustomer_Id();
             FilmDao.deleteFilm(customer_id, film_id);
@@ -132,7 +153,8 @@ public class CustomerController extends HttpServlet {
             request.setAttribute("cartfilms", FilmDao.getCartDetails());
             ses.setAttribute("message", message);
             forward = SHOPPING_CART;
-        } else if (action.equalsIgnoreCase("checkout")) {
+        } else if (action.equalsIgnoreCase("checkout"))
+        {
 
             int customer_id = customerCurrent.getCustomer_Id();
             String Payment = customerCurrent.getPayment();
@@ -147,7 +169,8 @@ public class CustomerController extends HttpServlet {
             filmsbought = FilmDao.getFilmsBought();
             Film f2 = new Film();
 
-            for (Film f : filmsbought) {
+            for (Film f : filmsbought)
+            {
                 f2.setFilm_id(f.getFilm_id());
                 int filmID = f2.getFilm_id();
 
@@ -164,7 +187,8 @@ public class CustomerController extends HttpServlet {
             forward = CHECKOUT_RESULT;
 
             FilmDao.deleteFromCartAtStart(customer_id);
-        } else if (action.equalsIgnoreCase("addwishlist")) {
+        } else if (action.equalsIgnoreCase("addwishlist"))
+        {
 
             int customer_id = customerCurrent.getCustomer_Id();
             int film_id = Integer.parseInt(request.getParameter("film_id"));
@@ -185,7 +209,8 @@ public class CustomerController extends HttpServlet {
             ses.setAttribute("wishlistfilms", FilmDao.getWishlistDetails());
             forward = WISHLIST;
 
-        } else if (action.equalsIgnoreCase("deletewishlist")) {
+        } else if (action.equalsIgnoreCase("deletewishlist"))
+        {
 
             int film_id = Integer.parseInt(request.getParameter("film_id"));
             int customer_id = customerCurrent.getCustomer_Id();
@@ -194,14 +219,16 @@ public class CustomerController extends HttpServlet {
             ses.setAttribute("wishlistfilms", FilmDao.getWishlistDetails());
             forward = WISHLIST;
 
-        } else if (action.equalsIgnoreCase("viewwishlist")) {
+        } else if (action.equalsIgnoreCase("viewwishlist"))
+        {
 
             int customer_id = customerCurrent.getCustomer_Id();
             FilmDao.viewWishlist(customer_id);
             request.setAttribute("wishlistfilms", FilmDao.getWishlistDetails());
             forward = WISHLIST;
 
-        } else if (action.equalsIgnoreCase("makeareturn")) {
+        } else if (action.equalsIgnoreCase("makeareturn"))
+        {
 
             int customer_id = customerCurrent.getCustomer_Id();
 
@@ -211,7 +238,8 @@ public class CustomerController extends HttpServlet {
             ses.setAttribute("rentedfilms", FilmDao.getRentedFilms());
             forward = RETURN;
 
-        } else if (action.equalsIgnoreCase("return")) {
+        } else if (action.equalsIgnoreCase("return"))
+        {
 
             int film_id = Integer.parseInt(request.getParameter("film_id")); //getting ID of film to return
             int customer_id = customerCurrent.getCustomer_Id();
@@ -243,7 +271,8 @@ public class CustomerController extends HttpServlet {
             ses.setAttribute("returnedfilms", FilmDao.getReturnedFilmsList());
             forward = RETURN_RESULTS;
 
-        } else if (action.equalsIgnoreCase("rentalhistory")) {
+        } else if (action.equalsIgnoreCase("rentalhistory"))
+        {
 
             int customer_id = customerCurrent.getCustomer_Id();
             FilmDao.getRentalHistory(customer_id);
@@ -252,7 +281,8 @@ public class CustomerController extends HttpServlet {
 
             forward = RENTAL_HISTORY;
 
-        } else {
+        } else
+        {
             forward = CUST_LOGIN;
         }
 
@@ -261,13 +291,15 @@ public class CustomerController extends HttpServlet {
         view.forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
 
         HttpSession ses = request.getSession(true);
         String action = request.getParameter("action");
         PrintWriter out = response.getWriter();
 
-        if (action.equalsIgnoreCase("login")) {
+        if (action.equalsIgnoreCase("login"))
+        {
 
             String Username = request.getParameter("Username");
             String Password = request.getParameter("Password");
@@ -275,7 +307,8 @@ public class CustomerController extends HttpServlet {
             customerCurrent.setPassword(Password);
             int customer_id = 0;
 
-            if (ValidateLogin.checkCustomer(Username, Password)) {
+            if (ValidateLogin.checkCustomer(Username, Password))
+            {
 
                 Customer customer1 = new Customer();
                 customer1 = ValidateLogin.searchCustomer(Username, Password);
@@ -299,14 +332,16 @@ public class CustomerController extends HttpServlet {
                 RequestDispatcher rs = request.getRequestDispatcher(BROWSE);
                 rs.forward(request, response);
 
-            } else {
+            } else
+            {
                 String message = "Username or Password is Incorrect!";
                 ses.setAttribute("message", message);
                 RequestDispatcher rs = request.getRequestDispatcher(CUST_LOGIN);
                 rs.include(request, response);
             }
 
-        } else if (action.equalsIgnoreCase("createCust")) {
+        } else if (action.equalsIgnoreCase("createCust"))
+        {
 
             String Username = request.getParameter("Username");
             String Password = request.getParameter("Password");
@@ -321,7 +356,8 @@ public class CustomerController extends HttpServlet {
             customerCurrent.setEmail(Email);
 
             if (Username != null && Password != null && Customer_Pref != null
-                    && Payment != null && Email != null) {
+                    && Payment != null && Email != null)
+            {
 
                 dao.addCustomer(customerCurrent);
                 Customer newCust = new Customer();
@@ -333,9 +369,11 @@ public class CustomerController extends HttpServlet {
                 ses.setAttribute("Customer_Id", customer_id);
                 ses.setAttribute("Payment", Payment);
                 view.forward(request, response);
-            } else if (action.equalsIgnoreCase("return")) {
+            } else if (action.equalsIgnoreCase("return"))
+            {
 
-            } else {
+            } else
+            {
 
                 RequestDispatcher view = request.getRequestDispatcher(CREATE_CUSTOMER);
                 view.forward(request, response);

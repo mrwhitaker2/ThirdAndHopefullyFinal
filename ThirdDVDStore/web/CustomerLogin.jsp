@@ -11,18 +11,25 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="Styling/CustomerLogin.css">
+        <title>Customer Login</title>
     </head>
-    <body>
-        
-        <h1> <%=session.getAttribute("message")%> </h1>
-        
-        <form method="post" action="CustomerController?action=login">
-        Username:<input type="text" value="<c:out value="${customer.Username}" />" name="Username" /><br/>
-        Password:<input type="password" value="<c:out value="${customer.Password}" />"name="Password" /><br/>
-        <input type="submit" value="login" />
-        </form>
 
+    <body>
+
+        <form method="post" action="CustomerController?action=login">
+            <h1><%=session.getAttribute("message")%></h1><br/>
+            <input type="text"
+                   value="<c:out value="${customer.Username}" />" 
+                   name="Username"
+                   placeholder="Username"/><br/>
+            <input 
+                type="password" 
+                value="<c:out value="${customer.Password}" />"
+                name="Password"
+                Placeholder="Password"
+                <input type="submit" value="login" /><br/>
             <p><a href="CustomerController?action=custcreate">Create an Account</a></p>
+        </form>  
     </body>
 </html>
