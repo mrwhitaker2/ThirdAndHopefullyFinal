@@ -81,6 +81,7 @@
             <a href="CustomerController?action=viewcart">View Shopping Cart</a>
             <a href="CustomerController?action=makeareturn">Return a Movie</a>
             <a href="CustomerController?action=viewwishlist">View Wishlist</a>
+            <a href="CustomerController?action=rentalhistory">Rental History</a>
         </div>
         <h1>Hello, <%=session.getAttribute("Username")%> </h1>
         <h2>Your Customer ID is: <%=session.getAttribute("Customer_Id")%> </h2>

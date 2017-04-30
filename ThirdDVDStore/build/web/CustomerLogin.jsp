@@ -31,8 +31,6 @@
                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/><br/>
             <input type="submit" value="login" /><br/>
             <p><a href="CustomerController?action=custcreate">Create an Account</a></p>
-        </form>
-
-        
+        </form>  
     </body>
 </html>

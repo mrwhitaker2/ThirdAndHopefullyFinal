@@ -14,11 +14,7 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
         <title>Checkout Result</title>
-        <script>
-            $(document).ready(function check() {
-                $('#tableID').DataTable();
-            });
-        </script>
+
         <style>
             .topnav {
                 background-color: #333;
@@ -88,7 +84,6 @@
             <a href="CustomerController?action=viewwishlist">View Wishlist</a>
         </div>
         <h2>The films you have checked out are listed below: </h2>
-        check();
         <table border=1 id="tableID" class="w3-table-all w3-hoverable w3-centered w3-card w3-small">
             <thead>
                 <tr class="w3-red">

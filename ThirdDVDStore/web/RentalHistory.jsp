@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : ShoppingCart
     Created on : Apr 11, 2017, 8:05:39 PM
@@ -11,6 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Rental History</title>
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <style>
             .topnav {
@@ -72,7 +74,6 @@
             }
 
         </style>
-        <title>Wishlist</title>
     </head>
     <body>
         <div class="topnav" id="myTopnav">
@@ -87,25 +88,21 @@
                 <tr class="w3-red">
                     <th>Film ID</th>
                     <th>Title</th>
-                    <th>Rental Rate</th>
-                    <th colspan=2>Action</th>
+                    <th>Date Rented</th>
+                    <th>Amount Paid</th>
                 </tr>
             </thead>
             <tbody >
-                <c:forEach items="${wishlistfilms}" var="film">
+                <c:forEach items="${rentalhistory}" var="transaction">
                     <tr>
-                        <td><c:out value="${film.film_id}" /></td>
-                        <td><c:out value="${film.title}" /></td>
-                        <td><c:out value="${film.rental_rate}" /></td>
-                        <td><a href="CustomerController?action=deletewishlist&film_id=<c:out value="${film.film_id}"/>">Remove</a></td>
-                        <td><a href="CustomerController?action=addcart&film_id=<c:out value="${film.film_id}"/>">Add to Cart</a></td>
+                        <td><c:out value="${transaction.getFilm_Id()}" /></td>
+                        <td><c:out value="${transaction.getTitle()}" /></td>
+                        <td><c:out value="${transaction.getDate_Rented()}" /></td>
+                        <td><c:out value="${transaction.getAmount()}" /></td>                  
                     </tr>
                 </c:forEach>
             </tbody>
 
-        </table>
-
-
-
+        </table>                     
     </body>
 </html>

@@ -80,6 +80,7 @@
             <a href="CustomerController?action=viewcart">View Shopping Cart</a>
             <a href="CustomerController?action=makeareturn">Return a Movie</a>
             <a href="CustomerController?action=viewwishlist">View Wishlist</a>
+            <a href="CustomerController?action=rentalhistory">Rental History</a>
         </div>
         <table border=1 id="tableID" class="w3-table-all w3-hoverable w3-centered w3-card w3-small">
             <thead>
