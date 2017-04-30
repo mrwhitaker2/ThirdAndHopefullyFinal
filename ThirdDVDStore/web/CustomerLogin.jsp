@@ -14,9 +14,9 @@
         <link rel="stylesheet" type="text/css" href="Styling/CustomerLogin.css">
         <title>Customer Login</title>
     </head>
-    
+
     <body>
-    
+
         <form method="post" action="CustomerController?action=login">
             <h1><%=session.getAttribute("message")%></h1><br/>
             <input type="text"
@@ -28,9 +28,7 @@
                 value="<c:out value="${customer.Password}" />"
                 name="Password"
                 Placeholder="Password"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/><br/>
-            <input type="submit" value="login" /><br/>
+                <input type="submit" value="login" /><br/>
             <p><a href="CustomerController?action=custcreate">Create an Account</a></p>
         </form>  
     </body>

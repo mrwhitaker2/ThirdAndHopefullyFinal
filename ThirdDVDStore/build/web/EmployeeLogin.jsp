@@ -28,9 +28,7 @@
                 placeholder="Password"
                 value="<c:out value="${employee.Password}" />" 
                 name="Password"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/><br/>
-
+                
 
             <input type="submit" value="login" /><br/>
             <p><a href="EmployeeController?action=empcreate">Create an Employee Account</a></p>
