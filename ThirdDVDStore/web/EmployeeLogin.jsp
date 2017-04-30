@@ -17,7 +17,7 @@
     </head>
     <body>
         <form method="post" action="EmpLoginController?action=login">
-            <h1> Employee Login! </h1><br/>
+            <h1><%=session.getAttribute("message")%></h1><br/>
             <input
                 placeholder="Username"
                 type="text" 
@@ -30,10 +30,7 @@
                 name="Password"
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/><br/>
-            <%
-                ReCaptcha c = ReCaptchaFactory.newReCaptcha("your_public_key", "your_private_key", false);
-                out.print(c.createRecaptchaHtml(null, null));
-            %>
+
 
             <input type="submit" value="login" /><br/>
             <p><a href="EmployeeController?action=empcreate">Create an Employee Account</a></p>

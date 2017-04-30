@@ -74,7 +74,9 @@ public class CustomerController extends HttpServlet
 
         if (action.equalsIgnoreCase("custlogin"))
         {
+            String message="Customer Login";
             forward = CUST_LOGIN;
+            ses.setAttribute("message", message);
         } else if (action.equalsIgnoreCase("welcome"))
         {
             forward = WELCOME;
@@ -83,6 +85,8 @@ public class CustomerController extends HttpServlet
             forward = BROWSE;
         } else if (action.equalsIgnoreCase("emplogin"))
         {
+            String message = "Employee Login";
+            ses.setAttribute("message", message);
             forward = EMP_LOGIN;
         } else if (action.equalsIgnoreCase("viewcustomers"))
         {
