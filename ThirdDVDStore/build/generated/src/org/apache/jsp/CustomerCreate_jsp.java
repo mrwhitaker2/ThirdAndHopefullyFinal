@@ -65,7 +65,8 @@ public final class CustomerCreate_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("        <title>Customer Creation</title>\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>        \r\n");
-      out.write("        <form method=\"POST\" action='CustomerController?action=createCust' name=\"frmAddCustomer\"> \r\n");
+      out.write("        <form method=\"POST\" action='CustomerController?action=createCust' name=\"frmAddCustomer\">\r\n");
+      out.write("            <h1>Customer Creation</h1>\r\n");
       out.write("            <input\r\n");
       out.write("                type=\"text\" \r\n");
       out.write("                required \r\n");
@@ -126,14 +127,17 @@ public final class CustomerCreate_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("        <option value=\"credit\">Credit</option>\r\n");
       out.write("        <option value=\"bitcoin\">Bitcoin</option>\r\n");
       out.write("    </select><br/>          \r\n");
-      out.write("    Email : <input\r\n");
-      out.write("        type=\"text\" required  name=\"Email\"\r\n");
+      out.write("    <input\r\n");
+      out.write("        type=\"email\"\r\n");
+      out.write("        placeholder=\"Email\"\r\n");
+      out.write("        required\r\n");
+      out.write("        name=\"Email\"\r\n");
       out.write("        value=\"");
       if (_jspx_meth_c_out_4(_jspx_page_context))
         return;
       out.write("\" /> <br /> \r\n");
-      out.write("    <br /> <input\r\n");
-      out.write("        type=\"submit\" value=\"Submit\" />\r\n");
+      out.write("    <br /> \r\n");
+      out.write("    <input type=\"submit\" value=\"Submit\" />\r\n");
       out.write("</form>\r\n");
       out.write("\r\n");
       out.write("<p><a href=\"CustomerController?action=browse\">Browse Movies</a></p>\r\n");

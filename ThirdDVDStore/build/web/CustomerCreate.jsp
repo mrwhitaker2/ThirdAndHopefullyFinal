@@ -16,7 +16,8 @@
         <title>Customer Creation</title>
     </head>
     <body>        
-        <form method="POST" action='CustomerController?action=createCust' name="frmAddCustomer"> 
+        <form method="POST" action='CustomerController?action=createCust' name="frmAddCustomer">
+            <h1>Customer Creation</h1>
             <input
                 type="text" 
                 required 

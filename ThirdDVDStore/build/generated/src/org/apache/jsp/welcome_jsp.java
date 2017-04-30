@@ -47,14 +47,14 @@ public final class welcome_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<!DOCTYPE html>\r\n");
       out.write("<html>\r\n");
       out.write("    <head>\r\n");
-      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"Welcome.css\">\r\n");
+      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"Styling/Welcome.css\">\r\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
       out.write("        <title>Welcome Page</title>\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
       out.write("\r\n");
       out.write("        <div class=\"container\">\r\n");
-      out.write("            <h1>Welcome to Crimson Video Store!</h1>\r\n");
+      out.write("            <h1>Welcome to Crimson Video Store!</h1><br/>\r\n");
       out.write("            <p><a class=\"customerLink\" href=\"CustomerController?action=custlogin\">Customers Click Here!</a></p>\r\n");
       out.write("            <p><a class=\"employeeLink\" href=\"CustomerController?action=emplogin\">Employees Click Here!</a></p>\r\n");
       out.write("        </div>\r\n");

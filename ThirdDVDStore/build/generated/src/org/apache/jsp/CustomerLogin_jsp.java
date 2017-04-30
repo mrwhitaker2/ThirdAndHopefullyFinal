@@ -63,8 +63,10 @@ public final class CustomerLogin_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"Styling/CustomerLogin.css\">\r\n");
       out.write("        <title>Customer Login</title>\r\n");
       out.write("    </head>\r\n");
+      out.write("    \r\n");
       out.write("    <body>        \r\n");
       out.write("        <form method=\"post\" action=\"CustomerController?action=login\">\r\n");
+      out.write("            <h1>Customer Login</h1><br/>\r\n");
       out.write("            <input type=\"text\"\r\n");
       out.write("                   value=\"");
       if (_jspx_meth_c_out_0(_jspx_page_context))
@@ -81,11 +83,12 @@ public final class CustomerLogin_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("                name=\"Password\"\r\n");
       out.write("                Placeholder=\"Password\"\r\n");
       out.write("                pattern=\"(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" \r\n");
-      out.write("                title=\"Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters\"/><br/>/><br/>\r\n");
-      out.write("            <input type=\"submit\" value=\"login\" />\r\n");
+      out.write("                title=\"Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters\"/><br/>\r\n");
+      out.write("            <input type=\"submit\" value=\"login\" /><br/>\r\n");
+      out.write("            <p><a href=\"CustomerController?action=custcreate\">Create an Account</a></p>\r\n");
       out.write("        </form>\r\n");
       out.write("\r\n");
-      out.write("        <p><a href=\"CustomerController?action=custcreate\">Create an Account</a></p>\r\n");
+      out.write("        \r\n");
       out.write("    </body>\r\n");
       out.write("</html>\r\n");
     } catch (Throwable t) {
