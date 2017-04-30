@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,6 +30,7 @@ public class EmpLoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        HttpSession ses = request.getSession(true);
         
         String Username = request.getParameter("Username");
         String Password = request.getParameter("Password");
@@ -40,7 +42,8 @@ public class EmpLoginController extends HttpServlet {
         }
         else
         {
-           out.println("Username or Password incorrect");
+           String message = "Username or Password is incorrect!";
+           ses.setAttribute("message", message);
            RequestDispatcher rs = request.getRequestDispatcher(EMP_LOGIN);
            rs.include(request, response);
         }
