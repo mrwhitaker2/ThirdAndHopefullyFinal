@@ -162,7 +162,7 @@
                         <tr>
                             <td><c:out value="${film.title}" /></td>
                             <td><c:out value="${film.description}" /></td>
-                            <td><c:out value="${film.rental_rate}" /></td>
+                            <td>$<c:out value="${film.rental_rate}" /></td>
                             <td><c:out value="${film.rating}" /></td>
                             <td><c:out value="${film.inStock}"/></td>
                         </tr>

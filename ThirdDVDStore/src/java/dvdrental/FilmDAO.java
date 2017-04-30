@@ -370,7 +370,7 @@ public class FilmDAO
             //creating connection with the database 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull", "root", "nbuser");
             PreparedStatement ps = con.prepareStatement(
-                    "SELECT F.title, F.rental_rate, COUNT( F.title) as 'Times Rented', SUM(R.Amount) as 'Sales', F.replacement_cost FROM RentalNoBS as R Join film as F on F.Film_Id=R.Film_Id GROUP BY F.Title");
+                    "SELECT F.title, F.rental_rate, COUNT( F.title) as 'Times Rented', SUM(R.Amount) as 'Sales', F.replacement_cost FROM Transactions as R Join film as F on F.Film_Id=R.Film_Id GROUP BY F.Title");
             ResultSet rs = ps.executeQuery();
             st = rs.next();
             while (rs.next())
@@ -379,8 +379,8 @@ public class FilmDAO
                 salesObj.setTitle(rs.getString("title"));
                 salesObj.setRental_rate(rs.getDouble("rental_rate"));
                 salesObj.setTimes_rented(rs.getInt("Times Rented"));
-                salesObj.setSales(rs.getDouble("Sales"));
-                salesObj.setReplacement_cost(rs.getDouble("replacement_cost"));
+                salesObj.setSales(Math.round(rs.getDouble("Sales") * 100.0) / 100.0);
+                salesObj.setReplacement_cost((Math.round(rs.getDouble("replacement_cost") * 100.0) / 100.0));
                 salesObj.setRevenue(Math.round(salesObj.calcRevenue() * 100.0) / 100.0);
                 salesObjs.add(salesObj);
             }

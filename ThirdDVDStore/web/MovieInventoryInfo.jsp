@@ -162,10 +162,10 @@
                     <c:forEach items="${salesObjs}" var="salesObj">
                         <tr>
                             <td><c:out value="${salesObj.title}" /></td>
-                            <td><c:out value="${salesObj.rental_rate}" /></td>
+                            <td>$<c:out value="${salesObj.rental_rate}" /></td>
                             <td><c:out value="${salesObj.times_rented}" /></td>
-                            <td><c:out value="${salesObj.sales}" /></td>
-                            <td><c:out value="${salesObj.revenue}"/></td>
+                            <td>$<c:out value="${salesObj.sales}" /></td>
+                            <td>$<c:out value="${salesObj.revenue}"/></td>
                         </tr>
                     </c:forEach>
                 </tbody>
