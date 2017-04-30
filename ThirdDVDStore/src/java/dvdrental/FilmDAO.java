@@ -21,7 +21,8 @@ import java.util.List;
  *
  * @author mrwhi
  */
-public class FilmDAO {
+public class FilmDAO
+{
 
     private static boolean st = false;
     private static Connection connection;
@@ -38,13 +39,16 @@ public class FilmDAO {
     private static ArrayList<Film> filmCheck = new ArrayList<Film>();
     private static ArrayList<Transaction> rentalhistory = new ArrayList<Transaction>();
 
-    public FilmDAO() {
+    public FilmDAO()
+    {
         connection = DBConnectionUtil.getConnection();
     }
 
-    public static void searchGenre(String field) {
+    public static void searchGenre(String field)
+    {
 
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -62,7 +66,8 @@ public class FilmDAO {
                     + " where C.name =?");
             ps.setString(1, field);
             rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Film film = new Film();
                 film.setFilm_id(rs.getInt("film_id"));
                 film.setTitle(rs.getString("title"));
@@ -73,14 +78,17 @@ public class FilmDAO {
                 films.add(film);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    public static void searchActor(String field) {
+    public static void searchActor(String field)
+    {
 
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -98,7 +106,8 @@ public class FilmDAO {
                     + " where A.last_name = ?");
             ps.setString(1, field);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Film film = new Film();
                 film.setFilm_id(rs.getInt("film_id"));
                 film.setTitle(rs.getString("title"));
@@ -110,15 +119,18 @@ public class FilmDAO {
             }
             st = rs.next();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public static boolean searchStore(String field) {
+    public static boolean searchStore(String field)
+    {
 
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -135,7 +147,8 @@ public class FilmDAO {
             ps.setString(1, field);
             ResultSet rs = ps.executeQuery();
             st = rs.next();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Film film = new Film();
                 film.setFilm_id(rs.getInt("film_id"));
                 film.setTitle(rs.getString("title"));
@@ -146,33 +159,39 @@ public class FilmDAO {
                 films.add(film);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
         return st;
     }
 
-    public static List<Film> getSearchResults() {
+    public static List<Film> getSearchResults()
+    {
 
         return films;
 
     }
 
-    public static List<Film> getFilmDetails() {
+    public static List<Film> getFilmDetails()
+    {
 
         return filmdetails;
 
     }
 
-    public static List<Film> getCartDetails() {
+    public static List<Film> getCartDetails()
+    {
 
         return cartfilms;
 
     }
 
-    public static void getDetails(String film_id) {
+    public static void getDetails(String film_id)
+    {
 
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -182,7 +201,8 @@ public class FilmDAO {
                     " SELECT * FROM film where film_id=?");
             ps.setString(1, film_id);
             rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Film film = new Film();
                 film.setFilm_id(rs.getInt("film_id"));
                 film.setTitle(rs.getString("title"));
@@ -196,15 +216,18 @@ public class FilmDAO {
                 filmdetails.add(film);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public static void addCart(int customer_id, int film_id) {
+    public static void addCart(int customer_id, int film_id)
+    {
 
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
 
             //creating connection with the database 
@@ -217,16 +240,19 @@ public class FilmDAO {
 
             ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public static void viewCart(int customer_id) {
+    public static void viewCart(int customer_id)
+    {
 
         cartfilms.clear();
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -240,7 +266,8 @@ public class FilmDAO {
                     + " where SC.Customer_Id=?");
             ps.setInt(1, customer_id);
             rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Film film = new Film();
                 film.setFilm_id(rs.getInt("film_id"));
                 film.setTitle(rs.getString("title"));
@@ -248,15 +275,18 @@ public class FilmDAO {
                 cartfilms.add(film);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public static void getRentalNoBS() {
+    public static void getRentalNoBS()
+    {
         films.clear();
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -266,7 +296,8 @@ public class FilmDAO {
                     "SELECT DISTINCT F.Film_id, F.title, FT.description, F.rental_rate, F.rating, F.last_update FROM Film AS F JOIN film_text as FT ON FT.film_id=F.film_id JOIN RentalNOBS as R ON R.Film_Id=F.film_id");
             ResultSet rs = ps.executeQuery();
             st = rs.next();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Film film = new Film();
                 film.setFilm_id(rs.getInt("film_id"));
                 film.setTitle(rs.getString("title"));
@@ -277,15 +308,18 @@ public class FilmDAO {
                 films.add(film);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public static List<Film> getInventory() {
+    public static List<Film> getInventory()
+    {
         inventory.clear();
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -294,7 +328,8 @@ public class FilmDAO {
             PreparedStatement ps = con.prepareStatement(" SELECT DISTINCT F.Film_id, F.title, FT.description, F.rental_rate, F.rating, F.last_update FROM Film AS F JOIN film_text as FT ON FT.film_id=F.film_id");
             ResultSet rs = ps.executeQuery();
             st = rs.next();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Film film = new Film();
                 film.setFilm_id(rs.getInt("film_id"));
                 film.setTitle(rs.getString("title"));
@@ -306,12 +341,16 @@ public class FilmDAO {
                 inventory.add(film);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
-        for (int i = 0; i < inventory.size(); i++) {
-            for (int x = 0; x < films.size(); x++) {
-                if (inventory.get(i).getFilm_id() == films.get(x).getFilm_id()) {
+        for (int i = 0; i < inventory.size(); i++)
+        {
+            for (int x = 0; x < films.size(); x++)
+            {
+                if (inventory.get(i).getFilm_id() == films.get(x).getFilm_id())
+                {
                     inventory.get(i).setInStock(false);
                 }
             }
@@ -320,9 +359,11 @@ public class FilmDAO {
         return inventory;
     }
 
-    public static List<SalesObj> getMovieCheckoutsReport() {
+    public static List<SalesObj> getMovieCheckoutsReport()
+    {
         salesObjs.clear();
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -332,7 +373,8 @@ public class FilmDAO {
                     "SELECT F.title, F.rental_rate, COUNT( F.title) as 'Times Rented', SUM(R.Amount) as 'Sales', F.replacement_cost FROM RentalNoBS as R Join film as F on F.Film_Id=R.Film_Id GROUP BY F.Title");
             ResultSet rs = ps.executeQuery();
             st = rs.next();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 SalesObj salesObj = new SalesObj();
                 salesObj.setTitle(rs.getString("title"));
                 salesObj.setRental_rate(rs.getDouble("rental_rate"));
@@ -343,15 +385,18 @@ public class FilmDAO {
                 salesObjs.add(salesObj);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
         return salesObjs;
     }
 
-    public static List<SalesObj> getBestSellers() {
+    public static List<SalesObj> getBestSellers()
+    {
         salesObjs.clear();
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -361,22 +406,26 @@ public class FilmDAO {
                     "SELECT T.Film_Id,F.title, SUM(T.amount) AS 'Sales' FROM Transactions as T JOIN Film as F ON F.Film_Id=T.Film_Id GROUP BY Film_Id ORDER BY Sales Desc");
             ResultSet rs = ps.executeQuery();
             st = rs.next();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 SalesObj salesObj = new SalesObj();
                 salesObj.setTitle(rs.getString("title"));
                 salesObj.setSales(rs.getDouble("Sales"));
                 salesObjs.add(salesObj);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
         return salesObjs;
     }
 
-    public static List<SalesObj> getNonSellers() {
+    public static List<SalesObj> getNonSellers()
+    {
         salesObjs.clear();
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -386,28 +435,33 @@ public class FilmDAO {
                     "SELECT F.title, T.Date_Rented FROM Transactions as T JOIN Film as F On F.film_id=T.Film_Id");
             ResultSet rs = ps.executeQuery();
             st = rs.next();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 SalesObj salesObj = new SalesObj();
                 salesObj.setTitle(rs.getString("title"));
                 salesObj.setRental_date(rs.getString("Date_Rented"));
-                if (salesObj.getDateAndCompare(salesObj.getRental_date()) == true) {
+                if (salesObj.getDateAndCompare(salesObj.getRental_date()) == true)
+                {
                     salesObjs.add(salesObj);
                 }
 
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
         return salesObjs;
     }
 
-    public static double calculateTotal(int customer_id) {
+    public static double calculateTotal(int customer_id)
+    {
 
         double Total = 0.0;
         double listValue = 0.0;
 
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -421,23 +475,27 @@ public class FilmDAO {
                     + " WHERE S.Customer_Id=?");
             ps.setInt(1, customer_id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
 
                 listValue = Double.parseDouble(rs.getString("rental_rate"));
                 Total += listValue;
 
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
         return Total;
     }
 
-    public static void deleteFilm(int customer_id, int film_id) {
+    public static void deleteFilm(int customer_id, int film_id)
+    {
 
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
 
             //creating connection with the database 
@@ -450,12 +508,14 @@ public class FilmDAO {
 
             ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    public static double calculateChange(double Total, String Payment_Amount) {
+    public static double calculateChange(double Total, String Payment_Amount)
+    {
 
         double Payment = Double.parseDouble(Payment_Amount);
         double result = 0.0;
@@ -465,9 +525,11 @@ public class FilmDAO {
         return result;
     }
 
-    public static void addWishlist(int customer_id, int film_id) {
+    public static void addWishlist(int customer_id, int film_id)
+    {
 
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
 
             //creating connection with the database 
@@ -480,16 +542,19 @@ public class FilmDAO {
 
             ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public static void viewWishlist(int customer_id) {
+    public static void viewWishlist(int customer_id)
+    {
 
         wishlistfilms.clear();
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -503,7 +568,8 @@ public class FilmDAO {
                     + " where W.Customer_Id=?");
             ps.setInt(1, customer_id);
             rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Film film = new Film();
                 film.setFilm_id(rs.getInt("film_id"));
                 film.setTitle(rs.getString("title"));
@@ -511,21 +577,25 @@ public class FilmDAO {
                 wishlistfilms.add(film);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public static List<Film> getWishlistDetails() {
+    public static List<Film> getWishlistDetails()
+    {
 
         return wishlistfilms;
 
     }
 
-    public static void deleteWish(int customer_id, int film_id) {
+    public static void deleteWish(int customer_id, int film_id)
+    {
 
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
 
             //creating connection with the database 
@@ -538,15 +608,18 @@ public class FilmDAO {
 
             ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    public static void getBoughtFromTable(int customer_id) {
+    public static void getBoughtFromTable(int customer_id)
+    {
 
         filmsbought.clear();
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -560,7 +633,8 @@ public class FilmDAO {
                     + " where SC.Customer_Id=?");
             ps.setInt(1, customer_id);
             rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Film film = new Film();
                 film.setFilm_id(rs.getInt("film_id"));
                 film.setTitle(rs.getString("title"));
@@ -569,20 +643,24 @@ public class FilmDAO {
                 filmsbought.add(film);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    public static ArrayList<Film> getFilmsBought() {
+    public static ArrayList<Film> getFilmsBought()
+    {
 
         return filmsbought;
 
     }
 
-    public static void deleteCartInfo(int customer_id) {
+    public static void deleteCartInfo(int customer_id)
+    {
 
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
 
             //creating connection with the database 
@@ -591,14 +669,17 @@ public class FilmDAO {
                     "DELETE FROM shoppingcart WHERE customer_id=" + customer_id);
             ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    public static void addToRentalTable(int customer_id, String formatDate, int filmID, String rentalRate, String Payment) {
+    public static void addToRentalTable(int customer_id, String formatDate, int filmID, String rentalRate, String Payment)
+    {
 
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
 
             //creating connection with the database 
@@ -613,15 +694,18 @@ public class FilmDAO {
 
             ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public static void getRentedFilms(int customer_id) {
+    public static void getRentedFilms(int customer_id)
+    {
         rentedfilms.clear();
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -637,7 +721,8 @@ public class FilmDAO {
             ps.setInt(1, customer_id);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Film film = new Film();
                 film.setFilm_id(rs.getInt("film_id"));
                 film.setRental_date(rs.getString("rental_date"));
@@ -648,22 +733,26 @@ public class FilmDAO {
                 rentedfilms.add(film);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public static ArrayList<Film> getRentedFilms() {
+    public static ArrayList<Film> getRentedFilms()
+    {
 
         return rentedfilms;
 
     }
 
-    public static Film getFilmInformation(int film_id) {
+    public static Film getFilmInformation(int film_id)
+    {
         Film rentedFilm = new Film();
 
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -677,7 +766,8 @@ public class FilmDAO {
             ps.setInt(1, film_id);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
 
                 rentedFilm.setFilm_id(rs.getInt("film_id"));
                 rentedFilm.setTitle(rs.getString("title"));
@@ -685,7 +775,8 @@ public class FilmDAO {
                 rentedFilm.setRental_rate(rs.getString("rental_rate"));
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
@@ -693,11 +784,13 @@ public class FilmDAO {
 
     }
 
-    public static Film getFilmDateRented(int film_id, int customer_id) {
+    public static Film getFilmDateRented(int film_id, int customer_id)
+    {
 
         Film rentedFilm = new Film();
 
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -710,54 +803,75 @@ public class FilmDAO {
                     + " AND Customer_Id=" + customer_id);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
 
                 rentedFilm.setRental_date(rs.getString("Rental_Date"));
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
         return rentedFilm;
     }
 
-    public static double compareDueDate(String dateRented, int rental_duration, double rental_rate) {
+    public static double compareDueDate(String dateRented, int rental_duration, double rental_rate)
+    {
+//Getting today's date
         LocalDate localDate = LocalDate.now();//For reference
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formatDate = localDate.format(formatter);
         LocalDate parseDate = LocalDate.parse(formatDate, formatter);
         List<String> todayList = Arrays.asList(formatDate.split("-"));
         List<String> dateList = Arrays.asList(dateRented.split("-"));
-        int x;
-        if (Integer.parseInt(todayList.get(1)) > Integer.parseInt(dateList.get(1)) && Integer.parseInt(todayList.get(2)) > Integer.parseInt(dateList.get(2))) {
-            x = Integer.parseInt(dateList.get(2)) + 30 + Integer.parseInt(todayList.get(2)) - rental_duration;
-            rental_rate = x * (.20) * rental_rate;
-            return rental_rate;
+//Initiating Variable
+        double x;
+//If this month is greater than last and todays date is greater than last month's date
+        if (Integer.parseInt(todayList.get(1)) > Integer.parseInt(dateList.get(1)) && Integer.parseInt(todayList.get(2)) > Integer.parseInt(dateList.get(2)))
+        {
+            x = Integer.parseInt(todayList.get(2)) - Integer.parseInt(dateList.get(2)) + 30 - rental_duration;
+            x = x * 0.2;
+            x = x * rental_rate;
+            rental_rate = x + rental_rate;
+            return Math.round(rental_rate * 100.0) / 100.0;
         }
-        if (Integer.parseInt(dateList.get(1)) < Integer.parseInt(todayList.get(1)) && Integer.parseInt(dateList.get(2)) > Integer.parseInt(todayList.get(2))) {
-            x = Integer.parseInt(dateList.get(2)) + 30 - rental_duration;
-            rental_rate = x * (.20) * rental_rate;
-            return rental_rate;
+//If this month is greater than last and today's date is less than last month's date
+        if (Integer.parseInt(dateList.get(1)) < Integer.parseInt(todayList.get(1)) && Integer.parseInt(dateList.get(2)) > Integer.parseInt(todayList.get(2)))
+        {
+            x = Integer.parseInt(dateList.get(2)) - Integer.parseInt(todayList.get(2));
+            x = 30 - x - rental_duration;
+            x = x * 0.2;
+            x = x * rental_rate;
+            rental_rate = x + rental_rate;
+            return Math.round(rental_rate * 100.0) / 100.0;
         }
-        if (Integer.parseInt(dateList.get(1)) == Integer.parseInt(todayList.get(1))) {
-            x = Integer.parseInt(dateList.get(2)) + rental_duration;
-            if (x < Integer.parseInt(todayList.get(2))) {
-                x = Integer.parseInt(todayList.get(2)) - x;
-                rental_rate = x * (.20) * rental_rate;
-                return rental_rate;
-            } else {
-                return rental_rate;
+//If the return is within the current month
+        if (Integer.parseInt(dateList.get(1)) == Integer.parseInt(todayList.get(1)))
+        {
+            x = Integer.parseInt(todayList.get(2)) - Integer.parseInt(dateList.get(2));
+//If the difference in days has exceeded the rental duration
+            if (x > rental_duration)
+            {
+                x = x - rental_duration;
+                x = x * 0.2;
+                x = x * rental_rate;
+                rental_rate = x + rental_rate;
+                return Math.round(rental_rate * 100.0) / 100.0;
+            } else
+            {
+                return Math.round(rental_rate * 100.0) / 100.0;
             }
         }
-
-        return rental_rate;
-
+        return Math.round(rental_rate * 100.0) / 100.0;
     }
 
-    public static void addToTransactions(String dateRented, int film_id, int customer_id, double amountPaid) {
+    public static void addToTransactions(String dateRented, int film_id, int customer_id, double amountPaid)
+    {
 
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
 
             //creating connection with the database 
@@ -771,15 +885,18 @@ public class FilmDAO {
 
             ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public static void deleteFromRental(int customer_id, int film_id) {
+    public static void deleteFromRental(int customer_id, int film_id)
+    {
 
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
 
             //creating connection with the database 
@@ -792,14 +909,17 @@ public class FilmDAO {
 
             ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    public static void getReturnedFilms(int customer_id, int film_id) {
+    public static void getReturnedFilms(int customer_id, int film_id)
+    {
         returnedfilms.clear();
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -817,7 +937,8 @@ public class FilmDAO {
 
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Transaction t = new Transaction();
                 t.setDate_Rented(rs.getString("Date_Rented"));
                 t.setFilm_Id(rs.getInt("Film_Id"));
@@ -828,21 +949,25 @@ public class FilmDAO {
                 returnedfilms.add(t);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public static ArrayList<Transaction> getReturnedFilmsList() {
+    public static ArrayList<Transaction> getReturnedFilmsList()
+    {
 
         return returnedfilms;
 
     }
 
-    public static ArrayList<Film> checkMax5(int customer_id) {
+    public static ArrayList<Film> checkMax5(int customer_id)
+    {
         filmCheck.clear();
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -856,14 +981,16 @@ public class FilmDAO {
 
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Film film = new Film();
                 film.setFilm_id(rs.getInt("Film_Id"));
 
                 filmCheck.add(film);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
@@ -871,9 +998,11 @@ public class FilmDAO {
 
     }
 
-    public static void deleteFromCartAtStart(int customer_id) {
+    public static void deleteFromCartAtStart(int customer_id)
+    {
 
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
 
             //creating connection with the database 
@@ -884,15 +1013,18 @@ public class FilmDAO {
 
             ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    public static void getRentalHistory(int customer_id) {
+    public static void getRentalHistory(int customer_id)
+    {
 
         rentalhistory.clear();
-        try {
+        try
+        {
             //loading drivers for mysql
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -906,7 +1038,8 @@ public class FilmDAO {
                     + " where T.Customer_Id=?");
             ps.setInt(1, customer_id);
             rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Transaction t = new Transaction();
                 t.setFilm_Id(rs.getInt("film_id"));
                 t.setTitle(rs.getString("title"));
@@ -915,18 +1048,18 @@ public class FilmDAO {
                 rentalhistory.add(t);
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public static ArrayList<Transaction> getRentalHistoryList() {
+    public static ArrayList<Transaction> getRentalHistoryList()
+    {
 
         return rentalhistory;
 
     }
-    
-
 
 }
