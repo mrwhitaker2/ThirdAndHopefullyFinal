@@ -9,9 +9,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Employee Menu</title>
-    </head>
-    <body>
         <style>
             * {
                 margin:0;
@@ -142,7 +139,9 @@
                 list-style:none;
             }
         </style>
-
+        <title>Employee Menu</title>
+    </head>
+    <body>
         <div class="topnav" id="myTopnav" method="POST" action='EmployeeController' name="frmEmployee">
             <a href="EmployeeController?action=movieinventoryinfo">Checkouts, Sales, and Revenues</a>
             <a href="EmployeeController?action=avlinventory">Available Inventory</a>

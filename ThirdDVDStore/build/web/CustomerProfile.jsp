@@ -102,7 +102,6 @@
                             <td><c:out value="${customer.getCustomer_Pref()}"/></td>
                             <td><c:out value="${customer.getPayment()}" /></td>
                             <td><c:out value="${customer.getEmail()}" /></td>
-
                         </tr>
                     </c:forEach>
                 </tbody>
