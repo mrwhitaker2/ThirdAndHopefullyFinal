@@ -40,7 +40,7 @@
         </style>
         <title>Search Results</title>
     </head>
-
+    
     <div class="topnav" id="myTopnav">
         <a href="CustomerController?action=browse">Search Page</a>
         <a href="CustomerController?action=viewcart">View Shopping Cart</a>
