@@ -14,9 +14,9 @@
         <link rel="stylesheet" type="text/css" href="Styling/CustomerLogin.css">
         <title>Customer Login</title>
     </head>
-
+    
     <body>
-
+    
         <form method="post" action="CustomerController?action=login">
             <h1><%=session.getAttribute("message")%></h1><br/>
             <input type="text"
@@ -27,8 +27,8 @@
                 type="password" 
                 value="<c:out value="${customer.Password}" />"
                 name="Password"
-                Placeholder="Password"
-                <input type="submit" value="login" /><br/>
+                Placeholder="Password"/><br/>
+            <input type="submit" value="login" /><br/>
             <p><a href="CustomerController?action=custcreate">Create an Account</a></p>
         </form>  
     </body>

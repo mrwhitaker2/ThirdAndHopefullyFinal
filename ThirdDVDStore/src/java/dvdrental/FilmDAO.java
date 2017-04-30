@@ -854,9 +854,10 @@ public class FilmDAO
 //If the difference in days has exceeded the rental duration
             if (x > rental_duration)
             {
+                double y;
                 x = x - rental_duration;
-                x = x * 0.2;
-                x = x * rental_rate;
+                y = rental_rate * 0.2;
+                x = x * y;
                 rental_rate = x + rental_rate;
                 return Math.round(rental_rate * 100.0) / 100.0;
             } else

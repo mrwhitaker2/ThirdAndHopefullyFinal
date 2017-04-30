@@ -27,8 +27,8 @@
                 type="password"
                 placeholder="Password"
                 value="<c:out value="${employee.Password}" />" 
-                name="Password"
-                
+                name="Password"/><br/>
+
 
             <input type="submit" value="login" /><br/>
             <p><a href="EmployeeController?action=empcreate">Create an Employee Account</a></p>
