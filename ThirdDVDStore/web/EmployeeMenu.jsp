@@ -147,20 +147,22 @@
             <a href="EmployeeController?action=avlinventory">Available Inventory</a>
             <a href="EmployeeController?action=bestandworstsellers">Best and worst sellers</a>
             <a href="EmployeeController?action=movienotsold">Not sold last year</a>
+            <a><div class="topnav" id="myTopnav" method="POST" action='CustomerController' name="frmCustomer">
+                    <form method="POST" action='CustomerController' name="frmCustomer"> 
+                        <a href="CustomerController?action=viewcustomers">Customer Profiles</a>
+                    </form></a>
         </div>
+    
 
-        <div class="menu" id="myMenu">
-            <form method="POST" action='CustomerController' name="frmCustomer"> 
-                <p><a href="CustomerController?action=viewcustomers">Customer Profiles</a></p>
-            </form>
-            <!--
-            <form method="POST" action='EmployeeController' name="frmEmployee"> 
-                <p><a href="EmployeeController?action=movieinventoryinfo">Movie Checkouts and associated sales and revenue</a></p>
-                <p><a href="EmployeeController?action=avlinventory">Available Inventory</a></p>            
-                <p><a href="EmployeeController?action=bestandworstsellers">Best and worst sellers</a></p>
-                <p><a href="EmployeeController?action=movienotsold">Not sold last year</a></p>
-            </form>
-            -->
-        </div>
-    </body>
+
+    <!--
+    <form method="POST" action='EmployeeController' name="frmEmployee"> 
+        <p><a href="EmployeeController?action=movieinventoryinfo">Movie Checkouts and associated sales and revenue</a></p>
+        <p><a href="EmployeeController?action=avlinventory">Available Inventory</a></p>            
+        <p><a href="EmployeeController?action=bestandworstsellers">Best and worst sellers</a></p>
+        <p><a href="EmployeeController?action=movienotsold">Not sold last year</a></p>
+    </form>
+    -->
+</div>
+</body>
 </html>

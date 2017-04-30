@@ -188,7 +188,7 @@ public final class EmployeeMenu_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("            <a href=\"EmployeeController?action=movienotsold\">Not sold last year</a>\r\n");
       out.write("        </div>\r\n");
       out.write("\r\n");
-      out.write("        <div class=\"menu\" id=\"myMenu\">\r\n");
+      out.write("        <div class=\"topnav\" id=\"myTopnav\" method=\"POST\" action='CustomerController' name=\"frmCustomer\">\r\n");
       out.write("            <form method=\"POST\" action='CustomerController' name=\"frmCustomer\"> \r\n");
       out.write("                <p><a href=\"CustomerController?action=viewcustomers\">Customer Profiles</a></p>\r\n");
       out.write("            </form>\r\n");
