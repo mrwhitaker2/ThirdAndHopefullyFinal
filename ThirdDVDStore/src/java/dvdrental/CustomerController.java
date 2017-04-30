@@ -66,6 +66,8 @@ public class CustomerController extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         if (action.equalsIgnoreCase("custlogin")) {
+            String message = "Login!";
+            ses.setAttribute("message", message);
             forward = CUST_LOGIN;
         } else if (action.equalsIgnoreCase("welcome")) {
             forward = WELCOME;
@@ -148,7 +150,7 @@ public class CustomerController extends HttpServlet {
             for (Film f : filmsbought) {
                 f2.setFilm_id(f.getFilm_id());
                 int filmID = f2.getFilm_id();
-                
+
                 f2.setTitle(f.getTitle());
                 f2.setRental_rate(f.getRental_rate());
                 String rentalRate = f.getRental_rate();
@@ -160,6 +162,8 @@ public class CustomerController extends HttpServlet {
 
             //
             forward = CHECKOUT_RESULT;
+
+            FilmDao.deleteFromCartAtStart(customer_id);
         } else if (action.equalsIgnoreCase("addwishlist")) {
 
             int customer_id = customerCurrent.getCustomer_Id();
@@ -239,17 +243,16 @@ public class CustomerController extends HttpServlet {
             ses.setAttribute("returnedfilms", FilmDao.getReturnedFilmsList());
             forward = RETURN_RESULTS;
 
-        } else if(action.equalsIgnoreCase("rentalhistory")){
-            
-             int customer_id = customerCurrent.getCustomer_Id();
-             FilmDao.getRentalHistory(customer_id);
-             
-             ses.setAttribute("rentalhistory", FilmDao.getRentalHistoryList());
-             
-             forward = RENTAL_HISTORY;
-            
-        }
-        else {
+        } else if (action.equalsIgnoreCase("rentalhistory")) {
+
+            int customer_id = customerCurrent.getCustomer_Id();
+            FilmDao.getRentalHistory(customer_id);
+
+            ses.setAttribute("rentalhistory", FilmDao.getRentalHistoryList());
+
+            forward = RENTAL_HISTORY;
+
+        } else {
             forward = CUST_LOGIN;
         }
 
@@ -287,7 +290,8 @@ public class CustomerController extends HttpServlet {
                 customerCurrent.setEmail(customer1.getEmail());
 
                 String Payment = customerCurrent.getPayment();
-
+                String message = "Login!";
+                ses.setAttribute("message", message);
                 ses.setAttribute("Username", Username);
                 ses.setAttribute("Customer_Id", customer_id);
                 ses.setAttribute("Payment", Payment);
@@ -296,7 +300,8 @@ public class CustomerController extends HttpServlet {
                 rs.forward(request, response);
 
             } else {
-                out.println("Username or Password incorrect");
+                String message = "Username or Password is Incorrect!";
+                ses.setAttribute("message", message);
                 RequestDispatcher rs = request.getRequestDispatcher(CUST_LOGIN);
                 rs.include(request, response);
             }

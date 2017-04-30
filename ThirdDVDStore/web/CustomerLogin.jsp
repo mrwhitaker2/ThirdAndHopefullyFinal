@@ -15,7 +15,7 @@
     </head>
     <body>
         
-        <h1> Login! </h1>
+        <h1> <%=session.getAttribute("message")%> </h1>
         
         <form method="post" action="CustomerController?action=login">
         Username:<input type="text" value="<c:out value="${customer.Username}" />" name="Username" /><br/>
